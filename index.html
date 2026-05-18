@@ -1161,27 +1161,20 @@ const audio = document.getElementById('bgAudio');
 audio.volume = 0.4;
 
 function tryAutoplay() {
-  if (audio.src && !audio.src.includes('kukryniksy-khrustalnyjj-mir.mp3')) {
-    audio.play().then(() => {
-      playing = true;
-      document.getElementById('musicLabel').textContent = 'Пауза';
-      document.getElementById('musicIcon').innerHTML = '<rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/>';
-    }).catch(() => {});
-  }
+  audio.play().then(() => {
+    playing = true;
+    document.getElementById('musicLabel').textContent = 'Пауза';
+    document.getElementById('musicIcon').innerHTML = '<rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/>';
+  }).catch(() => {});
 }
 
-// Try autoplay immediately, fallback to first touch
 tryAutoplay();
 document.addEventListener('click', function onFirstClick() {
-  tryAutoplay();
+  if (!playing) tryAutoplay();
   document.removeEventListener('click', onFirstClick);
 }, { once: true });
 
 function toggleMusic() {
-  if (audio.src.includes('kukryniksy-khrustalnyjj-mir.mp3')) {
-    alert('Добавьте ссылку на mp3 в атрибут src тега <audio>');
-    return;
-  }
   if (playing) {
     audio.pause(); playing = false;
     document.getElementById('musicLabel').textContent = 'Музыка';
