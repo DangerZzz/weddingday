@@ -1161,7 +1161,7 @@ const audio = document.getElementById('bgAudio');
 audio.volume = 0.4;
 
 function tryAutoplay() {
-  if (audio.src && !audio.src.includes('https://drive.google.com/file/d/1NYdj2D4BxDG3yneRHMKJE5mqPTqAvbg4/preview')) {
+  if (audio.src && !audio.src.includes('https://drive.google.com/uc?export=download&id=1NYdj2D4BxDG3yneRHMKJE5mqPTqAvbg4')) {
     audio.play().then(() => {
       playing = true;
       document.getElementById('musicLabel').textContent = 'Пауза';
@@ -1178,7 +1178,7 @@ document.addEventListener('click', function onFirstClick() {
 }, { once: true });
 
 function toggleMusic() {
-  if (audio.src.includes('YOUR_MUSIC_URL')) {
+  if (audio.src.includes('https://drive.google.com/uc?export=download&id=1NYdj2D4BxDG3yneRHMKJE5mqPTqAvbg4')) {
     alert('Добавьте ссылку на mp3 в атрибут src тега <audio>');
     return;
   }
