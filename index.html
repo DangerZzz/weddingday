@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -767,25 +768,22 @@
 
     <div class="date-badge">
       <span style="width:5px;height:5px;border-radius:50%;background:rgba(255,180,100,0.7);flex-shrink:0;"></span>
-      Жайлау 25 · Сарыбулак · Кокшетау
+      Жайлау 25 · Сарыбулак · Боровое
     </div>
 
     <br>
     <button class="music-btn" id="musicBtn" onclick="toggleMusic()">
       <svg id="musicIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-        <path d="M9 18V5l12-2v13M9 18a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm12-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
+        <rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/>
       </svg>
-      <span id="musicLabel">Включить музыку</span>
+      <span id="musicLabel">Пауза</span>
     </button>
-    <audio id="bgAudio" loop preload="none">
-      <!-- Добавьте ссылку на mp3 здесь -->
-      <!-- <source src="YOUR_MUSIC_URL.mp3" type="audio/mpeg"> -->
-    </audio>
+    <!-- 🎵 Замените src на прямую ссылку на ваш mp3 файл -->
+    <audio id="bgAudio" loop preload="auto" src="https://pdftolink.io/file/r2_dXNlcnMvZGRkYW5nZXJ6enpfZ21haWwuY29tL2VjMjVhYjdiLWFjOTUtNDg1ZC1hYzRiLTU1NWM3ZDVmZDM2YS5tcDM/"></audio>
   </div>
 
   <div class="scroll-hint">
     <div class="scroll-dot"></div>
-    <span>прокрутите</span>
   </div>
 </section>
 
@@ -807,8 +805,8 @@
         </div>
         <div class="date-item">
           <p class="date-item-label">Начало церемонии</p>
-          <p class="date-item-value">17:00</p>
-          <p class="date-item-sub">просьба не опаздывать</p>
+          <p class="date-item-value">18:00</p>
+          <p class="date-item-sub">суббота, 29 мая</p>
         </div>
         <div class="date-item">
           <p class="date-item-label">Заезд гостей</p>
@@ -818,12 +816,12 @@
         <div class="date-item">
           <p class="date-item-label">Выезд</p>
           <p class="date-item-value">до 12:00</p>
-          <p class="date-item-sub">31 мая (понедельник)</p>
+          <p class="date-item-sub">31 мая (воскресенье)</p>
         </div>
       </div>
 
       <div class="format-note">
-        <strong style="font-weight:500;color:var(--charcoal);">Weekend Wedding</strong> — это два дня вместе с теми, кто нам важен. Мы хотим не просто отпраздновать, а провести настоящие выходные: с тишиной леса, вкусной едой, купанием и долгими разговорами у огня.
+        <strong style="font-weight:500;color:var(--charcoal);">Weekend Wedding</strong> — это два дня вместе с теми, кто нам важен. Мы хотим не просто отпраздновать, а провести настоящие выходные: с тишиной леса, вкусной едой, баней и долгими разговорами у огня.
       </div>
     </div>
   </section>
@@ -840,7 +838,7 @@
       </p>
 
       <!-- Кликабельная мини-карта -->
-      <a href="https://2gis.kz/kokshetau/firm/70000001051483307" target="_blank" rel="noopener" class="map-embed" title="Открыть в 2GIS">
+      <a href="https://2gis.kz/kokshetau/routeSearch/rsType/car/to/68.6329,53.3025" target="_blank" rel="noopener" class="map-embed" title="Построить маршрут в 2GIS">
         <div class="map-placeholder">
           <svg class="map-svg" viewBox="0 0 700 200" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
             <!-- Road network background -->
@@ -896,13 +894,13 @@
           </svg>
           <div class="map-label">
             <span class="pin-dot"></span>
-            Жайлау 25, Сарыбулак · Открыть в 2GIS
+            Жайлау 25, Сарыбулак · Построить маршрут в 2GIS
           </div>
         </div>
       </a>
 
       <div class="link-grid">
-        <a href="https://2gis.kz/kokshetau/firm/70000001051483307" target="_blank" rel="noopener" class="link-btn">
+        <a href="https://2gis.kz/kokshetau/routeSearch/rsType/car/to/68.6329,53.3025" target="_blank" rel="noopener" class="link-btn">
           <div class="link-btn-icon icon-2gis">
             <svg viewBox="0 0 24 24" fill="none">
               <rect width="24" height="24" rx="6" fill="#319831" opacity="0.15"/>
@@ -910,20 +908,8 @@
             </svg>
           </div>
           <div class="link-btn-text">
-            <span class="link-btn-name">2GIS</span>
-            <span class="link-btn-desc">Маршрут и карта</span>
-          </div>
-        </a>
-
-        <a href="https://maps.google.com/?q=Жайлау+25+Сарыбулак+Кокшетау" target="_blank" rel="noopener" class="link-btn">
-          <div class="link-btn-icon icon-google">
-            <svg viewBox="0 0 24 24">
-              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="#4285F4"/>
-            </svg>
-          </div>
-          <div class="link-btn-text">
-            <span class="link-btn-name">Google Maps</span>
-            <span class="link-btn-desc">Навигация</span>
+            <span class="link-btn-name">2GIS — Маршрут</span>
+            <span class="link-btn-desc">Построить маршрут</span>
           </div>
         </a>
 
@@ -973,7 +959,7 @@
       </div>
 
       <p class="style-body">
-        Вечер будет тёплым, атмосферным и немного кинематографичным. Никакого официоза — только настоящие эмоции, красивые люди и хорошее вино под открытым небом.
+        Вечер будет тёплым, атмосферным и немного кинематографичным. Никакого официоза — только настоящие эмоции, живая музыка и близкие люди рядом.
       </p>
 
       <p style="font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:0.75rem;">Рекомендуемая палитра одежды</p>
@@ -986,13 +972,13 @@
       </div>
 
       <p class="style-body" style="margin-top:1rem;">
-        Стиль — smart casual или вечерний. Дамам рекомендуем отдать предпочтение миди-длине и удобной обуви — часть вечера пройдёт на природе. Джентльменам — пиджак или рубашка, можно без галстука.
+        Стиль — casual, удобный и красивый. Часть времени мы проведём на природе, поэтому удобная обувь обязательна. Никаких официальных костюмов и вечерних платьев — оденьтесь так, как вам комфортно и в чём вы чувствуете себя собой.
       </p>
 
       <div class="gift-note">
         <p class="gift-title">О подарках</p>
         <p class="gift-body">
-          Самый ценный подарок для нас — ваше присутствие и тёплое настроение. Если вам всё же хочется нас порадовать — вклад в нашу совместную жизнь и путешествия будет лучшим выбором. Конверт с добрыми пожеланиями скажет больше любой вещи.
+          Пожалуйста, не дарите нам вещи — нам правда некуда их класть. Если хочется нас порадовать, подарите деньги: мы уже знаем, на что их потратим с удовольствием. Конверт с купюрами и тёплыми словами — идеальный подарок 🤍
         </p>
       </div>
     </div>
@@ -1050,7 +1036,6 @@
             <div class="opt-chip" onclick="toggleChip(this,'bbq')">🥦 Овощи</div>
           </div>
           <div id="bbqExtras"></div>
-          <button class="add-more-btn" onclick="addExtra('bbq','bbqExtras','Другой вариант...')">+ Добавить ещё</button>
         </div>
 
         <!-- 6.2 Время пребывания -->
@@ -1097,13 +1082,12 @@
             <div class="opt-chip" onclick="toggleChip(this,'alc')">🌵 Текила</div>
             <div class="opt-chip" onclick="toggleChip(this,'alc')">🍸 Мартини</div>
             <div class="opt-chip" onclick="toggleChip(this,'alc')">🌿 Настойки</div>
-            <div class="opt-chip" id="alcOther" onclick="toggleChipOther(this,'alc','otherAlcWrap')">✍️ Другое</div>
+            <div class="opt-chip" id="alcOther" onclick="toggleChipOther(this,'otherAlcWrap')">✍️ Другое</div>
           </div>
           <div class="other-field-wrap" id="otherAlcWrap">
             <input type="text" id="otherAlcText" placeholder="Укажите что именно...">
           </div>
           <div id="alcExtras"></div>
-          <button class="add-more-btn" onclick="addExtra('alc','alcExtras','Другой напиток...')">+ Добавить ещё</button>
         </div>
 
         <div class="submit-area">
@@ -1127,24 +1111,10 @@
 
       <div class="pack-grid">
         <div class="pack-item">
-          <span class="pack-emoji">👙</span>
+          <span class="pack-emoji">🛁</span>
           <div>
-            <span class="pack-label">Купальник</span>
-            <span class="pack-sub">Рядом озеро — будем купаться</span>
-          </div>
-        </div>
-        <div class="pack-item">
-          <span class="pack-emoji">🏖</span>
-          <div>
-            <span class="pack-label">Полотенце</span>
-            <span class="pack-sub">Банное и пляжное</span>
-          </div>
-        </div>
-        <div class="pack-item">
-          <span class="pack-emoji">🩴</span>
-          <div>
-            <span class="pack-label">Шлёпки</span>
-            <span class="pack-sub">Для пляжа и территории</span>
+            <span class="pack-label">Для бани</span>
+            <span class="pack-sub">Купальник/плавки, полотенце, шлёпки</span>
           </div>
         </div>
         <div class="pack-item">
@@ -1176,7 +1146,7 @@
 // ── SCROLL ANIMATIONS ──
 const cards = document.querySelectorAll('.card');
 const observer = new IntersectionObserver((entries) => {
-  entries.forEach((e, i) => {
+  entries.forEach((e) => {
     if (e.isIntersecting) {
       setTimeout(() => e.target.classList.add('visible'), 60);
       observer.unobserve(e.target);
@@ -1185,83 +1155,81 @@ const observer = new IntersectionObserver((entries) => {
 }, { threshold: 0.1 });
 cards.forEach(c => observer.observe(c));
 
-// ── MUSIC ──
+// ── MUSIC: autoplay on first user interaction ──
 let playing = false;
+const audio = document.getElementById('bgAudio');
+audio.volume = 0.4;
+
+function tryAutoplay() {
+  if (audio.src && !audio.src.includes('YOUR_MUSIC_URL')) {
+    audio.play().then(() => {
+      playing = true;
+      document.getElementById('musicLabel').textContent = 'Пауза';
+      document.getElementById('musicIcon').innerHTML = '<rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/>';
+    }).catch(() => {});
+  }
+}
+
+// Try autoplay immediately, fallback to first touch
+tryAutoplay();
+document.addEventListener('click', function onFirstClick() {
+  tryAutoplay();
+  document.removeEventListener('click', onFirstClick);
+}, { once: true });
+
 function toggleMusic() {
-  const audio = document.getElementById('bgAudio');
-  const label = document.getElementById('musicLabel');
-  const icon  = document.getElementById('musicIcon');
-  if (!audio.src || audio.src === window.location.href) {
-    alert('Добавьте ссылку на mp3 файл в тег <audio>');
+  if (audio.src.includes('YOUR_MUSIC_URL')) {
+    alert('Добавьте ссылку на mp3 в атрибут src тега <audio>');
     return;
   }
   if (playing) {
     audio.pause(); playing = false;
-    label.textContent = 'Включить музыку';
-    icon.innerHTML = '<path d="M9 18V5l12-2v13M9 18a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm12-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>';
+    document.getElementById('musicLabel').textContent = 'Музыка';
+    document.getElementById('musicIcon').innerHTML = '<path d="M9 18V5l12-2v13M9 18a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm12-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>';
   } else {
     audio.play().catch(() => {});
     playing = true;
-    label.textContent = 'Выключить музыку';
-    icon.innerHTML = '<rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/>';
+    document.getElementById('musicLabel').textContent = 'Пауза';
+    document.getElementById('musicIcon').innerHTML = '<rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/>';
   }
 }
 
 // ── CHIP TOGGLE ──
-function toggleChip(el, group) {
-  el.classList.toggle('selected');
-}
+function toggleChip(el) { el.classList.toggle('selected'); }
 
-function toggleChipOther(el, group, wrapId) {
+function toggleChipOther(el, wrapId) {
   el.classList.toggle('selected');
-  const wrap = document.getElementById(wrapId);
-  if (el.classList.contains('selected')) {
-    wrap.classList.add('visible');
-  } else {
-    wrap.classList.remove('visible');
-  }
+  document.getElementById(wrapId).classList.toggle('visible', el.classList.contains('selected'));
 }
 
 // ── CHECK TOGGLE ──
-function toggleCheck(el) {
-  el.classList.toggle('checked');
-}
+function toggleCheck(el) { el.classList.toggle('checked'); }
 
-// ── ADD EXTRA ──
-function addExtra(group, containerId, placeholder) {
-  const container = document.getElementById(containerId);
-  const div = document.createElement('div');
-  div.className = 'extra-entry';
-  div.innerHTML = `<input type="text" placeholder="${placeholder}"><button class="remove-btn" onclick="this.parentElement.remove()">×</button>`;
-  container.appendChild(div);
-  div.querySelector('input').focus();
-}
+// ── GOOGLE FORMS SUBMIT ──
+// 🔧 НАСТРОЙКА: вставьте ID вашей Google Forms ниже
+// Как получить: Форма → Отправить → Ссылка → скопируйте ID из URL
+// URL формы выглядит так: https://docs.google.com/forms/d/e/XXXXXXXX/viewform
+// FORM_ID = 'XXXXXXXX' (часть между /e/ и /viewform)
+const FORM_ID = 'YOUR_GOOGLE_FORM_ID';
 
-// ── COLLECT FORM DATA ──
+// 🔧 Entry ID каждого поля берётся из исходника страницы формы (Ctrl+U → ищите "entry.")
+// Для каждого вопроса в форме Google создаёт свой entry.XXXXXXXXX
+const ENTRY = {
+  name:    'entry.XXXXXXXXX',  // Ваше имя
+  bbq:     'entry.XXXXXXXXX',  // Шашлык
+  stay:    'entry.XXXXXXXXX',  // Время пребывания
+  alcohol: 'entry.XXXXXXXXX',  // Алкоголь
+};
+
 function collectData() {
   const name = document.getElementById('guestName').value.trim();
-
-  // BBQ
-  const bbqSelected = [...document.querySelectorAll('#bbqGrid .opt-chip.selected')].map(e => e.textContent.trim());
-  const bbqExtras   = [...document.querySelectorAll('#bbqExtras input')].map(e => e.value.trim()).filter(Boolean);
-  const bbq = [...bbqSelected, ...bbqExtras].join(', ');
-
-  // Stay
-  const stay = [...document.querySelectorAll('#stayGrid .check-item.checked')]
-    .map(e => e.querySelector('.check-item-label').textContent.trim()).join(', ');
-
-  // Alcohol
+  const bbq  = [...document.querySelectorAll('#bbqGrid .opt-chip.selected')].map(e => e.textContent.trim()).join(', ');
+  const stay = [...document.querySelectorAll('#stayGrid .check-item.checked')].map(e => e.querySelector('.check-item-label').textContent.trim()).join(', ');
   const alcSelected = [...document.querySelectorAll('#alcGrid .opt-chip.selected')].map(e => e.textContent.trim());
-  const alcExtras   = [...document.querySelectorAll('#alcExtras input')].map(e => e.value.trim()).filter(Boolean);
-  const otherAlc    = document.getElementById('otherAlcText').value.trim();
-  const alc = [...alcSelected, ...alcExtras, otherAlc ? `Другое: ${otherAlc}` : ''].filter(Boolean).join(', ');
-
+  const otherAlc = document.getElementById('otherAlcText').value.trim();
+  const alc = [...alcSelected, otherAlc ? `Другое: ${otherAlc}` : ''].filter(Boolean).join(', ');
   return { name, bbq, stay, alc };
 }
-
-// ── GOOGLE SHEETS SUBMIT ──
-// 🔧 НАСТРОЙКА: замените URL ниже на ваш Apps Script URL
-const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec';
 
 async function submitSurvey() {
   const btn = document.getElementById('submitBtn');
@@ -1269,32 +1237,46 @@ async function submitSurvey() {
   const data = collectData();
 
   if (!data.name) {
-    document.getElementById('guestName').focus();
-    document.getElementById('guestName').style.borderColor = '#6B2737';
-    setTimeout(() => document.getElementById('guestName').style.borderColor = '', 2000);
+    const f = document.getElementById('guestName');
+    f.focus(); f.style.borderColor = '#6B2737';
+    setTimeout(() => f.style.borderColor = '', 2000);
     return;
   }
 
   btn.disabled = true;
   btn.textContent = 'Отправляем...';
 
+  // Отправка через скрытый iframe (обходит CORS для Google Forms)
+  const formUrl = `https://docs.google.com/forms/d/e/${FORM_ID}/formResponse`;
   const params = new URLSearchParams({
-    name:      data.name,
-    bbq:       data.bbq  || '—',
-    stay:      data.stay || '—',
-    alcohol:   data.alc  || '—',
-    timestamp: new Date().toLocaleString('ru-RU')
+    [ENTRY.name]:    data.name,
+    [ENTRY.bbq]:     data.bbq    || '—',
+    [ENTRY.stay]:    data.stay   || '—',
+    [ENTRY.alcohol]: data.alc    || '—',
   });
 
-  try {
-    await fetch(`${GOOGLE_SCRIPT_URL}?${params}`, { method: 'GET', mode: 'no-cors' });
+  const iframe = document.createElement('iframe');
+  iframe.style.display = 'none';
+  iframe.name = 'hidden_iframe';
+  document.body.appendChild(iframe);
+
+  const form = document.createElement('form');
+  form.method = 'POST';
+  form.action = formUrl;
+  form.target = 'hidden_iframe';
+  form.innerHTML = params.toString().split('&').map(p => {
+    const [k, v] = p.split('=');
+    return `<input type="hidden" name="${decodeURIComponent(k)}" value="${decodeURIComponent(v)}">`;
+  }).join('');
+  document.body.appendChild(form);
+  form.submit();
+
+  setTimeout(() => {
     btn.style.display = 'none';
     successMsg.style.display = 'block';
-  } catch(e) {
-    btn.disabled = false;
-    btn.textContent = 'Отправить ответы';
-    alert('Не удалось отправить. Проверьте подключение к интернету.');
-  }
+    form.remove();
+    iframe.remove();
+  }, 1200);
 }
 </script>
 </body>
