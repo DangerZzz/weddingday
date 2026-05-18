@@ -1,0 +1,1301 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Наша свадьба · 29–31 мая</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --burgundy: #6B2737;
+    --burgundy-light: #8B3A4E;
+    --burgundy-pale: #F5ECEe;
+    --charcoal: #2C2A28;
+    --stone: #5A5652;
+    --mist: #8C8880;
+    --cream: #F7F4F0;
+    --warm-white: #FDFBF8;
+    --card-bg: rgba(255,255,255,0.82);
+    --card-border: rgba(107,39,55,0.12);
+    --shadow-soft: 0 8px 40px rgba(44,42,40,0.10), 0 2px 8px rgba(44,42,40,0.06);
+    --shadow-hover: 0 16px 60px rgba(44,42,40,0.15), 0 4px 16px rgba(44,42,40,0.08);
+    --radius: 20px;
+    --radius-sm: 12px;
+    --font-display: 'Cormorant Garamond', serif;
+    --font-body: 'Jost', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-body);
+    background: var(--cream);
+    color: var(--charcoal);
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── HERO ─────────────────────────────────────── */
+  .hero {
+    min-height: 100vh;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1.5rem;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse at 60% 40%, rgba(107,39,55,0.18) 0%, transparent 60%),
+      radial-gradient(ellipse at 20% 80%, rgba(44,42,40,0.25) 0%, transparent 50%),
+      linear-gradient(160deg, #1a1816 0%, #2c2420 35%, #1e1a18 65%, #0f0d0b 100%);
+  }
+
+  .hero-texture {
+    position: absolute; inset: 0;
+    background-image:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4'%3E%3Crect width='4' height='4' fill='none'/%3E%3Ccircle cx='1' cy='1' r='0.4' fill='rgba(255,255,255,0.03)'/%3E%3C/svg%3E");
+    background-size: 4px 4px;
+  }
+
+  /* Decorative forest silhouette at bottom */
+  .hero-trees {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    height: 220px;
+    background:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 220' preserveAspectRatio='none'%3E%3Cpath d='M0,220 L0,160 L40,130 L80,155 L90,100 L130,70 L170,95 L180,140 L200,110 L240,80 L280,110 L290,150 L310,120 L350,90 L380,60 L410,85 L440,115 L460,80 L490,55 L520,75 L540,100 L560,70 L600,40 L640,65 L670,90 L700,60 L730,35 L760,55 L790,80 L820,50 L860,30 L900,55 L930,80 L960,45 L1000,70 L1040,95 L1070,65 L1110,40 L1150,70 L1180,95 L1210,70 L1240,100 L1270,75 L1300,110 L1330,85 L1360,130 L1400,160 L1440,150 L1440,220 Z' fill='rgba(10,8,6,0.95)'/%3E%3C/svg%3E");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+  }
+
+  /* Warm lights bokeh */
+  .bokeh {
+    position: absolute; inset: 0; overflow: hidden; pointer-events: none;
+  }
+  .bokeh span {
+    position: absolute;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,200,100,0.6), transparent 70%);
+    animation: float 8s ease-in-out infinite;
+  }
+  .bokeh span:nth-child(1)  { width:6px;  height:6px;  top:25%; left:15%; animation-delay:0s;    opacity:.7; }
+  .bokeh span:nth-child(2)  { width:4px;  height:4px;  top:40%; left:70%; animation-delay:1.5s;  opacity:.5; }
+  .bokeh span:nth-child(3)  { width:8px;  height:8px;  top:60%; left:30%; animation-delay:3s;    opacity:.6; }
+  .bokeh span:nth-child(4)  { width:3px;  height:3px;  top:20%; left:80%; animation-delay:2s;    opacity:.8; }
+  .bokeh span:nth-child(5)  { width:5px;  height:5px;  top:70%; left:60%; animation-delay:4s;    opacity:.5; }
+  .bokeh span:nth-child(6)  { width:10px; height:10px; top:15%; left:45%; animation-delay:0.5s;  opacity:.3; }
+  .bokeh span:nth-child(7)  { width:4px;  height:4px;  top:50%; left:85%; animation-delay:2.5s;  opacity:.6; }
+  .bokeh span:nth-child(8)  { width:6px;  height:6px;  top:80%; left:20%; animation-delay:3.5s;  opacity:.5; }
+  .bokeh span:nth-child(9)  { width:3px;  height:3px;  top:35%; left:55%; animation-delay:1s;    opacity:.7; }
+  .bokeh span:nth-child(10) { width:7px;  height:7px;  top:65%; left:40%; animation-delay:4.5s;  opacity:.4; }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0) scale(1); opacity: inherit; }
+    50%       { transform: translateY(-12px) scale(1.2); opacity: 0.3; }
+  }
+
+  .hero-card {
+    position: relative;
+    z-index: 2;
+    background: rgba(255,255,255,0.07);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: var(--radius);
+    padding: 3.5rem 3rem;
+    max-width: 600px;
+    width: 100%;
+    text-align: center;
+    animation: fadeUp 1.2s ease both;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-eyebrow {
+    font-family: var(--font-body);
+    font-weight: 300;
+    font-size: 11px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(2.4rem, 8vw, 4rem);
+    font-weight: 300;
+    color: #fff;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    color: rgba(255, 205, 180, 0.9);
+  }
+
+  .hero-subtitle {
+    font-family: var(--font-body);
+    font-weight: 300;
+    font-size: 15px;
+    color: rgba(255,255,255,0.6);
+    letter-spacing: 0.03em;
+    margin-bottom: 2.5rem;
+    line-height: 1.8;
+  }
+
+  .hero-divider {
+    width: 40px; height: 1px;
+    background: rgba(255,180,120,0.4);
+    margin: 1.5rem auto;
+  }
+
+  .date-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 50px;
+    padding: 0.5rem 1.25rem;
+    font-size: 13px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.7);
+    letter-spacing: 0.05em;
+    margin-bottom: 2rem;
+  }
+
+  .music-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 50px;
+    padding: 0.6rem 1.5rem;
+    color: rgba(255,255,255,0.6);
+    font-family: var(--font-body);
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 0.5rem;
+  }
+  .music-btn:hover { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.9); }
+  .music-btn svg { width: 14px; height: 14px; }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 2rem; left: 50%; transform: translateX(-50%);
+    z-index: 2;
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    animation: fadeUp 2s ease 1.5s both;
+  }
+  .scroll-hint span { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.3); }
+  .scroll-dot {
+    width: 1px; height: 40px;
+    background: linear-gradient(to bottom, rgba(255,255,255,0.4), transparent);
+    animation: scrollPulse 2s ease infinite;
+  }
+  @keyframes scrollPulse {
+    0%, 100% { transform: scaleY(1); opacity: 0.4; }
+    50% { transform: scaleY(0.6); opacity: 0.8; }
+  }
+
+  /* ── MAIN CONTENT ─────────────────────────────── */
+  .content { padding: 5rem 1.5rem; max-width: 800px; margin: 0 auto; }
+
+  .section { margin-bottom: 2rem; }
+
+  .card {
+    background: var(--card-bg);
+    backdrop-filter: blur(8px);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius);
+    padding: 2.5rem 2.5rem;
+    box-shadow: var(--shadow-soft);
+    transition: box-shadow 0.4s ease, transform 0.4s ease;
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease, box-shadow 0.4s ease;
+  }
+  .card.visible { opacity: 1; transform: translateY(0); }
+  .card:hover { box-shadow: var(--shadow-hover); }
+
+  .card-label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--burgundy);
+    margin-bottom: 1rem;
+    opacity: 0.8;
+  }
+
+  .card-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 5vw, 2.6rem);
+    font-weight: 300;
+    color: var(--charcoal);
+    line-height: 1.25;
+    margin-bottom: 1.5rem;
+  }
+
+  .card-title em { font-style: italic; color: var(--burgundy); }
+
+  .divider {
+    width: 32px; height: 1px;
+    background: var(--burgundy);
+    opacity: 0.3;
+    margin-bottom: 1.5rem;
+  }
+
+  /* ── DATE CARD ─────────────────────────────────── */
+  .date-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+
+  .date-item {
+    background: var(--cream);
+    border-radius: var(--radius-sm);
+    padding: 1.25rem 1.25rem;
+    border: 1px solid rgba(107,39,55,0.08);
+  }
+
+  .date-item-label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--mist);
+    margin-bottom: 0.4rem;
+  }
+
+  .date-item-value {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    font-weight: 400;
+    color: var(--charcoal);
+  }
+
+  .date-item-sub {
+    font-size: 12px;
+    color: var(--mist);
+    margin-top: 0.2rem;
+  }
+
+  .format-note {
+    margin-top: 1.5rem;
+    padding: 1.25rem 1.5rem;
+    background: linear-gradient(135deg, rgba(107,39,55,0.06), rgba(107,39,55,0.03));
+    border-left: 2px solid var(--burgundy);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    font-size: 14px;
+    color: var(--stone);
+    line-height: 1.8;
+  }
+
+  /* ── LOCATION CARD ─────────────────────────────── */
+  .map-embed {
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    margin: 1.5rem 0;
+    border: 1px solid var(--card-border);
+    cursor: pointer;
+    position: relative;
+    transition: opacity 0.3s;
+  }
+  .map-embed:hover { opacity: 0.9; }
+
+  .map-placeholder {
+    width: 100%; height: 200px;
+    background:
+      linear-gradient(180deg, #e8f0e0 0%, #d4e6c8 40%, #b8d49e 100%);
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column; gap: 8px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* SVG mini-map illustration */
+  .map-svg { width: 100%; height: 100%; position: absolute; inset: 0; }
+
+  .map-label {
+    position: absolute;
+    bottom: 12px; left: 50%; transform: translateX(-50%);
+    background: rgba(255,255,255,0.92);
+    border-radius: 50px;
+    padding: 6px 16px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--charcoal);
+    white-space: nowrap;
+    display: flex; align-items: center; gap: 6px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.12);
+  }
+
+  .pin-dot {
+    width: 8px; height: 8px;
+    background: var(--burgundy);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .link-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+    margin-top: 1rem;
+  }
+
+  .link-btn {
+    display: flex; align-items: center; gap: 10px;
+    padding: 1rem 1.25rem;
+    background: var(--cream);
+    border: 1px solid rgba(107,39,55,0.1);
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    color: var(--charcoal);
+    font-size: 13px;
+    font-weight: 400;
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+  .link-btn:hover {
+    background: rgba(107,39,55,0.06);
+    border-color: rgba(107,39,55,0.25);
+    transform: translateY(-2px);
+  }
+
+  .link-btn-icon {
+    width: 32px; height: 32px;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .link-btn-icon svg { width: 18px; height: 18px; }
+  .icon-2gis { background: rgba(49,152,49,0.12); }
+  .icon-google { background: rgba(66,133,244,0.12); }
+  .icon-ig { background: rgba(193,53,132,0.1); }
+
+  .link-btn-text {}
+  .link-btn-name { font-weight: 500; font-size: 13px; display: block; }
+  .link-btn-desc { font-size: 11px; color: var(--mist); display: block; margin-top: 1px; }
+
+  /* ── STYLE CARD ────────────────────────────────── */
+  .style-card {
+    background: linear-gradient(145deg, #2C1820 0%, #1a1015 100%);
+    color: #fff;
+    border-color: transparent;
+  }
+
+  .style-card .card-label { color: rgba(255,200,160,0.7); }
+  .style-card .card-title { color: rgba(255,255,255,0.95); }
+  .style-card .divider { background: rgba(255,200,160,0.4); }
+
+  .mood-tags {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    margin: 1.5rem 0;
+  }
+
+  .mood-tag {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 50px;
+    padding: 6px 14px;
+    font-size: 12px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.75);
+    letter-spacing: 0.05em;
+  }
+
+  .palette-strip {
+    display: flex; gap: 8px; margin: 1.5rem 0; flex-wrap: wrap;
+  }
+
+  .palette-chip {
+    border-radius: 8px;
+    padding: 10px 16px;
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.05em;
+    flex: 1; min-width: 80px; text-align: center;
+  }
+
+  .style-body { font-size: 14px; line-height: 1.9; color: rgba(255,255,255,0.6); margin-bottom: 1.5rem; }
+
+  .gift-note {
+    border-top: 1px solid rgba(255,255,255,0.08);
+    padding-top: 1.5rem;
+    margin-top: 1.5rem;
+  }
+
+  .gift-title {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    font-weight: 300;
+    font-style: italic;
+    color: rgba(255,200,160,0.9);
+    margin-bottom: 0.75rem;
+  }
+
+  .gift-body { font-size: 14px; color: rgba(255,255,255,0.5); line-height: 1.9; }
+
+  /* ── CHAT / GALLERY CARD ───────────────────────── */
+  .social-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+
+  .social-link {
+    display: flex; flex-direction: column; gap: 8px;
+    padding: 1.5rem;
+    background: var(--cream);
+    border: 1px solid rgba(107,39,55,0.08);
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    color: var(--charcoal);
+    transition: all 0.3s ease;
+  }
+  .social-link:hover {
+    background: rgba(107,39,55,0.04);
+    border-color: rgba(107,39,55,0.2);
+    transform: translateY(-2px);
+  }
+
+  .social-link-icon { font-size: 1.5rem; }
+  .social-link-name { font-weight: 500; font-size: 14px; }
+  .social-link-desc { font-size: 12px; color: var(--mist); line-height: 1.6; }
+
+  /* ── SURVEY CARD ───────────────────────────────── */
+  .survey-step {
+    margin-bottom: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid rgba(107,39,55,0.08);
+  }
+  .survey-step:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+
+  .survey-step-title {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    font-weight: 400;
+    color: var(--charcoal);
+    margin-bottom: 0.5rem;
+  }
+
+  .survey-step-sub {
+    font-size: 12px;
+    color: var(--mist);
+    margin-bottom: 1.25rem;
+  }
+
+  /* Name field */
+  .name-field {
+    width: 100%;
+    padding: 0.85rem 1rem;
+    border: 1px solid rgba(107,39,55,0.15);
+    border-radius: var(--radius-sm);
+    font-family: var(--font-body);
+    font-size: 15px;
+    color: var(--charcoal);
+    background: var(--cream);
+    outline: none;
+    transition: border-color 0.3s;
+    margin-bottom: 0.75rem;
+  }
+  .name-field:focus { border-color: var(--burgundy); }
+
+  /* Option chips */
+  .options-grid {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    margin-bottom: 1rem;
+  }
+
+  .opt-chip {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 8px 16px;
+    border: 1px solid rgba(107,39,55,0.2);
+    border-radius: 50px;
+    font-family: var(--font-body);
+    font-size: 13px;
+    color: var(--stone);
+    background: var(--cream);
+    cursor: pointer;
+    transition: all 0.25s ease;
+    user-select: none;
+    white-space: nowrap;
+  }
+  .opt-chip:hover { border-color: var(--burgundy); color: var(--burgundy); background: rgba(107,39,55,0.04); }
+  .opt-chip.selected {
+    background: var(--burgundy);
+    border-color: var(--burgundy);
+    color: #fff;
+  }
+
+  /* Checkboxes */
+  .check-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 1rem;
+  }
+
+  .check-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 14px;
+    border: 1px solid rgba(107,39,55,0.12);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all 0.25s ease;
+    user-select: none;
+  }
+  .check-item:hover { border-color: rgba(107,39,55,0.3); background: rgba(107,39,55,0.02); }
+  .check-item.checked { border-color: var(--burgundy); background: rgba(107,39,55,0.04); }
+
+  .check-box {
+    width: 18px; height: 18px;
+    border: 1.5px solid rgba(107,39,55,0.25);
+    border-radius: 4px;
+    flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.25s;
+    background: #fff;
+  }
+  .check-item.checked .check-box {
+    background: var(--burgundy);
+    border-color: var(--burgundy);
+  }
+  .check-box svg { display: none; }
+  .check-item.checked .check-box svg { display: block; }
+  .check-item-label { font-size: 13px; color: var(--charcoal); }
+
+  /* Add more button */
+  .add-more-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 7px 16px;
+    border: 1px dashed rgba(107,39,55,0.35);
+    border-radius: 50px;
+    font-family: var(--font-body);
+    font-size: 12px;
+    color: var(--burgundy);
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.25s;
+    margin-top: 0.25rem;
+  }
+  .add-more-btn:hover { background: rgba(107,39,55,0.05); }
+
+  .extra-entry {
+    display: flex; gap: 8px;
+    margin-top: 8px;
+  }
+
+  .extra-entry input {
+    flex: 1;
+    padding: 8px 12px;
+    border: 1px solid rgba(107,39,55,0.15);
+    border-radius: var(--radius-sm);
+    font-family: var(--font-body);
+    font-size: 13px;
+    color: var(--charcoal);
+    background: var(--cream);
+    outline: none;
+  }
+  .extra-entry input:focus { border-color: var(--burgundy); }
+
+  .remove-btn {
+    padding: 8px 12px;
+    background: transparent;
+    border: 1px solid rgba(107,39,55,0.15);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    color: var(--mist);
+    font-size: 16px;
+    transition: color 0.2s;
+    line-height: 1;
+  }
+  .remove-btn:hover { color: var(--burgundy); }
+
+  /* Custom text field for "Другое" */
+  .other-field-wrap { margin-top: 8px; display: none; }
+  .other-field-wrap.visible { display: block; }
+  .other-field-wrap input {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid rgba(107,39,55,0.2);
+    border-radius: var(--radius-sm);
+    font-family: var(--font-body);
+    font-size: 13px;
+    color: var(--charcoal);
+    background: var(--cream);
+    outline: none;
+  }
+  .other-field-wrap input:focus { border-color: var(--burgundy); }
+
+  /* Submit */
+  .submit-area { margin-top: 2rem; }
+
+  .submit-btn {
+    width: 100%;
+    padding: 1rem;
+    background: var(--burgundy);
+    border: none;
+    border-radius: var(--radius-sm);
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+  }
+  .submit-btn:hover { background: var(--burgundy-light); transform: translateY(-1px); box-shadow: 0 8px 24px rgba(107,39,55,0.25); }
+  .submit-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+  .success-msg {
+    display: none;
+    padding: 1.5rem;
+    background: rgba(107,39,55,0.06);
+    border: 1px solid rgba(107,39,55,0.2);
+    border-radius: var(--radius-sm);
+    text-align: center;
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    font-style: italic;
+    color: var(--burgundy);
+  }
+
+  /* ── PACK CARD ─────────────────────────────────── */
+  .pack-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+
+  .pack-item {
+    display: flex; align-items: flex-start; gap: 12px;
+    padding: 1.25rem;
+    background: var(--cream);
+    border: 1px solid rgba(107,39,55,0.08);
+    border-radius: var(--radius-sm);
+  }
+
+  .pack-emoji { font-size: 1.5rem; flex-shrink: 0; }
+
+  .pack-label { font-weight: 500; font-size: 14px; color: var(--charcoal); display: block; }
+  .pack-sub { font-size: 12px; color: var(--mist); margin-top: 2px; }
+
+  .pack-note {
+    margin-top: 1.5rem;
+    padding: 1.25rem 1.5rem;
+    background: linear-gradient(135deg, rgba(107,39,55,0.05), rgba(107,39,55,0.02));
+    border-radius: var(--radius-sm);
+    font-size: 14px;
+    color: var(--stone);
+    text-align: center;
+    font-style: italic;
+    font-family: var(--font-display);
+    line-height: 1.8;
+  }
+
+  /* ── FOOTER ────────────────────────────────────── */
+  .footer {
+    text-align: center;
+    padding: 3rem 1.5rem;
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-style: italic;
+    color: var(--mist);
+  }
+
+  /* ── RESPONSIVE ────────────────────────────────── */
+  @media (max-width: 600px) {
+    .hero-card { padding: 2.5rem 1.75rem; }
+    .card { padding: 1.75rem 1.5rem; }
+    .date-grid { grid-template-columns: 1fr; }
+    .link-grid { grid-template-columns: 1fr; }
+    .social-grid { grid-template-columns: 1fr; }
+    .check-grid { grid-template-columns: 1fr; }
+    .pack-grid { grid-template-columns: 1fr; }
+    .palette-strip { flex-direction: column; }
+  }
+
+  @media (max-width: 400px) {
+    .hero-title { font-size: 2rem; }
+    .content { padding: 3rem 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-texture"></div>
+  <div class="bokeh">
+    <span></span><span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span><span></span>
+  </div>
+  <div class="hero-trees"></div>
+
+  <div class="hero-card">
+    <p class="hero-eyebrow">29 — 31 мая 2025</p>
+
+    <h1 class="hero-title">Добро пожаловать<br><em>в наш день</em></h1>
+
+    <div class="hero-divider"></div>
+
+    <p class="hero-subtitle">Мы очень хотим разделить<br>этот праздник вместе с вами</p>
+
+    <div class="date-badge">
+      <span style="width:5px;height:5px;border-radius:50%;background:rgba(255,180,100,0.7);flex-shrink:0;"></span>
+      Жайлау 25 · Сарыбулак · Кокшетау
+    </div>
+
+    <br>
+    <button class="music-btn" id="musicBtn" onclick="toggleMusic()">
+      <svg id="musicIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M9 18V5l12-2v13M9 18a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm12-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
+      </svg>
+      <span id="musicLabel">Включить музыку</span>
+    </button>
+    <audio id="bgAudio" loop preload="none">
+      <!-- Добавьте ссылку на mp3 здесь -->
+      <!-- <source src="YOUR_MUSIC_URL.mp3" type="audio/mpeg"> -->
+    </audio>
+  </div>
+
+  <div class="scroll-hint">
+    <div class="scroll-dot"></div>
+    <span>прокрутите</span>
+  </div>
+</section>
+
+<!-- ── MAIN CONTENT ── -->
+<main class="content">
+
+  <!-- ── ДАТА И ВРЕМЯ ── -->
+  <section class="section">
+    <div class="card">
+      <p class="card-label">Когда</p>
+      <h2 class="card-title">Дата &amp; <em>Проживание</em></h2>
+      <div class="divider"></div>
+
+      <div class="date-grid">
+        <div class="date-item">
+          <p class="date-item-label">Дата свадьбы</p>
+          <p class="date-item-value">29 мая 2025</p>
+          <p class="date-item-sub">суббота</p>
+        </div>
+        <div class="date-item">
+          <p class="date-item-label">Начало церемонии</p>
+          <p class="date-item-value">17:00</p>
+          <p class="date-item-sub">просьба не опаздывать</p>
+        </div>
+        <div class="date-item">
+          <p class="date-item-label">Заезд гостей</p>
+          <p class="date-item-value">с 14:00</p>
+          <p class="date-item-sub">29 мая</p>
+        </div>
+        <div class="date-item">
+          <p class="date-item-label">Выезд</p>
+          <p class="date-item-value">до 12:00</p>
+          <p class="date-item-sub">31 мая (понедельник)</p>
+        </div>
+      </div>
+
+      <div class="format-note">
+        <strong style="font-weight:500;color:var(--charcoal);">Weekend Wedding</strong> — это два дня вместе с теми, кто нам важен. Мы хотим не просто отпраздновать, а провести настоящие выходные: с тишиной леса, вкусной едой, купанием и долгими разговорами у огня.
+      </div>
+    </div>
+  </section>
+
+  <!-- ── ЛОКАЦИЯ ── -->
+  <section class="section">
+    <div class="card">
+      <p class="card-label">Где</p>
+      <h2 class="card-title">Место <em>проведения</em></h2>
+      <div class="divider"></div>
+
+      <p style="font-size:14px;color:var(--stone);margin-bottom:1rem;line-height:1.8;">
+        Загородная база отдыха «Жайлау» на берегу озера. Сосновый лес, чистый воздух, уютные домики и полная приватность — идеальное место для нашего weekend wedding.
+      </p>
+
+      <!-- Кликабельная мини-карта -->
+      <a href="https://2gis.kz/kokshetau/firm/70000001051483307" target="_blank" rel="noopener" class="map-embed" title="Открыть в 2GIS">
+        <div class="map-placeholder">
+          <svg class="map-svg" viewBox="0 0 700 200" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+            <!-- Road network background -->
+            <rect width="700" height="200" fill="#dde8cc"/>
+            <!-- Water body (lake) -->
+            <ellipse cx="580" cy="100" rx="130" ry="90" fill="#b8d8ea" opacity="0.7"/>
+            <ellipse cx="580" cy="100" rx="120" ry="80" fill="#c4dff0" opacity="0.5"/>
+            <!-- Forest texture -->
+            <rect x="0" y="0" width="700" height="200" fill="url(#forestPat)" opacity="0.15"/>
+            <defs>
+              <pattern id="forestPat" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+                <circle cx="5" cy="5" r="4" fill="#5a8a3a" opacity="0.4"/>
+                <circle cx="15" cy="15" r="3" fill="#4a7a2a" opacity="0.3"/>
+              </pattern>
+            </defs>
+            <!-- Main road -->
+            <path d="M0,105 Q100,100 200,102 Q300,104 350,100" stroke="#fff" stroke-width="8" fill="none" opacity="0.9"/>
+            <path d="M0,105 Q100,100 200,102 Q300,104 350,100" stroke="#e8e0d4" stroke-width="6" fill="none"/>
+            <!-- Secondary road -->
+            <path d="M350,100 Q380,95 420,90 Q460,85 480,110" stroke="#fff" stroke-width="5" fill="none" opacity="0.8"/>
+            <path d="M350,100 Q380,95 420,90 Q460,85 480,110" stroke="#ddd4c0" stroke-width="4" fill="none"/>
+            <!-- Trees -->
+            <g opacity="0.7">
+              <circle cx="60" cy="40" r="12" fill="#4a7a2a"/>
+              <circle cx="80" cy="50" r="10" fill="#5a8a3a"/>
+              <circle cx="40" cy="55" r="9" fill="#3a6a1a"/>
+              <circle cx="120" cy="35" r="11" fill="#4a7a2a"/>
+              <circle cx="100" cy="60" r="8" fill="#5a8a3a"/>
+              <circle cx="200" cy="40" r="13" fill="#3a6a1a"/>
+              <circle cx="220" cy="55" r="10" fill="#4a7a2a"/>
+              <circle cx="180" cy="60" r="9" fill="#5a8a3a"/>
+              <circle cx="60" cy="160" r="11" fill="#4a7a2a"/>
+              <circle cx="80" cy="150" r="9" fill="#5a8a3a"/>
+              <circle cx="100" cy="165" r="10" fill="#3a6a1a"/>
+              <circle cx="150" cy="155" r="8" fill="#4a7a2a"/>
+              <circle cx="250" cy="150" r="12" fill="#3a6a1a"/>
+              <circle cx="270" cy="165" r="9" fill="#4a7a2a"/>
+            </g>
+            <!-- Destination marker -->
+            <g transform="translate(480,98)">
+              <circle cx="0" cy="0" r="20" fill="rgba(255,255,255,0.9)"/>
+              <circle cx="0" cy="0" r="14" fill="#6B2737"/>
+              <circle cx="0" cy="-3" r="5" fill="white"/>
+              <path d="M-4,0 Q0,6 4,0" fill="white" opacity="0.8"/>
+            </g>
+            <!-- Pulse ring -->
+            <circle cx="480" cy="98" r="26" fill="none" stroke="#6B2737" stroke-width="2" opacity="0.4">
+              <animate attributeName="r" from="20" to="36" dur="2s" repeatCount="indefinite"/>
+              <animate attributeName="opacity" from="0.5" to="0" dur="2s" repeatCount="indefinite"/>
+            </circle>
+            <!-- Lake label -->
+            <text x="575" y="105" text-anchor="middle" font-size="10" fill="#4a7a9a" font-family="Georgia, serif" font-style="italic" opacity="0.8">озеро</text>
+          </svg>
+          <div class="map-label">
+            <span class="pin-dot"></span>
+            Жайлау 25, Сарыбулак · Открыть в 2GIS
+          </div>
+        </div>
+      </a>
+
+      <div class="link-grid">
+        <a href="https://2gis.kz/kokshetau/firm/70000001051483307" target="_blank" rel="noopener" class="link-btn">
+          <div class="link-btn-icon icon-2gis">
+            <svg viewBox="0 0 24 24" fill="none">
+              <rect width="24" height="24" rx="6" fill="#319831" opacity="0.15"/>
+              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="#319831"/>
+            </svg>
+          </div>
+          <div class="link-btn-text">
+            <span class="link-btn-name">2GIS</span>
+            <span class="link-btn-desc">Маршрут и карта</span>
+          </div>
+        </a>
+
+        <a href="https://maps.google.com/?q=Жайлау+25+Сарыбулак+Кокшетау" target="_blank" rel="noopener" class="link-btn">
+          <div class="link-btn-icon icon-google">
+            <svg viewBox="0 0 24 24">
+              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="#4285F4"/>
+            </svg>
+          </div>
+          <div class="link-btn-text">
+            <span class="link-btn-name">Google Maps</span>
+            <span class="link-btn-desc">Навигация</span>
+          </div>
+        </a>
+
+        <a href="https://www.instagram.com/forest__and__lake/" target="_blank" rel="noopener" class="link-btn">
+          <div class="link-btn-icon icon-ig">
+            <svg viewBox="0 0 24 24" fill="none">
+              <rect x="2" y="2" width="20" height="20" rx="5.5" fill="none" stroke="#C13584" stroke-width="1.5"/>
+              <circle cx="12" cy="12" r="4" fill="none" stroke="#C13584" stroke-width="1.5"/>
+              <circle cx="17.5" cy="6.5" r="1" fill="#C13584"/>
+            </svg>
+          </div>
+          <div class="link-btn-text">
+            <span class="link-btn-name">Instagram</span>
+            <span class="link-btn-desc">forest__and__lake</span>
+          </div>
+        </a>
+
+        <div class="link-btn" style="cursor:default;opacity:0.7;">
+          <div class="link-btn-icon" style="background:rgba(107,39,55,0.1);">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#6B2737" stroke-width="1.5">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+              <polyline points="9,22 9,12 15,12 15,22"/>
+            </svg>
+          </div>
+          <div class="link-btn-text">
+            <span class="link-btn-name">Адрес</span>
+            <span class="link-btn-desc">Жайлау 25, Сарыбулак</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── СТИЛЬ И ПОДАРКИ ── -->
+  <section class="section">
+    <div class="card style-card">
+      <p class="card-label">Атмосфера</p>
+      <h2 class="card-title">Стиль &amp; <em>Настроение</em></h2>
+      <div class="divider"></div>
+
+      <div class="mood-tags">
+        <span class="mood-tag">Лесная эстетика</span>
+        <span class="mood-tag">Тёплый свет</span>
+        <span class="mood-tag">Premium Casual</span>
+        <span class="mood-tag">Живая природа</span>
+        <span class="mood-tag">Уют и тепло</span>
+      </div>
+
+      <p class="style-body">
+        Вечер будет тёплым, атмосферным и немного кинематографичным. Никакого официоза — только настоящие эмоции, красивые люди и хорошее вино под открытым небом.
+      </p>
+
+      <p style="font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:0.75rem;">Рекомендуемая палитра одежды</p>
+      <div class="palette-strip">
+        <div class="palette-chip" style="background:#6B2737;color:rgba(255,255,255,0.85);">Бордо</div>
+        <div class="palette-chip" style="background:#5A5652;color:rgba(255,255,255,0.75);">Серый</div>
+        <div class="palette-chip" style="background:#3D3028;color:rgba(255,255,255,0.75);">Тёмный</div>
+        <div class="palette-chip" style="background:#C4B49A;color:rgba(44,26,24,0.8);">Бежевый</div>
+        <div class="palette-chip" style="background:#2A4020;color:rgba(255,255,255,0.7);">Лесной</div>
+      </div>
+
+      <p class="style-body" style="margin-top:1rem;">
+        Стиль — smart casual или вечерний. Дамам рекомендуем отдать предпочтение миди-длине и удобной обуви — часть вечера пройдёт на природе. Джентльменам — пиджак или рубашка, можно без галстука.
+      </p>
+
+      <div class="gift-note">
+        <p class="gift-title">О подарках</p>
+        <p class="gift-body">
+          Самый ценный подарок для нас — ваше присутствие и тёплое настроение. Если вам всё же хочется нас порадовать — вклад в нашу совместную жизнь и путешествия будет лучшим выбором. Конверт с добрыми пожеланиями скажет больше любой вещи.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── ЧАТ И ГАЛЕРЕЯ ── -->
+  <section class="section">
+    <div class="card">
+      <p class="card-label">Сообщество</p>
+      <h2 class="card-title">Чат &amp; <em>Галерея</em></h2>
+      <div class="divider"></div>
+      <p style="font-size:14px;color:var(--stone);margin-bottom:1rem;line-height:1.8;">Тут будут фотографии, воспоминания и вся важная информация — до, во время и после праздника.</p>
+
+      <div class="social-grid">
+        <a href="#" class="social-link" onclick="alert('Ссылка на общий чат — добавьте URL здесь')">
+          <span class="social-link-icon">💬</span>
+          <span class="social-link-name">Общий чат</span>
+          <span class="social-link-desc">Все гости, анонсы и важные новости</span>
+        </a>
+        <a href="#" class="social-link" onclick="alert('Ссылка на галерею — добавьте URL здесь')">
+          <span class="social-link-icon">📸</span>
+          <span class="social-link-name">Галерея</span>
+          <span class="social-link-desc">Фото и видео с праздника</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── ОПРОС ── -->
+  <section class="section">
+    <div class="card">
+      <p class="card-label">Пожелания</p>
+      <h2 class="card-title">Небольшой <em>опрос</em></h2>
+      <div class="divider"></div>
+      <p style="font-size:14px;color:var(--stone);margin-bottom:2rem;line-height:1.8;">Помогите нам подготовиться — это займёт одну минуту.</p>
+
+      <div id="surveyForm">
+
+        <!-- Имя -->
+        <div class="survey-step">
+          <p class="survey-step-title">Ваше имя</p>
+          <input class="name-field" type="text" id="guestName" placeholder="Как вас зовут?" autocomplete="given-name">
+        </div>
+
+        <!-- 6.1 Шашлык -->
+        <div class="survey-step">
+          <p class="survey-step-title">🥩 Шашлык</p>
+          <p class="survey-step-sub">Можно выбрать несколько</p>
+          <div class="options-grid" id="bbqGrid">
+            <div class="opt-chip" onclick="toggleChip(this,'bbq')">🍗 Курица</div>
+            <div class="opt-chip" onclick="toggleChip(this,'bbq')">🥩 Свинина</div>
+            <div class="opt-chip" onclick="toggleChip(this,'bbq')">🦆 Утка</div>
+            <div class="opt-chip" onclick="toggleChip(this,'bbq')">🐑 Баранина</div>
+            <div class="opt-chip" onclick="toggleChip(this,'bbq')">🍄 Шампиньоны</div>
+            <div class="opt-chip" onclick="toggleChip(this,'bbq')">🥦 Овощи</div>
+          </div>
+          <div id="bbqExtras"></div>
+          <button class="add-more-btn" onclick="addExtra('bbq','bbqExtras','Другой вариант...')">+ Добавить ещё</button>
+        </div>
+
+        <!-- 6.2 Время пребывания -->
+        <div class="survey-step">
+          <p class="survey-step-title">📅 Время пребывания</p>
+          <p class="survey-step-sub">Отметьте все подходящие варианты</p>
+          <div class="check-grid" id="stayGrid">
+            <div class="check-item" onclick="toggleCheck(this)">
+              <div class="check-box"><svg width="10" height="8" viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <span class="check-item-label">29 — обед</span>
+            </div>
+            <div class="check-item" onclick="toggleCheck(this)">
+              <div class="check-box"><svg width="10" height="8" viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <span class="check-item-label">29 — вечер</span>
+            </div>
+            <div class="check-item" onclick="toggleCheck(this)">
+              <div class="check-box"><svg width="10" height="8" viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <span class="check-item-label">30 — утро</span>
+            </div>
+            <div class="check-item" onclick="toggleCheck(this)">
+              <div class="check-box"><svg width="10" height="8" viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <span class="check-item-label">30 — обед</span>
+            </div>
+            <div class="check-item" onclick="toggleCheck(this)">
+              <div class="check-box"><svg width="10" height="8" viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <span class="check-item-label">30 — вечер</span>
+            </div>
+            <div class="check-item" onclick="toggleCheck(this)">
+              <div class="check-box"><svg width="10" height="8" viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <span class="check-item-label">31 — утро</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 6.3 Алкоголь -->
+        <div class="survey-step">
+          <p class="survey-step-title">🍾 Алкоголь</p>
+          <p class="survey-step-sub">Можно выбрать несколько</p>
+          <div class="options-grid" id="alcGrid">
+            <div class="opt-chip" onclick="toggleChip(this,'alc')">🚫 Халяль</div>
+            <div class="opt-chip" onclick="toggleChip(this,'alc')">🍺 Пиво светлое</div>
+            <div class="opt-chip" onclick="toggleChip(this,'alc')">🍻 Пиво тёмное</div>
+            <div class="opt-chip" onclick="toggleChip(this,'alc')">🥃 Водка</div>
+            <div class="opt-chip" onclick="toggleChip(this,'alc')">🌵 Текила</div>
+            <div class="opt-chip" onclick="toggleChip(this,'alc')">🍸 Мартини</div>
+            <div class="opt-chip" onclick="toggleChip(this,'alc')">🌿 Настойки</div>
+            <div class="opt-chip" id="alcOther" onclick="toggleChipOther(this,'alc','otherAlcWrap')">✍️ Другое</div>
+          </div>
+          <div class="other-field-wrap" id="otherAlcWrap">
+            <input type="text" id="otherAlcText" placeholder="Укажите что именно...">
+          </div>
+          <div id="alcExtras"></div>
+          <button class="add-more-btn" onclick="addExtra('alc','alcExtras','Другой напиток...')">+ Добавить ещё</button>
+        </div>
+
+        <div class="submit-area">
+          <button class="submit-btn" onclick="submitSurvey()" id="submitBtn">
+            Отправить ответы
+          </button>
+          <div class="success-msg" id="successMsg">
+            Спасибо! Ваши пожелания записаны 🤍
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── ЧТО ВЗЯТЬ ── -->
+  <section class="section">
+    <div class="card">
+      <p class="card-label">Подготовка</p>
+      <h2 class="card-title">Что взять <em>с собой</em></h2>
+      <div class="divider"></div>
+
+      <div class="pack-grid">
+        <div class="pack-item">
+          <span class="pack-emoji">👙</span>
+          <div>
+            <span class="pack-label">Купальник</span>
+            <span class="pack-sub">Рядом озеро — будем купаться</span>
+          </div>
+        </div>
+        <div class="pack-item">
+          <span class="pack-emoji">🏖</span>
+          <div>
+            <span class="pack-label">Полотенце</span>
+            <span class="pack-sub">Банное и пляжное</span>
+          </div>
+        </div>
+        <div class="pack-item">
+          <span class="pack-emoji">🩴</span>
+          <div>
+            <span class="pack-label">Шлёпки</span>
+            <span class="pack-sub">Для пляжа и территории</span>
+          </div>
+        </div>
+        <div class="pack-item">
+          <span class="pack-emoji">🧥</span>
+          <div>
+            <span class="pack-label">Тёплая одежда</span>
+            <span class="pack-sub">Вечером у костра бывает прохладно</span>
+          </div>
+        </div>
+      </div>
+
+      <p class="pack-note">
+        «Самое главное, что нужно взять с собой —<br>
+        хорошее настроение и желание<br>
+        классно провести время вместе»
+      </p>
+    </div>
+  </section>
+
+</main>
+
+<!-- ── FOOTER ── -->
+<footer class="footer">
+  <p style="font-size:0.9rem;color:var(--mist);letter-spacing:0.05em;">29 — 31 мая · Жайлау, Сарыбулак</p>
+  <p style="margin-top:0.5rem;font-size:1.2rem;color:var(--stone);">С любовью ждём вас 🤍</p>
+</footer>
+
+<script>
+// ── SCROLL ANIMATIONS ──
+const cards = document.querySelectorAll('.card');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('visible'), 60);
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1 });
+cards.forEach(c => observer.observe(c));
+
+// ── MUSIC ──
+let playing = false;
+function toggleMusic() {
+  const audio = document.getElementById('bgAudio');
+  const label = document.getElementById('musicLabel');
+  const icon  = document.getElementById('musicIcon');
+  if (!audio.src || audio.src === window.location.href) {
+    alert('Добавьте ссылку на mp3 файл в тег <audio>');
+    return;
+  }
+  if (playing) {
+    audio.pause(); playing = false;
+    label.textContent = 'Включить музыку';
+    icon.innerHTML = '<path d="M9 18V5l12-2v13M9 18a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm12-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>';
+  } else {
+    audio.play().catch(() => {});
+    playing = true;
+    label.textContent = 'Выключить музыку';
+    icon.innerHTML = '<rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/>';
+  }
+}
+
+// ── CHIP TOGGLE ──
+function toggleChip(el, group) {
+  el.classList.toggle('selected');
+}
+
+function toggleChipOther(el, group, wrapId) {
+  el.classList.toggle('selected');
+  const wrap = document.getElementById(wrapId);
+  if (el.classList.contains('selected')) {
+    wrap.classList.add('visible');
+  } else {
+    wrap.classList.remove('visible');
+  }
+}
+
+// ── CHECK TOGGLE ──
+function toggleCheck(el) {
+  el.classList.toggle('checked');
+}
+
+// ── ADD EXTRA ──
+function addExtra(group, containerId, placeholder) {
+  const container = document.getElementById(containerId);
+  const div = document.createElement('div');
+  div.className = 'extra-entry';
+  div.innerHTML = `<input type="text" placeholder="${placeholder}"><button class="remove-btn" onclick="this.parentElement.remove()">×</button>`;
+  container.appendChild(div);
+  div.querySelector('input').focus();
+}
+
+// ── COLLECT FORM DATA ──
+function collectData() {
+  const name = document.getElementById('guestName').value.trim();
+
+  // BBQ
+  const bbqSelected = [...document.querySelectorAll('#bbqGrid .opt-chip.selected')].map(e => e.textContent.trim());
+  const bbqExtras   = [...document.querySelectorAll('#bbqExtras input')].map(e => e.value.trim()).filter(Boolean);
+  const bbq = [...bbqSelected, ...bbqExtras].join(', ');
+
+  // Stay
+  const stay = [...document.querySelectorAll('#stayGrid .check-item.checked')]
+    .map(e => e.querySelector('.check-item-label').textContent.trim()).join(', ');
+
+  // Alcohol
+  const alcSelected = [...document.querySelectorAll('#alcGrid .opt-chip.selected')].map(e => e.textContent.trim());
+  const alcExtras   = [...document.querySelectorAll('#alcExtras input')].map(e => e.value.trim()).filter(Boolean);
+  const otherAlc    = document.getElementById('otherAlcText').value.trim();
+  const alc = [...alcSelected, ...alcExtras, otherAlc ? `Другое: ${otherAlc}` : ''].filter(Boolean).join(', ');
+
+  return { name, bbq, stay, alc };
+}
+
+// ── GOOGLE SHEETS SUBMIT ──
+// 🔧 НАСТРОЙКА: замените URL ниже на ваш Apps Script URL
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec';
+
+async function submitSurvey() {
+  const btn = document.getElementById('submitBtn');
+  const successMsg = document.getElementById('successMsg');
+  const data = collectData();
+
+  if (!data.name) {
+    document.getElementById('guestName').focus();
+    document.getElementById('guestName').style.borderColor = '#6B2737';
+    setTimeout(() => document.getElementById('guestName').style.borderColor = '', 2000);
+    return;
+  }
+
+  btn.disabled = true;
+  btn.textContent = 'Отправляем...';
+
+  const params = new URLSearchParams({
+    name:      data.name,
+    bbq:       data.bbq  || '—',
+    stay:      data.stay || '—',
+    alcohol:   data.alc  || '—',
+    timestamp: new Date().toLocaleString('ru-RU')
+  });
+
+  try {
+    await fetch(`${GOOGLE_SCRIPT_URL}?${params}`, { method: 'GET', mode: 'no-cors' });
+    btn.style.display = 'none';
+    successMsg.style.display = 'block';
+  } catch(e) {
+    btn.disabled = false;
+    btn.textContent = 'Отправить ответы';
+    alert('Не удалось отправить. Проверьте подключение к интернету.');
+  }
+}
+</script>
+</body>
+</html>
