@@ -487,7 +487,7 @@ body { font-family: var(--font-b); background: #1a0e12; overflow-x: hidden; }
     </svg>
     <span id="musicLabel">Пауза</span>
   </button>
-  <audio id="bgAudio" loop preload="auto" src="kukryniksy-khrustalnyjj-mir.mp3"></audio>
+  <audio id="bgAudio" loop preload="auto" src="audio.mp3"></audio>
 
   <!-- Watercolor forest scene -->
   <div class="forest-wrap">
@@ -941,7 +941,17 @@ function unlockOnce() {
 EVTS.forEach(function(ev) { document.addEventListener(ev, unlockOnce, { passive: true }); });
 window.addEventListener('focus', unlockOnce);
 
-// 3) Retry every 400ms for 8 seconds — catches delayed browser unlock
+// 3) Scroll trigger — most reliable on mobile
+var _scrolled = false;
+window.addEventListener('scroll', function onScroll() {
+  if (!_scrolled) {
+    _scrolled = true;
+    if (!playing) startAudio();
+    window.removeEventListener('scroll', onScroll);
+  }
+}, { passive: true });
+
+// 4) Retry every 400ms for 8 seconds — catches delayed browser unlock
 var _retries = 0;
 var _iv = setInterval(function() {
   if (playing || _retries > 20) { clearInterval(_iv); return; }
