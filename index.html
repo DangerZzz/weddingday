@@ -604,27 +604,61 @@ function collectData() {
   return { name, bbq, stay, alcohol };
 }
 
-async function submitSurvey() {
+function submitSurvey() {
   const btn = document.getElementById('submitBtn');
   const ok  = document.getElementById('successMsg');
-  const d   = collectData();
-  if (!d.name) {
+  const name = document.getElementById('guestName').value.trim();
+
+  if (!name) {
     const f = document.getElementById('guestName');
     f.focus(); f.style.borderColor = 'rgba(107,39,55,0.6)';
     setTimeout(() => f.style.borderColor = '', 2000);
     return;
   }
+
   btn.disabled = true; btn.textContent = 'Отправляем...';
+
+  const bbqVals  = [...document.querySelectorAll('#bbqGrid .opt-chip.selected')].map(e => e.textContent.trim());
+  const stayVals = [...document.querySelectorAll('#stayGrid .check-item.checked')].map(e => e.querySelector('.check-item-label').textContent.trim());
+  const alcVals  = [...document.querySelectorAll('#alcGrid .opt-chip.selected')].map(e => e.textContent.trim());
+  const otherAlc = document.getElementById('otherAlcText').value.trim();
+  if (otherAlc) alcVals.push(otherAlc);
+
   const url = 'https://docs.google.com/forms/d/e/' + FORM_ID + '/formResponse';
-  const fields = { [ENTRY.name]: d.name, [ENTRY.bbq]: d.bbq||'—', [ENTRY.stay]: d.stay||'—', [ENTRY.alcohol]: d.alcohol||'—' };
-  const iframe = Object.assign(document.createElement('iframe'), { name:'_gf', style:'display:none' });
-  const form   = Object.assign(document.createElement('form'), { method:'POST', action: url, target:'_gf' });
-  Object.entries(fields).forEach(([k,v]) => {
-    form.appendChild(Object.assign(document.createElement('input'), { type:'hidden', name:k, value:v }));
-  });
+
+  function addCheckbox(form, entryId, values) {
+    (values.length ? values : ['']).forEach(function(v) {
+      var i = document.createElement('input');
+      i.type = 'hidden'; i.name = entryId; i.value = v;
+      form.appendChild(i);
+    });
+    var s = document.createElement('input');
+    s.type = 'hidden'; s.name = entryId + '_sentinel'; s.value = '';
+    form.appendChild(s);
+  }
+
+  var iframe = document.createElement('iframe');
+  iframe.name = '_gf'; iframe.style.display = 'none';
+
+  var form = document.createElement('form');
+  form.method = 'POST'; form.action = url; form.target = '_gf';
+
+  var nameInput = document.createElement('input');
+  nameInput.type = 'hidden'; nameInput.name = ENTRY.name; nameInput.value = name;
+  form.appendChild(nameInput);
+
+  addCheckbox(form, ENTRY.bbq,     bbqVals);
+  addCheckbox(form, ENTRY.stay,    stayVals);
+  addCheckbox(form, ENTRY.alcohol, alcVals);
+
   document.body.append(iframe, form);
   form.submit();
-  setTimeout(() => { btn.style.display='none'; ok.style.display='block'; form.remove(); iframe.remove(); }, 1200);
+
+  setTimeout(function() {
+    btn.style.display = 'none';
+    ok.style.display  = 'block';
+    form.remove(); iframe.remove();
+  }, 1500);
 }
 </script>
 </body>
