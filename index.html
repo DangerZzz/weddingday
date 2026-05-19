@@ -1,406 +1,485 @@
-
 <!DOCTYPE html>
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Наша свадьба · 29–31 мая</title>
+<title>Даниил & Дарья · 29–31 мая</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
 :root {
-  --burg:   #6B2D3A;
-  --forest: #3A5240;
-  --ink:    #1E1C1A;
-  --stone:  #5A5652;
-  --mist:   #9A9590;
-  --linen:  #F8F5F0;
-  --white:  #FDFCFA;
+  --wine:    #3D1A22;
+  --wine2:   #4A2030;
+  --burg:    #6B2D3A;
+  --grey-bg: #EDEAE6;
+  --grey2:   #E4E0DC;
+  --white:   #FDFCFA;
+  --mist:    #A09890;
+  --silver:  #C8C4BE;
   --font-d: 'Cormorant Garamond', serif;
   --font-b: 'Jost', sans-serif;
-  --r:  18px;
+  --r: 16px;
   --r-sm: 10px;
 }
-
 html { scroll-behavior: smooth; }
-body {
-  font-family: var(--font-b);
-  background: var(--linen);
-  color: var(--ink);
-  overflow-x: hidden;
-}
+body { font-family: var(--font-b); background: #1a0e12; overflow-x: hidden; }
 
-/* ══ WATERCOLOR FOREST — reusable SVG background ══
-   Used both in hero and between sections */
-
-/* ── HERO ── */
+/* ══════════════════════════════════
+   1. HERO — line-art / forest
+══════════════════════════════════ */
 .hero {
   min-height: 100vh;
   position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
   text-align: center;
-  padding: 4rem 2rem 280px;
-  background: var(--white);
+  padding: 4rem 2rem 320px;
+  background: #FDFCFA;
   overflow: hidden;
 }
 
-/* Watercolor fog wash behind text */
-.hero-fog {
-  position: absolute; inset: 0; pointer-events: none;
-  background:
-    radial-gradient(ellipse at 50% 30%, rgba(255,252,248,0.0) 0%, rgba(255,252,248,0.0) 100%),
-    radial-gradient(ellipse at 50% 60%, rgba(58,82,64,0.04) 0%, transparent 70%);
+/* Line-art botanical corners */
+.hero-corner {
+  position: absolute; pointer-events: none;
+  width: 220px; height: 220px;
 }
-
-/* Watercolor forest scene at bottom of hero */
-.forest-scene {
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
-  height: 320px;
-  pointer-events: none;
-}
-.forest-scene svg { width: 100%; height: 100%; }
-
-/* Misty overlay above forest */
-.forest-mist {
-  position: absolute;
-  bottom: 200px; left: 0; right: 0; height: 140px;
-  pointer-events: none;
-  background: linear-gradient(to bottom, var(--white) 0%, rgba(253,252,250,0.0) 100%);
-}
+.hero-corner.tl { top: 0; left: 0; }
+.hero-corner.tr { top: 0; right: 0; transform: scaleX(-1); }
+.hero-corner.bl { bottom: 260px; left: 0; transform: scaleY(-1); opacity: .5; }
+.hero-corner.br { bottom: 260px; right: 0; transform: scale(-1); opacity: .5; }
 
 .hero-eyebrow {
-  font-family: var(--font-b);
-  font-size: 10px; font-weight: 300;
-  letter-spacing: 0.32em; text-transform: uppercase;
-  color: var(--mist); margin-bottom: 2rem;
-  position: relative; z-index: 2;
+  font-family: var(--font-b); font-size: 10px; font-weight: 300;
+  letter-spacing: 0.35em; text-transform: uppercase;
+  color: #A09890; margin-bottom: 2rem; position: relative; z-index: 2;
 }
-
 .hero-names {
   font-family: var(--font-d);
-  font-size: clamp(3rem, 12vw, 6rem);
-  font-weight: 300; line-height: 1.1;
-  color: var(--ink); margin-bottom: 0.5rem;
+  font-size: clamp(3.2rem, 13vw, 6.5rem);
+  font-weight: 300; line-height: 1.05; color: #1E1C1A;
   position: relative; z-index: 2;
 }
-.hero-names em {
-  font-style: italic; font-size: 0.55em;
-  color: var(--stone); display: block;
-  letter-spacing: 0.2em; font-weight: 300;
-  margin: 0.2rem 0;
+.hero-amp {
+  font-style: italic; font-size: 0.5em;
+  color: var(--burg); display: block;
+  letter-spacing: 0.1em; margin: 0.3rem 0;
 }
-
-/* Ornamental rule */
+/* Thin ornament */
 .orn {
-  display: flex; align-items: center; gap: 12px;
-  justify-content: center;
-  margin: 2rem auto;
+  display: flex; align-items: center; gap: 10px;
+  justify-content: center; margin: 2rem auto;
   position: relative; z-index: 2;
 }
-.orn-line { width: 60px; height: 0.5px; background: rgba(107,45,58,0.3); }
-.orn-diamond {
+.orn-line { width: 55px; height: 0.5px; background: rgba(107,45,58,0.28); }
+.orn-d {
   width: 5px; height: 5px;
-  border: 0.5px solid rgba(107,45,58,0.45);
-  transform: rotate(45deg);
+  border: 0.5px solid rgba(107,45,58,0.4); transform: rotate(45deg);
 }
-.orn-dot { width: 3px; height: 3px; background: rgba(107,45,58,0.3); border-radius: 50%; }
-
 .hero-sub {
-  font-family: var(--font-d);
-  font-size: 15px; font-style: italic; font-weight: 300;
-  color: var(--stone); line-height: 1.9;
-  margin-bottom: 0.75rem;
+  font-family: var(--font-d); font-size: 15px; font-style: italic; font-weight: 300;
+  color: #5A5652; line-height: 1.9; margin-bottom: .75rem;
   position: relative; z-index: 2;
 }
-
-.hero-date {
-  font-family: var(--font-b);
-  font-size: 11px; font-weight: 300;
-  letter-spacing: 0.22em; text-transform: uppercase;
-  color: var(--mist); margin-bottom: 2.5rem;
-  position: relative; z-index: 2;
+.hero-location {
+  font-size: 10px; font-weight: 300; letter-spacing: 0.28em;
+  text-transform: uppercase; color: #A09890;
+  margin-bottom: 2.5rem; position: relative; z-index: 2;
 }
-
 .music-btn {
-  display: inline-flex; align-items: center; gap: 8px;
-  background: transparent;
-  border: 0.5px solid rgba(107,45,58,0.3);
-  border-radius: 50px;
-  padding: .5rem 1.35rem;
-  color: rgba(107,45,58,0.55);
-  font-family: var(--font-b); font-size: 10px;
-  font-weight: 400; letter-spacing: 0.14em;
-  text-transform: uppercase; cursor: pointer;
-  transition: all .3s;
+  display: inline-flex; align-items: center; gap: 7px;
+  background: transparent; border: 0.5px solid rgba(107,45,58,0.28);
+  border-radius: 50px; padding: .45rem 1.25rem;
+  color: rgba(107,45,58,0.5); font-family: var(--font-b);
+  font-size: 10px; letter-spacing: 0.14em;
+  text-transform: uppercase; cursor: pointer; transition: all .3s;
   position: relative; z-index: 2;
 }
 .music-btn:hover { background: rgba(107,45,58,0.06); color: rgba(107,45,58,0.85); }
-.music-btn svg { width: 12px; height: 12px; }
+.music-btn svg { width: 11px; height: 11px; }
 
-.scroll-hint {
-  position: absolute; bottom: 290px; left: 50%;
-  transform: translateX(-50%);
-  z-index: 3;
-  display: flex; flex-direction: column; align-items: center; gap: 6px;
+/* Watercolor + line-art forest */
+.forest-wrap {
+  position: absolute; bottom: 0; left: 0; right: 0; height: 340px;
+  pointer-events: none; z-index: 1;
 }
-.scroll-hint-line {
-  width: 0.5px; height: 40px;
-  background: linear-gradient(to bottom, rgba(107,45,58,0.4), transparent);
-  animation: lineGrow 2s ease infinite;
-}
-@keyframes lineGrow {
-  0%,100%{ transform: scaleY(1); opacity:.5; }
-  50%    { transform: scaleY(.6); opacity:1; }
+.forest-wrap svg { width: 100%; height: 100%; }
+.forest-fade {
+  position: absolute; top: 0; left: 0; right: 0; height: 120px;
+  background: linear-gradient(to bottom, #FDFCFA, transparent);
+  z-index: 2;
 }
 
-/* ── CONTENT ── */
-.content { background: var(--linen); }
-.inner   { max-width: 720px; margin: 0 auto; padding: 5rem 1.5rem 5rem; }
-
-/* Inter-section forest divider */
-.forest-divider {
-  width: 100%; height: 80px; margin: 0;
-  opacity: 0.18;
+/* ══════════════════════════════════
+   SECTION SHELLS
+══════════════════════════════════ */
+/* DARK — wine bg, white text */
+.sec-dark {
+  background: var(--wine);
+  color: rgba(255,255,255,0.88);
+  padding: 5rem 1.5rem;
 }
-.forest-divider svg { width: 100%; height: 100%; }
+.sec-dark .inner { max-width: 720px; margin: 0 auto; }
 
-.section { margin-bottom: 1.5rem; }
-
-/* Cards — airy, linen bg, very subtle border */
-.card {
-  background: var(--white);
-  border: 0.5px solid rgba(107,45,58,0.1);
-  border-radius: var(--r);
-  padding: 2.5rem 2.5rem;
-  box-shadow: 0 2px 20px rgba(30,28,26,0.06), 0 1px 4px rgba(30,28,26,0.04);
-  opacity: 0; transform: translateY(18px);
-  transition: opacity .7s ease, transform .7s ease;
-  position: relative; overflow: hidden;
+/* LIGHT — grey bg, dark text */
+.sec-light {
+  background: var(--grey-bg);
+  color: #1E1C1A;
+  padding: 5rem 1.5rem;
 }
-.card.visible { opacity: 1; transform: translateY(0); }
-.card:hover { box-shadow: 0 8px 40px rgba(30,28,26,0.1); }
+.sec-light .inner { max-width: 720px; margin: 0 auto; }
 
-/* Subtle forest watermark inside card */
-.card::after {
-  content: '';
-  position: absolute; bottom: 0; right: 0;
-  width: 180px; height: 100px;
-  pointer-events: none; opacity: 0.04;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 100'%3E%3Cg fill='%233A5240'%3E%3Cpath d='M10,100 L18,72 L26,100Z'/%3E%3Cpath d='M22,100 L32,65 L42,100Z'/%3E%3Cpath d='M38,100 L48,70 L58,100Z'/%3E%3Cpath d='M52,100 L63,60 L74,100Z'/%3E%3Cpath d='M68,100 L78,68 L88,100Z'/%3E%3Cpath d='M82,100 L94,55 L106,100Z'/%3E%3Cpath d='M100,100 L112,62 L124,100Z'/%3E%3Cpath d='M118,100 L130,58 L142,100Z'/%3E%3Cpath d='M138,100 L150,65 L162,100Z'/%3E%3Cpath d='M155,100 L166,70 L177,100Z'/%3E%3C/g%3E%3C/svg%3E");
-  background-size: contain; background-repeat: no-repeat; background-position: bottom right;
+/* Section header */
+.sec-label {
+  font-size: 9px; font-weight: 400; letter-spacing: 0.35em;
+  text-transform: uppercase; margin-bottom: .75rem;
 }
+.sec-dark  .sec-label { color: rgba(255,255,255,0.3); }
+.sec-light .sec-label { color: var(--burg); opacity: .7; }
 
-.card-label {
-  font-size: 9px; font-weight: 400;
-  letter-spacing: 0.3em; text-transform: uppercase;
-  color: var(--burg); margin-bottom: .75rem; opacity: .6;
-}
-.card-title {
+.sec-title {
   font-family: var(--font-d);
-  font-size: clamp(1.7rem,5vw,2.4rem);
-  font-weight: 300; color: var(--ink);
-  line-height: 1.2; margin-bottom: 1.25rem;
+  font-size: clamp(2rem, 6vw, 3rem);
+  font-weight: 300; line-height: 1.15; margin-bottom: 1rem;
 }
-.card-title em { font-style: italic; color: var(--burg); }
+.sec-dark  .sec-title { color: rgba(255,255,255,0.94); }
+.sec-dark  .sec-title em { font-style: italic; color: rgba(220,180,160,0.85); }
+.sec-light .sec-title { color: #1E1C1A; }
+.sec-light .sec-title em { font-style: italic; color: var(--burg); }
 
-/* Card divider — thin botanical */
-.cdiv {
-  display: flex; align-items: center; gap: 8px; margin-bottom: 1.5rem;
+.sec-rule {
+  display: flex; align-items: center; gap: 8px; margin-bottom: 2rem;
 }
-.cdiv::before { content: ''; width: 18px; height: 0.5px; background: rgba(107,45,58,0.3); }
-.cdiv-diamond { width: 3px; height: 3px; background: rgba(107,45,58,0.3); transform: rotate(45deg); flex-shrink: 0; }
-.cdiv::after  { content: ''; flex: 1; height: 0.5px; background: rgba(107,45,58,0.08); }
+.sec-rule::before { content: ''; width: 18px; height: 0.5px; }
+.sec-rule-d { width: 4px; height: 4px; transform: rotate(45deg); flex-shrink: 0; }
+.sec-rule::after  { content: ''; flex: 1; height: 0.5px; }
+.sec-dark  .sec-rule::before,
+.sec-dark  .sec-rule::after  { background: rgba(255,255,255,0.12); }
+.sec-dark  .sec-rule-d       { background: rgba(220,180,160,0.35); }
+.sec-light .sec-rule::before,
+.sec-light .sec-rule::after  { background: rgba(107,45,58,0.12); }
+.sec-light .sec-rule-d       { background: rgba(107,45,58,0.3); }
 
-/* ── DATE ── */
-.date-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1.25rem; }
-.date-item {
-  padding: 1.25rem;
-  border: 0.5px solid rgba(107,45,58,0.1);
+/* ── CARDS inside sections ── */
+/* Dark section → grey/silver mini-cards */
+.mini-card-dark {
+  background: rgba(255,255,255,0.05);
+  border: 0.5px solid rgba(255,255,255,0.09);
+  border-radius: var(--r); padding: 1.75rem 1.75rem;
+  transition: background .3s;
+}
+.mini-card-dark:hover { background: rgba(255,255,255,0.08); }
+
+/* Light section → white mini-cards */
+.mini-card-light {
+  background: var(--white);
+  border: 0.5px solid rgba(107,45,58,0.09);
+  border-radius: var(--r); padding: 1.75rem 1.75rem;
+  box-shadow: 0 2px 16px rgba(30,28,26,0.06);
+  transition: box-shadow .3s;
+}
+.mini-card-light:hover { box-shadow: 0 6px 28px rgba(30,28,26,0.1); }
+
+/* ══════════════════════════════════
+   2. WEDDING WEEKEND (dark)
+══════════════════════════════════ */
+.ww-days { display: flex; flex-direction: column; gap: 1.5rem; }
+
+.ww-day { }
+.ww-day-header {
+  display: flex; align-items: baseline; gap: 12px;
+  margin-bottom: 1rem; padding-bottom: .75rem;
+  border-bottom: 0.5px solid rgba(255,255,255,0.08);
+}
+.ww-day-date {
+  font-family: var(--font-d); font-size: 1.8rem; font-weight: 300;
+  color: rgba(255,255,255,0.9);
+}
+.ww-day-name {
+  font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
+  color: rgba(255,255,255,0.3); font-weight: 300;
+}
+
+.ww-items { display: flex; flex-direction: column; gap: .5rem; }
+.ww-item {
+  display: flex; align-items: center; gap: 12px;
+  padding: .65rem .75rem;
   border-radius: var(--r-sm);
-  background: var(--linen);
-  position: relative;
+  transition: background .2s;
 }
-.date-item::before {
-  content: '';
-  position: absolute; top: 0; left: 16px; right: 16px; height: 0.5px;
-  background: linear-gradient(90deg, transparent, rgba(107,45,58,0.25), transparent);
+.ww-item:hover { background: rgba(255,255,255,0.04); }
+.ww-dot {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: rgba(220,180,160,0.4); flex-shrink: 0;
 }
-.date-item-label { font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--mist); margin-bottom: .5rem; font-weight: 400; }
-.date-item-value { font-family: var(--font-d); font-size: 1.55rem; font-weight: 300; color: var(--ink); line-height: 1.2; }
-.date-item-sub   { font-size: 12px; color: var(--mist); margin-top: .3rem; line-height: 1.65; }
-.format-note {
-  margin-top: 1.25rem; padding: 1.1rem 1.4rem;
-  background: rgba(58,82,64,0.04);
-  border-left: 1.5px solid rgba(58,82,64,0.3);
-  border-radius: 0 var(--r-sm) var(--r-sm) 0;
-  font-size: 13.5px; color: var(--stone); line-height: 1.85;
+.ww-item-name {
+  font-size: 13px; font-weight: 400;
+  color: rgba(255,255,255,0.75); letter-spacing: .02em;
 }
-.format-note strong { color: var(--ink); font-weight: 500; }
+.ww-item-sub {
+  font-size: 11px; color: rgba(255,255,255,0.3);
+  margin-left: auto; font-weight: 300; letter-spacing: .04em;
+  white-space: nowrap;
+}
 
-/* ── MAP ── */
-.map-wrap { border-radius: var(--r-sm); overflow: hidden; margin: 1.25rem 0; border: 0.5px solid rgba(107,45,58,0.12); cursor: pointer; display: block; transition: all .3s; text-decoration: none; }
-.map-wrap:hover { transform: translateY(-2px); box-shadow: 0 6px 28px rgba(30,28,26,0.1); }
-.map-inner { position: relative; width: 100%; height: 200px; }
+/* ══════════════════════════════════
+   3. LOCATION (light)
+══════════════════════════════════ */
+.loc-body { font-size: 13.5px; color: #5A5652; line-height: 1.85; margin-bottom: 1.5rem; }
+
+/* Map */
+.map-wrap { border-radius: var(--r-sm); overflow: hidden; margin-bottom: 1.25rem; border: 0.5px solid rgba(107,45,58,0.12); cursor: pointer; display: block; transition: all .3s; text-decoration: none; }
+.map-wrap:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(30,28,26,0.1); }
+.map-inner { position: relative; width: 100%; height: 195px; }
 .map-inner svg { width: 100%; height: 100%; display: block; }
 .map-pin-label {
   position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%);
-  background: rgba(253,252,250,0.92); backdrop-filter: blur(8px);
-  border: 0.5px solid rgba(107,45,58,0.2); border-radius: 50px;
-  padding: 6px 18px; font-size: 11px; font-weight: 400;
-  color: var(--stone); white-space: nowrap; letter-spacing: .06em;
+  background: rgba(253,252,250,0.93); backdrop-filter: blur(8px);
+  border: 0.5px solid rgba(107,45,58,0.18); border-radius: 50px;
+  padding: 6px 18px; font-size: 11px; color: #5A5652;
+  white-space: nowrap; letter-spacing: .06em;
   display: flex; align-items: center; gap: 6px;
-  box-shadow: 0 2px 12px rgba(30,28,26,0.08);
+  box-shadow: 0 2px 10px rgba(30,28,26,0.08);
 }
 .map-pin-dot { width: 5px; height: 5px; background: var(--burg); border-radius: 50%; flex-shrink: 0; }
 
-.link-row { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; margin-top: .85rem; }
-.link-btn { display: flex; align-items: center; gap: 10px; padding: .9rem 1.1rem; background: var(--linen); border: 0.5px solid rgba(107,45,58,0.1); border-radius: var(--r-sm); text-decoration: none; color: var(--ink); font-size: 13px; font-weight: 400; transition: all .28s ease; }
-.link-btn:hover { background: rgba(107,45,58,0.04); border-color: rgba(107,45,58,0.25); transform: translateY(-1px); }
-.link-icon { width: 30px; height: 30px; border-radius: 7px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.link-icon svg { width: 16px; height: 16px; }
-.icon-2gis { background: rgba(49,152,49,0.1); }
-.icon-ig   { background: rgba(193,53,132,0.08); }
-.link-name { font-weight: 500; font-size: 13px; display: block; }
-.link-desc { font-size: 11px; color: var(--mist); display: block; margin-top: 1px; }
-
-/* ── STYLE CARD — forest green tint ── */
-.style-card {
-  background: linear-gradient(160deg, #F2F5F0 0%, #EDF1EA 100%);
-  border-color: rgba(58,82,64,0.12);
+/* Location action links */
+.loc-links { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; }
+.loc-link {
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  padding: 1.5rem 1rem;
+  background: var(--white); border: 0.5px solid rgba(107,45,58,0.09);
+  border-radius: var(--r); text-decoration: none; color: #1E1C1A;
+  transition: all .28s; text-align: center;
+  box-shadow: 0 2px 12px rgba(30,28,26,0.05);
 }
-.style-card .card-label { color: var(--forest); }
-.style-card .card-title em { color: var(--forest); }
-.style-card .cdiv::before { background: rgba(58,82,64,0.25); }
-.style-card .cdiv-diamond { background: rgba(58,82,64,0.25); }
-.style-card .cdiv::after  { background: rgba(58,82,64,0.06); }
+.loc-link:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(30,28,26,0.1); border-color: rgba(107,45,58,0.2); }
+.loc-link-icon { width: 42px; height: 42px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+.loc-link-icon svg { width: 20px; height: 20px; }
+.icon-ig-bg  { background: rgba(193,53,132,0.08); }
+.icon-nav-bg { background: rgba(49,152,49,0.1); }
+.loc-link-label { font-size: 12px; font-weight: 500; color: #1E1C1A; }
+.loc-link-sub   { font-size: 10px; color: var(--mist); letter-spacing: .04em; }
 
-.mood-tags { display: flex; flex-wrap: wrap; gap: 7px; margin: 1.1rem 0; }
+/* ══════════════════════════════════
+   4. STYLE / ATMOSPHERE (dark)
+══════════════════════════════════ */
+.mood-tags { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 1.5rem; }
 .mood-tag {
   display: inline-flex; align-items: center;
-  background: rgba(58,82,64,0.1); border: 0.5px solid rgba(58,82,64,0.2);
+  background: rgba(255,255,255,0.06); border: 0.5px solid rgba(255,255,255,0.12);
   border-radius: 50px; padding: 5px 14px;
-  font-size: 11px; font-weight: 300; color: var(--forest); letter-spacing: .04em;
+  font-size: 11px; font-weight: 300; color: rgba(255,255,255,0.65); letter-spacing: .04em;
+}
+.palette-row { display: flex; gap: 7px; margin-bottom: 1.75rem; flex-wrap: wrap; }
+.palette-chip { border-radius: 8px; padding: 9px 12px; font-size: 10px; flex: 1; min-width: 65px; text-align: center; letter-spacing: .04em; }
+
+.vibe-text {
+  font-size: 14px; line-height: 1.9;
+  color: rgba(255,255,255,0.55);
+  padding: 1.25rem 1.5rem;
+  background: rgba(255,255,255,0.04);
+  border-left: 1.5px solid rgba(220,180,160,0.3);
+  border-radius: 0 var(--r-sm) var(--r-sm) 0;
+  margin-bottom: 1.75rem;
 }
 
-.palette-row { display: flex; gap: 7px; margin: 1.1rem 0; flex-wrap: wrap; }
-.palette-chip { border-radius: 8px; padding: 9px 13px; font-size: 10px; font-weight: 400; letter-spacing: .05em; flex: 1; min-width: 68px; text-align: center; }
+.gift-rule { border-top: 0.5px solid rgba(255,255,255,0.07); padding-top: 1.5rem; margin-top: 1.5rem; }
+.gift-title { font-family: var(--font-d); font-size: 1.25rem; font-style: italic; font-weight: 300; color: rgba(220,180,160,0.85); margin-bottom: .65rem; }
+.gift-body  { font-size: 13.5px; color: rgba(255,255,255,0.42); line-height: 1.9; }
 
-.gift-note { border-top: 0.5px solid rgba(58,82,64,0.15); padding-top: 1.4rem; margin-top: 1.4rem; }
-.gift-title { font-family: var(--font-d); font-size: 1.25rem; font-weight: 300; font-style: italic; color: var(--forest); margin-bottom: .65rem; }
-.gift-body  { font-size: 13.5px; color: var(--stone); line-height: 1.9; }
+/* ══════════════════════════════════
+   5. CONNECTION & DRIVE (light)
+══════════════════════════════════ */
+.conn-text {
+  font-size: 14px; line-height: 1.9; color: #5A5652;
+  margin-bottom: 1.75rem;
+}
+.conn-links { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; }
+.conn-link {
+  display: flex; align-items: center; gap: 12px;
+  padding: 1.1rem 1.25rem;
+  background: var(--white); border: 0.5px solid rgba(107,45,58,0.09);
+  border-radius: var(--r-sm); text-decoration: none; color: #1E1C1A;
+  transition: all .28s; box-shadow: 0 2px 12px rgba(30,28,26,0.05);
+}
+.conn-link:hover { transform: translateY(-2px); border-color: rgba(107,45,58,0.22); box-shadow: 0 6px 24px rgba(30,28,26,0.1); }
+.conn-link-icon { width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.conn-link-icon svg { width: 18px; height: 18px; }
+.icon-tg   { background: rgba(41,182,246,0.1); }
+.icon-gdrive { background: rgba(66,133,244,0.08); }
+.conn-link-name { font-weight: 500; font-size: 13px; display: block; }
+.conn-link-sub  { font-size: 11px; color: var(--mist); display: block; margin-top: 1px; }
 
-/* ── SOCIAL ── */
-.social-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1.25rem; }
-.social-link { display: flex; flex-direction: column; gap: 5px; padding: 1.35rem 1.25rem; background: var(--linen); border: 0.5px solid rgba(107,45,58,0.08); border-radius: var(--r-sm); text-decoration: none; color: var(--ink); transition: all .28s ease; }
-.social-link:hover { background: rgba(107,45,58,0.04); border-color: rgba(107,45,58,0.18); transform: translateY(-2px); }
-.social-link-name  { font-weight: 500; font-size: 14px; }
-.social-link-desc  { font-size: 12px; color: var(--mist); line-height: 1.6; }
-.social-link-arrow { font-size: 11px; color: rgba(107,45,58,0.3); margin-top: 2px; }
+/* ══════════════════════════════════
+   6. QUESTIONNAIRE (dark)
+══════════════════════════════════ */
+.q-step { margin-bottom: 1.75rem; padding-bottom: 1.75rem; border-bottom: 0.5px solid rgba(255,255,255,0.06); }
+.q-step:last-of-type { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+.q-title { font-family: var(--font-d); font-size: 1.2rem; font-weight: 400; color: rgba(255,255,255,0.88); margin-bottom: .3rem; }
+.q-sub   { font-size: 11px; color: rgba(255,255,255,0.28); letter-spacing: .03em; margin-bottom: 1rem; }
 
-/* ── SURVEY ── */
-.survey-step { margin-bottom: 1.75rem; padding-bottom: 1.75rem; border-bottom: 0.5px solid rgba(107,45,58,0.08); }
-.survey-step:last-of-type { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
-.survey-step-title { font-family: var(--font-d); font-size: 1.2rem; font-weight: 400; color: var(--ink); margin-bottom: .3rem; }
-.survey-step-sub   { font-size: 11px; color: var(--mist); letter-spacing: .03em; margin-bottom: 1rem; }
 .name-field {
   width: 100%; padding: .8rem 1rem;
-  border: 0.5px solid rgba(107,45,58,0.18); border-radius: var(--r-sm);
-  font-family: var(--font-b); font-size: 14px; color: var(--ink);
-  background: var(--linen); outline: none; transition: border-color .25s;
+  border: 0.5px solid rgba(255,255,255,0.12); border-radius: var(--r-sm);
+  font-family: var(--font-b); font-size: 14px; color: rgba(255,255,255,0.85);
+  background: rgba(255,255,255,0.06); outline: none; transition: border-color .25s;
 }
-.name-field:focus { border-color: rgba(107,45,58,0.45); }
-.name-field::placeholder { color: var(--mist); }
+.name-field::placeholder { color: rgba(255,255,255,0.22); }
+.name-field:focus { border-color: rgba(220,180,160,0.4); }
+
 .opts { display: flex; flex-wrap: wrap; gap: 7px; }
 .opt-chip {
-  padding: 7px 15px; border: 0.5px solid rgba(107,45,58,0.18); border-radius: 5px;
-  font-family: var(--font-b); font-size: 12px; color: var(--stone);
-  background: var(--linen); cursor: pointer; transition: all .2s ease;
+  padding: 7px 15px; border: 0.5px solid rgba(255,255,255,0.12); border-radius: 5px;
+  font-family: var(--font-b); font-size: 12px; color: rgba(255,255,255,0.52);
+  background: rgba(255,255,255,0.04); cursor: pointer; transition: all .2s;
   user-select: none; letter-spacing: .02em;
 }
-.opt-chip:hover { border-color: var(--burg); color: var(--burg); background: rgba(107,45,58,0.04); }
+.opt-chip:hover { border-color: rgba(220,180,160,0.4); color: rgba(220,180,160,0.9); }
 .opt-chip.selected { background: var(--burg); border-color: var(--burg); color: #fff; }
+
 .check-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; }
-.check-item { display: flex; align-items: center; gap: 9px; padding: 9px 12px; border: 0.5px solid rgba(107,45,58,0.12); border-radius: 5px; cursor: pointer; transition: all .2s ease; user-select: none; }
-.check-item:hover { border-color: rgba(107,45,58,0.3); }
-.check-item.checked { border-color: var(--burg); background: rgba(107,45,58,0.04); }
-.check-box { width: 15px; height: 15px; border: 1px solid rgba(107,45,58,0.22); border-radius: 3px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; background: #fff; transition: all .2s; }
+.check-item { display: flex; align-items: center; gap: 9px; padding: 9px 12px; border: 0.5px solid rgba(255,255,255,0.09); border-radius: 5px; cursor: pointer; transition: all .2s; user-select: none; }
+.check-item:hover { border-color: rgba(220,180,160,0.3); }
+.check-item.checked { border-color: rgba(107,45,58,0.6); background: rgba(107,45,58,0.12); }
+.check-box { width: 15px; height: 15px; border: 1px solid rgba(255,255,255,0.15); border-radius: 3px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.04); transition: all .2s; }
 .check-item.checked .check-box { background: var(--burg); border-color: var(--burg); }
 .check-box svg { display: none; }
 .check-item.checked .check-box svg { display: block; }
-.check-item-label { font-size: 12px; color: var(--ink); }
+.check-item-label { font-size: 12px; color: rgba(255,255,255,0.65); }
+
 .other-wrap { margin-top: 8px; display: none; }
 .other-wrap.visible { display: block; }
-.other-wrap input { width: 100%; padding: 9px 12px; border: 0.5px solid rgba(107,45,58,0.18); border-radius: 5px; font-family: var(--font-b); font-size: 12px; color: var(--ink); background: var(--linen); outline: none; }
-.other-wrap input:focus { border-color: rgba(107,45,58,0.4); }
-.submit-area { margin-top: 2rem; }
-.submit-btn { width: 100%; padding: .95rem; background: var(--burg); border: none; border-radius: var(--r-sm); font-family: var(--font-b); font-size: 11px; font-weight: 500; letter-spacing: .18em; color: #fff; cursor: pointer; text-transform: uppercase; transition: all .3s ease; }
-.submit-btn:hover { background: #8C3D50; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(107,45,58,0.3); }
+.other-wrap input { width: 100%; padding: 9px 12px; border: 0.5px solid rgba(255,255,255,0.12); border-radius: 5px; font-family: var(--font-b); font-size: 12px; color: rgba(255,255,255,0.8); background: rgba(255,255,255,0.05); outline: none; }
+.other-wrap input::placeholder { color: rgba(255,255,255,0.22); }
+.other-wrap input:focus { border-color: rgba(220,180,160,0.35); }
+
+.submit-btn { width: 100%; padding: .95rem; background: var(--burg); border: none; border-radius: var(--r-sm); font-family: var(--font-b); font-size: 11px; font-weight: 500; letter-spacing: .18em; color: #fff; cursor: pointer; text-transform: uppercase; transition: all .3s; margin-top: 2rem; display: block; }
+.submit-btn:hover { background: #8C3D50; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(107,45,58,0.4); }
 .submit-btn:disabled { opacity: .5; cursor: not-allowed; transform: none; }
-.success-msg { display: none; padding: 1.4rem; background: rgba(107,45,58,0.05); border: 0.5px solid rgba(107,45,58,0.2); border-radius: var(--r-sm); text-align: center; font-family: var(--font-d); font-size: 1.15rem; font-style: italic; color: var(--burg); }
+.success-msg { display: none; padding: 1.35rem; background: rgba(107,45,58,0.15); border: 0.5px solid rgba(107,45,58,0.3); border-radius: var(--r-sm); text-align: center; font-family: var(--font-d); font-size: 1.15rem; font-style: italic; color: rgba(220,180,160,0.9); margin-top: 1rem; }
 
-/* ── PACK ── */
-.pack-list { margin-top: 1.25rem; }
-.pack-item { display: flex; align-items: flex-start; gap: 1rem; padding: 1rem 0; border-bottom: 0.5px solid rgba(107,45,58,0.07); }
-.pack-item:last-child { border-bottom: none; }
-.pack-num { font-family: var(--font-d); font-size: 1.2rem; font-weight: 300; color: rgba(107,45,58,0.22); flex-shrink: 0; min-width: 24px; line-height: 1.4; }
-.pack-label { font-weight: 500; font-size: 14px; color: var(--ink); display: block; }
-.pack-sub   { font-size: 12px; color: var(--mist); margin-top: 1px; }
-.pack-note  { margin-top: 1.5rem; padding: 1.2rem 1.4rem; background: rgba(58,82,64,0.05); border-radius: var(--r-sm); border: 0.5px solid rgba(58,82,64,0.1); font-size: 14px; color: var(--stone); text-align: center; font-style: italic; font-family: var(--font-d); line-height: 1.85; }
+/* ══════════════════════════════════
+   7. TAKE IT (light)
+══════════════════════════════════ */
+.take-list { display: flex; flex-direction: column; gap: 1.25rem; margin-top: .5rem; }
+.take-item { }
+.take-item-title {
+  font-family: var(--font-d); font-size: 1.3rem; font-weight: 400;
+  color: #1E1C1A; margin-bottom: .5rem;
+}
+.take-item-title em { font-style: italic; color: var(--burg); }
+.take-item-body { font-size: 13.5px; color: #5A5652; line-height: 1.85; }
+.take-item-body strong { font-weight: 500; color: #1E1C1A; }
 
-/* ── FOOTER ── */
+.take-ps {
+  margin-top: 1.75rem; padding: 1.1rem 1.4rem;
+  background: rgba(107,45,58,0.05);
+  border: 0.5px solid rgba(107,45,58,0.1);
+  border-radius: var(--r-sm);
+  font-size: 13px; color: #5A5652; line-height: 1.85;
+}
+.take-ps strong { color: var(--burg); font-weight: 500; }
+
+.take-divider {
+  width: 100%; height: 0.5px;
+  background: rgba(107,45,58,0.1);
+  margin: 1.25rem 0;
+}
+
+/* ══════════════════════════════════
+   FOOTER
+══════════════════════════════════ */
 .footer {
-  background: var(--white);
-  border-top: 0.5px solid rgba(107,45,58,0.08);
+  background: var(--wine);
   text-align: center; padding: 3rem 1.5rem 4rem;
+  border-top: 0.5px solid rgba(255,255,255,0.05);
   position: relative; overflow: hidden;
 }
-.footer-forest { width: 100%; height: 80px; opacity: 0.08; margin-bottom: 1.5rem; }
-.footer p { font-family: var(--font-d); font-size: 1rem; font-style: italic; color: var(--mist); line-height: 1.8; }
+.footer-orn { display: flex; align-items: center; gap: 10px; justify-content: center; margin-bottom: 1.5rem; }
+.footer-orn-line { width: 50px; height: 0.5px; background: rgba(255,255,255,0.1); }
+.footer-orn-d { width: 4px; height: 4px; border: 0.5px solid rgba(220,180,160,0.3); transform: rotate(45deg); }
+.footer p { font-family: var(--font-d); font-size: 1rem; font-style: italic; color: rgba(255,255,255,0.3); line-height: 1.8; }
+.footer p + p { margin-top: .4rem; font-size: 1.2rem; color: rgba(255,255,255,0.45); }
 
-@media (max-width:600px) {
-  .hero { padding-bottom: 240px; }
-  .forest-scene { height: 250px; }
-  .card { padding: 1.75rem 1.5rem; }
-  .date-grid  { grid-template-columns: 1fr; }
-  .link-row   { grid-template-columns: 1fr; }
-  .social-grid{ grid-template-columns: 1fr; }
-  .check-grid { grid-template-columns: 1fr; }
-  .palette-row{ flex-direction: column; }
-  .hero-names { font-size: clamp(2.4rem,10vw,3.5rem); }
+/* ══════════════════════════════════
+   SCROLL ANIMATION
+══════════════════════════════════ */
+.reveal {
+  opacity: 0; transform: translateY(20px);
+  transition: opacity .7s ease, transform .7s ease;
 }
-@media (max-width:380px) {
-  .inner { padding: 3rem 1rem 4rem; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+@media (max-width: 600px) {
+  .hero { padding-bottom: 260px; }
+  .forest-wrap { height: 280px; }
+  .hero-corner { width: 140px; height: 140px; }
+  .sec-dark, .sec-light { padding: 3.5rem 1.25rem; }
+  .check-grid { grid-template-columns: 1fr; }
+  .loc-links  { grid-template-columns: 1fr; }
+  .conn-links { grid-template-columns: 1fr; }
+  .palette-row { flex-direction: column; }
+}
+@media (max-width: 380px) {
+  .hero-names { font-size: 2.8rem; }
 }
 </style>
 </head>
 <body>
 
-<!-- ══ HERO ══ -->
+<!-- ══════════════════════════════
+     1. HERO
+══════════════════════════════ -->
 <section class="hero">
-  <div class="hero-fog"></div>
 
-  <p class="hero-eyebrow">29 — 31 мая 2025 · Боровое</p>
+  <!-- Line-art botanical corners -->
+  <svg class="hero-corner tl" viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg">
+    <g stroke="#6B2D3A" stroke-width="0.8" fill="none" stroke-linecap="round" opacity="0.22">
+      <!-- Main branch -->
+      <path d="M8,212 Q40,160 80,110 Q118,62 205,10"/>
+      <!-- Left side needles -->
+      <path d="M16,200 Q8,180 26,168"/><path d="M24,188 Q14,168 34,156"/>
+      <path d="M34,174 Q22,155 44,143"/><path d="M46,160 Q32,142 55,130"/>
+      <path d="M58,145 Q44,128 68,116"/><path d="M72,130 Q58,113 83,102"/>
+      <path d="M88,115 Q74,98 100,88"/><path d="M105,100 Q92,83 118,74"/>
+      <path d="M124,84 Q112,68 138,60"/><path d="M145,68 Q134,52 160,45"/>
+      <path d="M168,52 Q158,36 184,30"/>
+      <!-- Right side needles -->
+      <path d="M22,206 Q32,186 14,174"/><path d="M32,192 Q44,172 26,160"/>
+      <path d="M44,178 Q58,158 40,146"/><path d="M58,163 Q74,143 56,132"/>
+      <path d="M74,147 Q90,128 72,117"/><path d="M92,132 Q108,113 90,102"/>
+      <!-- Pine cone dots -->
+      <circle cx="80" cy="110" r="1.5" fill="#6B2D3A" opacity=".5"/>
+      <circle cx="118" cy="75" r="1.2" fill="#6B2D3A" opacity=".4"/>
+      <circle cx="155" cy="45" r="1.2" fill="#6B2D3A" opacity=".3"/>
+    </g>
+  </svg>
+  <svg class="hero-corner tr" viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg">
+    <g stroke="#6B2D3A" stroke-width="0.8" fill="none" stroke-linecap="round" opacity="0.22">
+      <path d="M8,212 Q40,160 80,110 Q118,62 205,10"/>
+      <path d="M16,200 Q8,180 26,168"/><path d="M24,188 Q14,168 34,156"/>
+      <path d="M34,174 Q22,155 44,143"/><path d="M46,160 Q32,142 55,130"/>
+      <path d="M58,145 Q44,128 68,116"/><path d="M72,130 Q58,113 83,102"/>
+      <path d="M88,115 Q74,98 100,88"/><path d="M105,100 Q92,83 118,74"/>
+      <path d="M22,206 Q32,186 14,174"/><path d="M32,192 Q44,172 26,160"/>
+      <path d="M44,178 Q58,158 40,146"/><path d="M58,163 Q74,143 56,132"/>
+      <circle cx="80" cy="110" r="1.5" fill="#6B2D3A" opacity=".5"/>
+      <circle cx="118" cy="75" r="1.2" fill="#6B2D3A" opacity=".4"/>
+    </g>
+  </svg>
 
+  <p class="hero-eyebrow">29 — 31 мая 2026 · Боровое</p>
   <h1 class="hero-names">
-    Имя<em>и</em>Имя
+    Даниил<span class="hero-amp">&amp;</span>Дарья
   </h1>
-
   <div class="orn">
     <div class="orn-line"></div>
-    <div class="orn-dot"></div>
-    <div class="orn-diamond"></div>
-    <div class="orn-dot"></div>
+    <div class="orn-d"></div>
     <div class="orn-line"></div>
   </div>
-
   <p class="hero-sub">приглашаем вас разделить с нами<br>наш самый счастливый день</p>
-  <p class="hero-date">Жайлау 25 · Сарыбулак · Боровое</p>
+  <p class="hero-location">Жайлау 25 · Сарыбулак · Боровое</p>
 
   <button class="music-btn" id="musicBtn" onclick="toggleMusic()">
     <svg id="musicIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
@@ -410,424 +489,436 @@ body {
   </button>
   <audio id="bgAudio" loop preload="auto" src="kukryniksy-khrustalnyjj-mir.mp3"></audio>
 
-  <div class="scroll-hint">
-    <div class="scroll-hint-line"></div>
-  </div>
-
-  <!-- WATERCOLOR FOREST SCENE -->
-  <div class="forest-mist"></div>
-  <div class="forest-scene">
-    <svg viewBox="0 0 1440 320" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMax slice">
+  <!-- Watercolor forest scene -->
+  <div class="forest-wrap">
+    <div class="forest-fade"></div>
+    <svg viewBox="0 0 1440 340" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMax slice">
       <defs>
-        <!-- Misty watercolor washes -->
-        <radialGradient id="fog1" cx="30%" cy="60%" r="40%">
-          <stop offset="0%" stop-color="rgba(200,210,200,0.35)"/>
-          <stop offset="100%" stop-color="rgba(200,210,200,0)"/>
-        </radialGradient>
-        <radialGradient id="fog2" cx="70%" cy="55%" r="45%">
-          <stop offset="0%" stop-color="rgba(180,195,182,0.28)"/>
-          <stop offset="100%" stop-color="rgba(180,195,182,0)"/>
-        </radialGradient>
-        <radialGradient id="fog3" cx="50%" cy="80%" r="50%">
-          <stop offset="0%" stop-color="rgba(215,220,210,0.4)"/>
-          <stop offset="100%" stop-color="rgba(215,220,210,0)"/>
-        </radialGradient>
-        <!-- Watercolor paper texture simulation -->
-        <filter id="wc">
-          <feTurbulence type="fractalNoise" baseFrequency="0.04 0.06" numOctaves="4" seed="8" result="noise"/>
-          <feDisplacementMap in="SourceGraphic" in2="noise" scale="3" xChannelSelector="R" yChannelSelector="G"/>
-        </filter>
-        <filter id="wcSoft">
-          <feTurbulence type="fractalNoise" baseFrequency="0.025 0.04" numOctaves="3" seed="12" result="noise"/>
-          <feDisplacementMap in="SourceGraphic" in2="noise" scale="4" xChannelSelector="R" yChannelSelector="G"/>
-          <feGaussianBlur stdDeviation="0.8"/>
-        </filter>
-        <linearGradient id="groundGrad" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="rgba(180,195,170,0.3)"/>
-          <stop offset="100%" stop-color="rgba(155,170,145,0.5)"/>
-        </linearGradient>
-        <linearGradient id="pathGrad" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="rgba(210,205,188,0.8)"/>
-          <stop offset="100%" stop-color="rgba(195,188,168,0.6)"/>
-        </linearGradient>
+        <radialGradient id="fg1" cx="25%" cy="70%" r="35%"><stop offset="0%" stop-color="rgba(58,82,64,0.18)"/><stop offset="100%" stop-color="transparent"/></radialGradient>
+        <radialGradient id="fg2" cx="75%" cy="65%" r="38%"><stop offset="0%" stop-color="rgba(58,82,64,0.14)"/><stop offset="100%" stop-color="transparent"/></radialGradient>
+        <radialGradient id="fg3" cx="50%" cy="80%" r="45%"><stop offset="0%" stop-color="rgba(80,105,85,0.12)"/><stop offset="100%" stop-color="transparent"/></radialGradient>
+        <filter id="wc"><feTurbulence type="fractalNoise" baseFrequency="0.035 0.055" numOctaves="4" seed="7"/><feDisplacementMap in="SourceGraphic" scale="4" xChannelSelector="R" yChannelSelector="G"/></filter>
+        <filter id="wcS"><feTurbulence type="fractalNoise" baseFrequency="0.022 0.038" numOctaves="3" seed="11"/><feDisplacementMap in="SourceGraphic" scale="5" xChannelSelector="R" yChannelSelector="G"/><feGaussianBlur stdDeviation="1"/></filter>
+        <linearGradient id="gnd" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="rgba(165,182,158,0.22)"/><stop offset="100%" stop-color="rgba(138,158,130,0.42)"/></linearGradient>
+        <linearGradient id="path" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="rgba(215,208,192,0.7)"/><stop offset="100%" stop-color="rgba(198,190,172,0.55)"/></linearGradient>
+        <linearGradient id="topF" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#FDFCFA"/><stop offset="40%" stop-color="rgba(253,252,250,0)"/></linearGradient>
       </defs>
-
-      <!-- Ground wash -->
-      <ellipse cx="720" cy="310" rx="800" ry="80" fill="url(#groundGrad)"/>
-
-      <!-- Fog washes — layered atmospheric depth -->
-      <rect width="1440" height="320" fill="url(#fog3)"/>
-      <rect width="1440" height="320" fill="url(#fog1)"/>
-      <rect width="1440" height="320" fill="url(#fog2)"/>
-
-      <!-- Winding path through forest -->
-      <path d="M620,320 Q660,280 680,240 Q695,210 700,180 Q705,155 710,140" stroke="url(#pathGrad)" stroke-width="22" fill="none" stroke-linecap="round" filter="url(#wcSoft)" opacity="0.7"/>
-      <path d="M820,320 Q780,280 760,240 Q745,210 740,180 Q735,155 730,140" stroke="url(#pathGrad)" stroke-width="18" fill="none" stroke-linecap="round" filter="url(#wcSoft)" opacity="0.6"/>
-
-      <!-- BACK ROW — distant, misty, very light -->
-      <g filter="url(#wcSoft)" opacity="0.22">
-        <g fill="#5A7060">
-          <!-- Far left cluster -->
-          <polygon points="80,220 95,140 110,220"/>
-          <polygon points="100,225 118,135 136,225"/>
-          <polygon points="125,218 142,145 159,218"/>
-          <!-- Far center-left -->
-          <polygon points="280,215 298,130 316,215"/>
-          <polygon points="305,220 325,125 345,220"/>
-          <polygon points="330,212 350,138 370,212"/>
-          <!-- Far center -->
-          <polygon points="480,218 500,128 520,218"/>
-          <polygon points="510,222 532,122 554,222"/>
-          <!-- Far center-right -->
-          <polygon points="880,215 900,132 920,215"/>
-          <polygon points="905,220 927,126 949,220"/>
-          <!-- Far right cluster -->
-          <polygon points="1200,218 1218,138 1236,218"/>
-          <polygon points="1225,222 1245,128 1265,222"/>
-          <polygon points="1252,215 1272,142 1292,215"/>
-          <polygon points="1310,220 1330,130 1350,220"/>
-          <polygon points="1338,215 1358,140 1378,215"/>
-        </g>
+      <ellipse cx="720" cy="330" rx="820" ry="75" fill="url(#gnd)"/>
+      <rect width="1440" height="340" fill="url(#fg3)"/>
+      <rect width="1440" height="340" fill="url(#fg1)"/>
+      <rect width="1440" height="340" fill="url(#fg2)"/>
+      <!-- Path -->
+      <path d="M640,340 Q672,295 688,255 Q700,225 706,198 Q712,172 716,155" stroke="url(#path)" stroke-width="24" fill="none" stroke-linecap="round" filter="url(#wcS)" opacity=".65"/>
+      <path d="M800,340 Q768,295 752,255 Q740,225 734,198 Q728,172 724,155" stroke="url(#path)" stroke-width="19" fill="none" stroke-linecap="round" filter="url(#wcS)" opacity=".55"/>
+      <!-- Back trees -->
+      <g filter="url(#wcS)" opacity="0.18"><g fill="#5A7060">
+        <polygon points="60,240 76,148 92,240"/><polygon points="82,244 100,138 118,244"/>
+        <polygon points="108,238 126,150 144,238"/><polygon points="268,235 288,130 308,235"/>
+        <polygon points="295,240 317,122 339,240"/><polygon points="328,232 350,142 372,232"/>
+        <polygon points="488,238 510,128 532,238"/><polygon points="515,242 538,120 561,242"/>
+        <polygon points="900,235 922,132 944,235"/><polygon points="928,240 952,126 976,240"/>
+        <polygon points="1210,238 1230,140 1250,238"/><polygon points="1238,242 1260,128 1282,242"/>
+        <polygon points="1298,235 1320,132 1342,235"/><polygon points="1328,240 1352,126 1376,240"/>
+      </g></g>
+      <!-- Mid trees -->
+      <g filter="url(#wc)" opacity="0.42"><g fill="#4A6452">
+        <polygon points="0,300 24,182 48,300"/><polygon points="38,295 65,168 92,295"/>
+        <polygon points="78,298 108,175 138,298"/><polygon points="120,292 152,162 184,292"/>
+        <polygon points="162,300 196,168 230,300"/><polygon points="205,295 240,155 275,295"/>
+        <polygon points="248,300 284,165 320,300"/><polygon points="292,292 330,152 368,292"/>
+        <polygon points="338,298 378,160 418,298"/>
+        <!-- Path gap 418–860 -->
+        <polygon points="860,295 900,158 940,295"/><polygon points="900,300 942,165 984,300"/>
+        <polygon points="942,292 985,152 1028,292"/><polygon points="985,298 1030,160 1075,298"/>
+        <polygon points="1030,295 1076,155 1122,295"/><polygon points="1078,300 1126,162 1174,300"/>
+        <polygon points="1128,292 1178,152 1228,292"/><polygon points="1180,298 1232,158 1284,298"/>
+        <polygon points="1238,295 1292,155 1346,295"/><polygon points="1300,300 1356,162 1412,300"/>
+        <polygon points="1368,295 1420,168 1440,295"/>
+      </g></g>
+      <!-- Front trees -->
+      <g filter="url(#wc)" opacity="0.7"><g fill="#384E40">
+        <polygon points="-8,340 22,205 52,340"/><polygon points="36,340 68,192 100,340"/>
+        <polygon points="80,340 115,198 150,340"/><polygon points="126,340 164,188 202,340"/>
+        <polygon points="174,340 214,195 254,340"/><polygon points="224,340 266,182 308,340"/>
+        <polygon points="276,340 320,190 364,340"/><polygon points="330,340 376,185 422,340"/>
+        <polygon points="385,340 432,178 479,340"/><polygon points="440,340 488,188 536,340"/>
+        <polygon points="496,340 545,182 594,340"/>
+        <!-- Path gap 594–846 -->
+        <polygon points="846,340 895,182 944,340"/><polygon points="902,340 952,188 1002,340"/>
+        <polygon points="958,340 1010,178 1062,340"/><polygon points="1016,340 1070,185 1124,340"/>
+        <polygon points="1076,340 1132,190 1188,340"/><polygon points="1138,340 1196,182 1254,340"/>
+        <polygon points="1202,340 1262,188 1322,340"/><polygon points="1268,340 1330,192 1392,340"/>
+        <polygon points="1338,340 1400,198 1440,340"/>
+      </g></g>
+      <!-- Trunks -->
+      <g stroke="#2C3E30" stroke-width="1.5" opacity="0.15">
+        <line x1="22" y1="285" x2="22" y2="340"/><line x1="68" y1="275" x2="68" y2="340"/>
+        <line x1="115" y1="280" x2="115" y2="340"/><line x1="164" y1="272" x2="164" y2="340"/>
+        <line x1="214" y1="278" x2="214" y2="340"/><line x1="266" y1="268" x2="266" y2="340"/>
+        <line x1="1132" y1="275" x2="1132" y2="340"/><line x1="1196" y1="278" x2="1196" y2="340"/>
+        <line x1="1262" y1="272" x2="1262" y2="340"/><line x1="1330" y1="280" x2="1330" y2="340"/>
       </g>
-
-      <!-- MID ROW — medium distance, slightly more defined -->
-      <g filter="url(#wc)" opacity="0.45">
-        <g fill="#4A6452">
-          <!-- Left side -->
-          <polygon points="20,280 42,175 64,280"/>
-          <polygon points="55,275 80,162 105,275"/>
-          <polygon points="88,278 115,168 142,278"/>
-          <polygon points="128,272 158,155 188,272"/>
-          <polygon points="165,280 196,160 227,280"/>
-          <polygon points="200,275 232,152 264,275"/>
-          <!-- Left-center gap (path area) -->
-          <polygon points="385,278 415,158 445,278"/>
-          <polygon points="418,272 450,150 482,272"/>
-          <polygon points="452,280 486,156 520,280"/>
-          <!-- Right of path -->
-          <polygon points="858,275 890,155 922,275"/>
-          <polygon points="892,280 926,160 960,280"/>
-          <polygon points="925,272 960,152 995,272"/>
-          <!-- Right side -->
-          <polygon points="1060,280 1090,165 1120,280"/>
-          <polygon points="1095,275 1128,155 1161,275"/>
-          <polygon points="1132,278 1168,162 1204,278"/>
-          <polygon points="1170,272 1208,150 1246,272"/>
-          <polygon points="1210,280 1250,158 1290,280"/>
-          <polygon points="1258,275 1300,152 1342,275"/>
-          <polygon points="1310,280 1354,160 1398,280"/>
-          <polygon points="1370,278 1415,155 1440,278 1440,278"/>
-          <!-- Left edge -->
-          <polygon points="0,280 22,162 44,280"/>
-        </g>
-      </g>
-
-      <!-- FRONT ROW — closest, darkest, most defined -->
-      <g filter="url(#wc)" opacity="0.72">
-        <g fill="#384E40">
-          <!-- Left dense cluster -->
-          <polygon points="-10,320 18,195 46,320"/>
-          <polygon points="30,320 60,185 90,320"/>
-          <polygon points="72,320 104,178 136,320"/>
-          <polygon points="115,320 150,182 185,320"/>
-          <polygon points="160,320 198,172 236,320"/>
-          <polygon points="208,320 248,180 288,320"/>
-          <polygon points="258,320 300,168 342,320"/>
-          <polygon points="310,320 355,175 400,320"/>
-          <polygon points="362,320 408,170 454,320"/>
-          <polygon points="415,320 462,176 509,320"/>
-          <polygon points="470,320 518,165 566,320"/>
-          <!-- Path gap: roughly 566-874 -->
-          <!-- Right of path -->
-          <polygon points="874,320 922,165 970,320"/>
-          <polygon points="928,320 978,175 1028,320"/>
-          <polygon points="982,320 1034,170 1086,320"/>
-          <polygon points="1038,320 1092,176 1146,320"/>
-          <polygon points="1095,320 1150,168 1205,320"/>
-          <polygon points="1154,320 1211,180 1268,320"/>
-          <polygon points="1215,320 1274,172 1333,320"/>
-          <polygon points="1278,320 1338,178 1398,320"/>
-          <polygon points="1345,320 1406,185 1440,320"/>
-        </g>
-      </g>
-
-      <!-- Trunk details on front trees -->
-      <g stroke="#2A3D2E" stroke-width="1.5" opacity="0.18">
-        <line x1="18" y1="280" x2="18" y2="320"/>
-        <line x1="60" y1="270" x2="60" y2="320"/>
-        <line x1="104" y1="265" x2="104" y2="320"/>
-        <line x1="150" y1="268" x2="150" y2="320"/>
-        <line x1="198" y1="262" x2="198" y2="320"/>
-        <line x1="248" y1="268" x2="248" y2="320"/>
-        <line x1="1092" y1="265" x2="1092" y2="320"/>
-        <line x1="1150" y1="268" x2="1150" y2="320"/>
-        <line x1="1211" y1="262" x2="1211" y2="320"/>
-        <line x1="1274" y1="268" x2="1274" y2="320"/>
-        <line x1="1338" y1="265" x2="1338" y2="320"/>
-      </g>
-
-      <!-- Bottom ground fill -->
-      <rect x="0" y="300" width="1440" height="20" fill="rgba(155,170,145,0.35)"/>
-
-      <!-- Top fade to white -->
-      <rect width="1440" height="320" fill="url(#topFade)"/>
-      <defs>
-        <linearGradient id="topFade" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="rgba(253,252,250,1)"/>
-          <stop offset="35%" stop-color="rgba(253,252,250,0)"/>
-        </linearGradient>
-      </defs>
+      <rect width="1440" height="340" fill="url(#topF)"/>
     </svg>
   </div>
 </section>
 
-<!-- ══ CONTENT ══ -->
-<main class="content">
-<div class="inner">
+<!-- ══════════════════════════════
+     2. WEDDING WEEKEND (dark)
+══════════════════════════════ -->
+<section class="sec-dark">
+  <div class="inner">
+    <div class="reveal">
+      <p class="sec-label">Schedule</p>
+      <h2 class="sec-title">Wedding <em>Weekend</em></h2>
+      <div class="sec-rule"><div class="sec-rule-d"></div></div>
+    </div>
 
-  <section class="section">
-    <div class="card">
-      <p class="card-label">Когда</p>
-      <h2 class="card-title">Дата &amp; <em>Проживание</em></h2>
-      <div class="cdiv"><div class="cdiv-diamond"></div></div>
-      <div class="date-grid">
-        <div class="date-item">
-          <p class="date-item-label">Заезд</p>
-          <p class="date-item-value">29 мая</p>
-          <p class="date-item-sub">пятница · с 14:00<br>заселение и свободное время</p>
+    <div class="ww-days">
+      <!-- 29 мая -->
+      <div class="mini-card-dark reveal">
+        <div class="ww-day-header">
+          <span class="ww-day-date">29 мая</span>
+          <span class="ww-day-name">Friday</span>
         </div>
-        <div class="date-item">
-          <p class="date-item-label">Выезд</p>
-          <p class="date-item-value">31 мая</p>
-          <p class="date-item-sub">воскресенье · до 12:00<br>неспешные сборы и прощание</p>
+        <div class="ww-items">
+          <div class="ww-item"><div class="ww-dot"></div><span class="ww-item-name">Check In</span><span class="ww-item-sub">from 14:00</span></div>
+          <div class="ww-item"><div class="ww-dot"></div><span class="ww-item-name">Organization</span><span class="ww-item-sub">details &amp; briefing</span></div>
+          <div class="ww-item"><div class="ww-dot"></div><span class="ww-item-name">Grill Party</span><span class="ww-item-sub">evening</span></div>
         </div>
       </div>
-      <div class="format-note">
-        <strong>Weekend Wedding</strong> — два дня вместе с теми, кто нам важен. Не просто вечер, а настоящие выходные: тишина леса, баня, вкусная еда и долгие разговоры у огня.
+
+      <!-- 30 мая -->
+      <div class="mini-card-dark reveal">
+        <div class="ww-day-header">
+          <span class="ww-day-date">30 мая</span>
+          <span class="ww-day-name">Saturday</span>
+        </div>
+        <div class="ww-items">
+          <div class="ww-item"><div class="ww-dot"></div><span class="ww-item-name">Breakfast</span><span class="ww-item-sub">morning</span></div>
+          <div class="ww-item"><div class="ww-dot"></div><span class="ww-item-name">Activity</span><span class="ww-item-sub">daytime</span></div>
+          <div class="ww-item"><div class="ww-dot"></div><span class="ww-item-name">Spa &amp; Chill Time</span><span class="ww-item-sub">afternoon</span></div>
+          <div class="ww-item"><div class="ww-dot"></div><span class="ww-item-name">Grill Party</span><span class="ww-item-sub">evening</span></div>
+        </div>
+      </div>
+
+      <!-- 31 мая -->
+      <div class="mini-card-dark reveal">
+        <div class="ww-day-header">
+          <span class="ww-day-date">31 мая</span>
+          <span class="ww-day-name">Sunday</span>
+        </div>
+        <div class="ww-items">
+          <div class="ww-item"><div class="ww-dot"></div><span class="ww-item-name">Breakfast</span><span class="ww-item-sub">morning</span></div>
+          <div class="ww-item"><div class="ww-dot"></div><span class="ww-item-name">Check Out</span><span class="ww-item-sub">until 12:00</span></div>
+        </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <section class="section">
-    <div class="card">
-      <p class="card-label">Где</p>
-      <h2 class="card-title">Место <em>проведения</em></h2>
-      <div class="cdiv"><div class="cdiv-diamond"></div></div>
-      <p style="font-size:13.5px;color:var(--stone);margin-bottom:1rem;line-height:1.85;">
-        База отдыха «Жайлау», Сарыбулак. Сосновый лес, тишина и полная приватность — всё для нашего weekend wedding.
-      </p>
-      <a href="https://2gis.kz/kokshetau/routeSearch/rsType/car/to/68.6329,53.3025" target="_blank" rel="noopener" class="map-wrap">
+<!-- ══════════════════════════════
+     3. LOCATION (light)
+══════════════════════════════ -->
+<section class="sec-light">
+  <div class="inner">
+    <div class="reveal">
+      <p class="sec-label">Venue</p>
+      <h2 class="sec-title"><em>Location</em></h2>
+      <div class="sec-rule"><div class="sec-rule-d"></div></div>
+      <p class="loc-body">База отдыха «Жайлау», Сарыбулак. Сосновый лес, тишина и полная приватность — идеальное место для нашего weekend wedding.</p>
+    </div>
+
+    <!-- Map -->
+    <div class="reveal">
+      <a href="https://2gis.kz/kokshetau/routeSearch/rsType/car/to/68.6329,53.3025/from/fromCurrent" target="_blank" rel="noopener" class="map-wrap">
         <div class="map-inner">
-          <svg viewBox="0 0 700 200" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+          <svg viewBox="0 0 700 195" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
             <defs>
-              <radialGradient id="m1" cx="70%" cy="50%" r="40%"><stop offset="0%" stop-color="#b8d4e8" stop-opacity="0.7"/><stop offset="100%" stop-color="#b8d4e8" stop-opacity="0"/></radialGradient>
-              <filter id="mwc"><feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="3" seed="5"/><feDisplacementMap in="SourceGraphic" scale="3" xChannelSelector="R" yChannelSelector="G"/></filter>
-              <linearGradient id="mbg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#EEF2EC"/><stop offset="100%" stop-color="#E4EBE2"/></linearGradient>
+              <linearGradient id="mbg2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#EEF2EC"/><stop offset="100%" stop-color="#E4EBE2"/></linearGradient>
+              <radialGradient id="ml" cx="72%" cy="50%" r="38%"><stop offset="0%" stop-color="#c2d8ea" stop-opacity=".65"/><stop offset="100%" stop-color="#c2d8ea" stop-opacity="0"/></radialGradient>
+              <filter id="mwc2"><feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="3" seed="5"/><feDisplacementMap in="SourceGraphic" scale="3" xChannelSelector="R" yChannelSelector="G"/></filter>
             </defs>
-            <rect width="700" height="200" fill="url(#mbg)"/>
-            <!-- Lake watercolor wash -->
-            <ellipse cx="520" cy="100" rx="170" ry="75" fill="url(#m1)"/>
-            <ellipse cx="520" cy="100" rx="155" ry="62" fill="#c8dcea" opacity="0.35"/>
-            <path d="M370,90 Q440,82 510,86 Q580,90 640,85" stroke="rgba(160,195,218,0.3)" stroke-width="1.5" fill="none"/>
-            <path d="M365,104 Q438,98 510,102 Q582,106 640,100" stroke="rgba(160,195,218,0.22)" stroke-width="1" fill="none"/>
-            <text x="520" y="108" text-anchor="middle" font-size="9" fill="rgba(100,150,175,0.45)" font-family="Georgia,serif" font-style="italic">озеро</text>
-            <!-- Forest on map -->
-            <g filter="url(#mwc)" opacity="0.55">
+            <rect width="700" height="195" fill="url(#mbg2)"/>
+            <ellipse cx="515" cy="98" rx="165" ry="72" fill="url(#ml)"/>
+            <ellipse cx="515" cy="98" rx="148" ry="58" fill="#c8dcea" opacity=".3"/>
+            <text x="515" y="104" text-anchor="middle" font-size="9" fill="rgba(100,145,175,0.4)" font-family="Georgia,serif" font-style="italic">озеро</text>
+            <g filter="url(#mwc2)" opacity=".52">
               <g fill="#4A6452">
-                <polygon points="5,200 14,168 23,200"/><polygon points="18,200 28,162 38,200"/>
-                <polygon points="32,200 42,170 52,200"/><polygon points="46,200 57,158 68,200"/>
-                <polygon points="62,200 73,165 84,200"/><polygon points="78,200 90,155 102,200"/>
-                <polygon points="600,200 610,165 620,200"/><polygon points="614,200 625,158 636,200"/>
-                <polygon points="628,200 640,168 652,200"/><polygon points="644,200 656,155 668,200"/>
-                <polygon points="660,200 672,162 684,200"/><polygon points="676,200 688,158 700,200"/>
-                <polygon points="192,0 200,25 208,0"/><polygon points="206,0 215,28 224,0"/>
-                <polygon points="222,0 232,22 242,0"/><polygon points="240,0 250,26 260,0"/>
-                <polygon points="290,0 302,24 314,0"/><polygon points="312,0 324,20 336,0"/>
+                <polygon points="5,195 14,162 23,195"/><polygon points="18,195 28,156 38,195"/>
+                <polygon points="32,195 42,164 52,195"/><polygon points="46,195 57,152 68,195"/>
+                <polygon points="62,195 73,160 84,195"/><polygon points="600,195 610,160 620,195"/>
+                <polygon points="615,195 626,153 637,195"/><polygon points="630,195 642,163 654,195"/>
+                <polygon points="646,195 658,150 670,195"/><polygon points="663,195 675,158 687,195"/>
+                <polygon points="190,0 198,24 206,0"/><polygon points="204,0 213,27 222,0"/>
+                <polygon points="220,0 230,21 240,0"/><polygon points="238,0 248,25 258,0"/>
+                <polygon points="286,0 298,23 310,0"/><polygon points="308,0 320,19 332,0"/>
               </g>
             </g>
-            <!-- Roads -->
-            <path d="M0,130 Q80,124 160,126 Q250,128 310,122 Q360,117 395,118" stroke="rgba(210,200,182,0.8)" stroke-width="6" fill="none" stroke-linecap="round"/>
-            <path d="M395,118 Q415,112 428,102 Q438,94 444,104" stroke="rgba(200,188,168,0.7)" stroke-width="4.5" fill="none" stroke-linecap="round"/>
-            <!-- Marker -->
-            <g transform="translate(444,100)">
-              <circle cx="0" cy="0" r="18" fill="rgba(107,45,58,0.15)"/>
-              <circle cx="0" cy="0" r="12" fill="rgba(107,45,58,0.88)"/>
-              <circle cx="0" cy="-3" r="4.5" fill="rgba(255,255,255,0.9)"/>
-              <path d="M-4.5,0 Q0,7 4.5,0" fill="rgba(255,255,255,0.75)"/>
+            <path d="M0,126 Q80,120 158,122 Q248,124 308,118 Q360,113 394,114" stroke="rgba(205,195,175,0.75)" stroke-width="6" fill="none" stroke-linecap="round"/>
+            <path d="M394,114 Q414,108 427,98 Q437,90 443,100" stroke="rgba(195,182,160,0.65)" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+            <g transform="translate(443,96)">
+              <circle cx="0" cy="0" r="17" fill="rgba(107,45,58,0.14)"/>
+              <circle cx="0" cy="0" r="11" fill="rgba(107,45,58,0.88)"/>
+              <circle cx="0" cy="-3" r="4" fill="rgba(255,255,255,0.92)"/>
+              <path d="M-4,0 Q0,7 4,0" fill="rgba(255,255,255,0.75)"/>
             </g>
-            <circle cx="444" cy="100" r="16" fill="none" stroke="rgba(107,45,58,0.5)" stroke-width="1">
-              <animate attributeName="r" from="14" to="30" dur="2.5s" repeatCount="indefinite"/>
+            <circle cx="443" cy="96" r="14" fill="none" stroke="rgba(107,45,58,0.5)" stroke-width="1">
+              <animate attributeName="r" from="12" to="28" dur="2.5s" repeatCount="indefinite"/>
               <animate attributeName="opacity" from="0.5" to="0" dur="2.5s" repeatCount="indefinite"/>
             </circle>
           </svg>
           <div class="map-pin-label"><span class="map-pin-dot"></span>Жайлау 25 · маршрут в 2GIS</div>
         </div>
       </a>
-      <div class="link-row">
-        <a href="https://2gis.kz/kokshetau/routeSearch/rsType/car/to/68.6329,53.3025" target="_blank" rel="noopener" class="link-btn">
-          <div class="link-icon icon-2gis"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="#319831"/></svg></div>
-          <div><span class="link-name">2GIS — маршрут</span><span class="link-desc">Построить маршрут</span></div>
-        </a>
-        <a href="https://www.instagram.com/forest__and__lake/" target="_blank" rel="noopener" class="link-btn">
-          <div class="link-icon icon-ig"><svg viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="5.5" stroke="#C13584" stroke-width="1.5"/><circle cx="12" cy="12" r="4" stroke="#C13584" stroke-width="1.5"/><circle cx="17.5" cy="6.5" r="1" fill="#C13584"/></svg></div>
-          <div><span class="link-name">Instagram</span><span class="link-desc">forest__and__lake</span></div>
-        </a>
-      </div>
     </div>
-  </section>
 
-  <section class="section">
-    <div class="card style-card">
-      <p class="card-label">Атмосфера</p>
-      <h2 class="card-title">Стиль &amp; <em>Настроение</em></h2>
-      <div class="cdiv"><div class="cdiv-diamond"></div></div>
+    <!-- Location links -->
+    <div class="loc-links reveal">
+      <a href="https://www.instagram.com/forest__and__lake/" target="_blank" rel="noopener" class="loc-link">
+        <div class="loc-link-icon icon-ig-bg">
+          <svg viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="5.5" stroke="#C13584" stroke-width="1.5"/><circle cx="12" cy="12" r="4" stroke="#C13584" stroke-width="1.5"/><circle cx="17.5" cy="6.5" r="1" fill="#C13584"/></svg>
+        </div>
+        <span class="loc-link-label">Gallery of Location</span>
+        <span class="loc-link-sub">@forest__and__lake</span>
+      </a>
+      <a href="https://2gis.kz/kokshetau/routeSearch/rsType/car/to/68.6329,53.3025/from/fromCurrent" target="_blank" rel="noopener" class="loc-link">
+        <div class="loc-link-icon icon-nav-bg">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="#319831"/></svg>
+        </div>
+        <span class="loc-link-label">Let's go!</span>
+        <span class="loc-link-sub">Маршрут · 2GIS</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════
+     4. STYLE & ATMOSPHERE (dark)
+══════════════════════════════ -->
+<section class="sec-dark">
+  <div class="inner">
+    <div class="reveal">
+      <p class="sec-label">Dress Code &amp; Vibe</p>
+      <h2 class="sec-title">Style &amp; <em>Atmosphere</em></h2>
+      <div class="sec-rule"><div class="sec-rule-d"></div></div>
+    </div>
+
+    <div class="reveal">
       <div class="mood-tags">
-        <span class="mood-tag">Лесная эстетика</span>
-        <span class="mood-tag">Тёплый свет</span>
-        <span class="mood-tag">Живая природа</span>
-        <span class="mood-tag">Уют и тепло</span>
+        <span class="mood-tag">Forest Aesthetic</span>
+        <span class="mood-tag">Warm Lights</span>
+        <span class="mood-tag">Nature Vibes</span>
+        <span class="mood-tag">Cozy &amp; Warm</span>
       </div>
-      <p style="font-size:9px;letter-spacing:0.22em;text-transform:uppercase;color:var(--mist);margin-bottom:.75rem;opacity:.7;">Рекомендуемая палитра</p>
+
+      <p style="font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,0.22);margin-bottom:.75rem;">Color Palette</p>
       <div class="palette-row">
-        <div class="palette-chip" style="background:rgba(107,45,58,0.15);color:rgba(107,45,58,0.85);border:0.5px solid rgba(107,45,58,0.2);">Бордо</div>
-        <div class="palette-chip" style="background:rgba(82,78,74,0.12);color:rgba(82,78,74,0.85);border:0.5px solid rgba(82,78,74,0.2);">Серый</div>
-        <div class="palette-chip" style="background:rgba(55,42,35,0.12);color:rgba(55,42,35,0.85);border:0.5px solid rgba(55,42,35,0.18);">Тёмный</div>
-        <div class="palette-chip" style="background:rgba(185,168,140,0.2);color:rgba(100,85,65,0.85);border:0.5px solid rgba(185,168,140,0.3);">Бежевый</div>
-        <div class="palette-chip" style="background:rgba(58,82,64,0.12);color:rgba(58,82,64,0.85);border:0.5px solid rgba(58,82,64,0.2);">Лесной</div>
+        <div class="palette-chip" style="background:rgba(107,45,58,0.6);color:rgba(255,215,205,0.85);border:0.5px solid rgba(107,45,58,0.5);">Бордо</div>
+        <div class="palette-chip" style="background:rgba(82,78,74,0.5);color:rgba(215,210,200,0.8);border:0.5px solid rgba(82,78,74,0.4);">Серый</div>
+        <div class="palette-chip" style="background:rgba(50,38,32,0.7);color:rgba(215,205,190,0.8);border:0.5px solid rgba(50,38,32,0.5);">Тёмный</div>
+        <div class="palette-chip" style="background:rgba(175,158,132,0.25);color:rgba(215,205,188,0.8);border:0.5px solid rgba(175,158,132,0.3);">Бежевый</div>
+        <div class="palette-chip" style="background:rgba(48,70,38,0.55);color:rgba(190,215,180,0.8);border:0.5px solid rgba(48,70,38,0.4);">Лесной</div>
       </div>
-      <div class="gift-note">
+
+      <div class="vibe-text">
+        Хотим провести этот weekend в тёплой атмосфере, с множеством шуток и лёгкого юмора.<br>
+        <span style="color:rgba(220,180,160,0.7);">Весёлые outfits +87 к карме )</span>
+      </div>
+    </div>
+
+    <div class="mini-card-dark reveal">
+      <div class="gift-rule" style="border-top:none;padding-top:0;margin-top:0;">
         <p class="gift-title">О подарках</p>
-        <p class="gift-body">Пожалуйста, не дарите нам вещи — нам правда некуда их класть. Если хочется нас порадовать — подарите деньги: мы уже знаем, на что их потратим с удовольствием. Конверт с купюрами и тёплыми словами — идеальный подарок 🤍</p>
+        <p class="gift-body">Пожалуйста, не дарите нам вещи — нам правда некуда их класть. Если хочется нас порадовать — подарите деньги: мы уже знаем, на что их потратим с удовольствием.</p>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <section class="section">
-    <div class="card">
-      <p class="card-label">Сообщество</p>
-      <h2 class="card-title">Чат &amp; <em>Галерея</em></h2>
-      <div class="cdiv"><div class="cdiv-diamond"></div></div>
-      <p style="font-size:13.5px;color:var(--stone);margin-bottom:1rem;line-height:1.85;">Тут будут фотографии, воспоминания и вся важная информация — до, во время и после праздника.</p>
-      <div class="social-grid">
-        <a href="#" class="social-link"><span class="social-link-name">Общий чат</span><span class="social-link-desc">Все гости, анонсы и важные новости</span><span class="social-link-arrow">→</span></a>
-        <a href="#" class="social-link"><span class="social-link-name">Галерея</span><span class="social-link-desc">Фото и видео с праздника</span><span class="social-link-arrow">→</span></a>
+<!-- ══════════════════════════════
+     5. CONNECTION & DRIVE (light)
+══════════════════════════════ -->
+<section class="sec-light">
+  <div class="inner">
+    <div class="reveal">
+      <p class="sec-label">Stay Connected</p>
+      <h2 class="sec-title">Connection &amp; <em>Drive</em></h2>
+      <div class="sec-rule"><div class="sec-rule-d"></div></div>
+    </div>
+
+    <div class="mini-card-light reveal">
+      <p class="conn-text">
+        Хотели бы сохранить в памяти этот день по максимуму.<br>
+        Пожалуйста, делитесь всем, что попадается на глаза)<br><br>
+        Смешные фото вас и окружающего, «кружочки» во время сборов/дороги, интересные и красивые пейзажи, видеоотчёт праздника и всего, что вызовет улыбку спустя время.
+      </p>
+      <div class="conn-links">
+        <a href="https://t.me/+Kq9xZkt-S_llYzc6" target="_blank" rel="noopener" class="conn-link">
+          <div class="conn-link-icon icon-tg">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8l-1.7 8.02c-.12.58-.46.72-.93.45l-2.57-1.9-1.24 1.19c-.14.14-.26.26-.53.26l.19-2.7 4.89-4.42c.21-.19-.05-.29-.33-.1L7.38 14.4l-2.52-.79c-.55-.17-.56-.55.12-.81l9.85-3.8c.46-.17.86.11.81.8z" fill="#29B6F6"/></svg>
+          </div>
+          <div>
+            <span class="conn-link-name">Telegram Chat</span>
+            <span class="conn-link-sub">Общий чат гостей</span>
+          </div>
+        </a>
+        <a href="https://drive.google.com/drive/folders/1t7xyIY9RA-c0rFaBGhfdycdzyX5VwN1Z?usp=sharing" target="_blank" rel="noopener" class="conn-link">
+          <div class="conn-link-icon icon-gdrive">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M7.71 3L2 13l3.85 6.67h12.3L22 13 16.29 3H7.71z" stroke="#4285F4" stroke-width="1.5" fill="none"/><path d="M2 13h20M8.5 19.67L12 13l3.5 6.67" stroke="#4285F4" stroke-width="1.2" stroke-linecap="round"/></svg>
+          </div>
+          <div>
+            <span class="conn-link-name">Google Drive</span>
+            <span class="conn-link-sub">Фото и видео с праздника</span>
+          </div>
+        </a>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <section class="section">
-    <div class="card">
-      <p class="card-label">Пожелания</p>
-      <h2 class="card-title">Небольшой <em>опрос</em></h2>
-      <div class="cdiv"><div class="cdiv-diamond"></div></div>
-      <p style="font-size:13.5px;color:var(--stone);margin-bottom:1.75rem;line-height:1.85;">Помогите нам подготовиться — это займёт одну минуту.</p>
+<!-- ══════════════════════════════
+     6. QUESTIONNAIRE (dark)
+══════════════════════════════ -->
+<section class="sec-dark">
+  <div class="inner">
+    <div class="reveal">
+      <p class="sec-label">RSVP</p>
+      <h2 class="sec-title"><em>Questionnaire</em></h2>
+      <div class="sec-rule"><div class="sec-rule-d"></div></div>
+      <p style="font-size:13.5px;color:rgba(255,255,255,0.4);margin-bottom:1.75rem;line-height:1.85;">Помогите нам подготовиться — это займёт одну минуту.</p>
+    </div>
+
+    <div class="mini-card-dark reveal">
       <div id="surveyForm">
-        <div class="survey-step">
-          <p class="survey-step-title">Ваше имя</p>
+        <!-- Name -->
+        <div class="q-step">
+          <p class="q-title">Your name</p>
           <input class="name-field" type="text" id="guestName" placeholder="Как вас зовут?">
         </div>
-        <div class="survey-step">
-          <p class="survey-step-title">Шашлык</p>
-          <p class="survey-step-sub">Можно выбрать несколько</p>
+
+        <!-- BBQ -->
+        <div class="q-step">
+          <p class="q-title">Grill preference</p>
+          <p class="q-sub">Multiple choice</p>
           <div class="opts" id="bbqGrid">
-            <div class="opt-chip" onclick="toggleChip(this)">Курица</div>
-            <div class="opt-chip" onclick="toggleChip(this)">Свинина</div>
-            <div class="opt-chip" onclick="toggleChip(this)">Утка</div>
-            <div class="opt-chip" onclick="toggleChip(this)">Баранина</div>
-            <div class="opt-chip" onclick="toggleChip(this)">Шампиньоны</div>
-            <div class="opt-chip" onclick="toggleChip(this)">Овощи</div>
+            <div class="opt-chip" onclick="toggleChip(this)">Chicken</div>
+            <div class="opt-chip" onclick="toggleChip(this)">Pork</div>
+            <div class="opt-chip" onclick="toggleChip(this)">Duck</div>
+            <div class="opt-chip" onclick="toggleChip(this)">Lamb</div>
+            <div class="opt-chip" onclick="toggleChip(this)">Mushrooms</div>
+            <div class="opt-chip" onclick="toggleChip(this)">Vegetables</div>
           </div>
         </div>
-        <div class="survey-step">
-          <p class="survey-step-title">Время пребывания</p>
-          <p class="survey-step-sub">Отметьте все подходящие</p>
+
+        <!-- Stay -->
+        <div class="q-step">
+          <p class="q-title">Time of stay</p>
+          <p class="q-sub">Mark all that apply</p>
           <div class="check-grid" id="stayGrid">
-            <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"><svg width="9" height="7" viewBox="0 0 9 7"><polyline points="1,3.5 3.5,6 8,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-item-label">29 — обед</span></div>
-            <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"><svg width="9" height="7" viewBox="0 0 9 7"><polyline points="1,3.5 3.5,6 8,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-item-label">29 — вечер</span></div>
-            <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"><svg width="9" height="7" viewBox="0 0 9 7"><polyline points="1,3.5 3.5,6 8,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-item-label">30 — утро</span></div>
-            <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"><svg width="9" height="7" viewBox="0 0 9 7"><polyline points="1,3.5 3.5,6 8,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-item-label">30 — обед</span></div>
-            <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"><svg width="9" height="7" viewBox="0 0 9 7"><polyline points="1,3.5 3.5,6 8,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-item-label">30 — вечер</span></div>
-            <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"><svg width="9" height="7" viewBox="0 0 9 7"><polyline points="1,3.5 3.5,6 8,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-item-label">31 — утро</span></div>
+            <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"><svg width="9" height="7" viewBox="0 0 9 7"><polyline points="1,3.5 3.5,6 8,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-item-label">May 29 (14:00–23:00)</span></div>
+            <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"><svg width="9" height="7" viewBox="0 0 9 7"><polyline points="1,3.5 3.5,6 8,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-item-label">May 30 (09:00–14:00)</span></div>
+            <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"><svg width="9" height="7" viewBox="0 0 9 7"><polyline points="1,3.5 3.5,6 8,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-item-label">May 30 (14:00–23:00)</span></div>
+            <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"><svg width="9" height="7" viewBox="0 0 9 7"><polyline points="1,3.5 3.5,6 8,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-item-label">May 31 (09:00–12:00)</span></div>
           </div>
         </div>
-        <div class="survey-step">
-          <p class="survey-step-title">Алкоголь</p>
-          <p class="survey-step-sub">Можно выбрать несколько</p>
+
+        <!-- Alcohol -->
+        <div class="q-step">
+          <p class="q-title">Drinks</p>
+          <p class="q-sub">Multiple choice</p>
           <div class="opts" id="alcGrid">
-            <div class="opt-chip" onclick="toggleChip(this)">Халяль</div>
-            <div class="opt-chip" onclick="toggleChip(this)">Пиво светлое</div>
-            <div class="opt-chip" onclick="toggleChip(this)">Пиво тёмное</div>
-            <div class="opt-chip" onclick="toggleChip(this)">Водка</div>
-            <div class="opt-chip" onclick="toggleChip(this)">Текила</div>
-            <div class="opt-chip" onclick="toggleChip(this)">Мартини</div>
-            <div class="opt-chip" onclick="toggleChip(this)">Настойки</div>
-            <div class="opt-chip" id="alcOther" onclick="toggleChipOther(this,'otherAlcWrap')">Другое</div>
+            <div class="opt-chip" onclick="toggleChip(this)">Halal</div>
+            <div class="opt-chip" onclick="toggleChip(this)">Light Beer</div>
+            <div class="opt-chip" onclick="toggleChip(this)">Dark Beer</div>
+            <div class="opt-chip" onclick="toggleChip(this)">Strong Alcohol</div>
+            <div class="opt-chip" onclick="toggleChip(this)">Cocktails</div>
+            <div class="opt-chip" onclick="toggleChip(this)">Tinctures</div>
+            <div class="opt-chip" id="alcOther" onclick="toggleChipOther(this,'otherAlcWrap')">Other</div>
           </div>
           <div class="other-wrap" id="otherAlcWrap">
-            <input type="text" id="otherAlcText" placeholder="Укажите что именно...">
+            <input type="text" id="otherAlcText" placeholder="Specify...">
           </div>
         </div>
-        <div class="submit-area">
-          <button class="submit-btn" onclick="submitSurvey()" id="submitBtn">Отправить</button>
-          <div class="success-msg" id="successMsg">Спасибо — ваши пожелания записаны 🤍</div>
+
+        <button class="submit-btn" onclick="submitSurvey()" id="submitBtn">Send</button>
+        <div class="success-msg" id="successMsg">Thank you — your preferences are saved 🤍</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════
+     7. TAKE IT (light)
+══════════════════════════════ -->
+<section class="sec-light">
+  <div class="inner">
+    <div class="reveal">
+      <p class="sec-label">Packing List</p>
+      <h2 class="sec-title">Take <em>it</em></h2>
+      <div class="sec-rule"><div class="sec-rule-d"></div></div>
+    </div>
+
+    <div class="mini-card-light reveal">
+      <div class="take-list">
+        <div class="take-item">
+          <p class="take-item-title">Spa <em>time</em></p>
+          <p class="take-item-body">
+            Запах хвойного леса + парная = идеальное сочетание для тёплой атмосферы<br><br>
+            <strong>Base set:</strong> купальник, полотенце, шлёпки<br>
+            <strong>Luxury max:</strong> масочки, скрабы, масла и баттеры
+          </p>
+        </div>
+
+        <div class="take-divider"></div>
+
+        <div class="take-item">
+          <p class="take-item-title">Chill <em>time</em></p>
+          <p class="take-item-body">
+            Майский лес суров:<br><br>
+            <strong>Evening:</strong> закрытая тёплая одежда, обувь, аэрозоль от насекомых<br>
+            <strong>Midday:</strong> шорты, майки, шлёпки, SPF<br>
+            <strong>Optional:</strong> camping equipment / hobby supplies — если заскучаете
+          </p>
         </div>
       </div>
-    </div>
-  </section>
 
-  <section class="section">
-    <div class="card">
-      <p class="card-label">Подготовка</p>
-      <h2 class="card-title">Что взять <em>с собой</em></h2>
-      <div class="cdiv"><div class="cdiv-diamond"></div></div>
-      <div class="pack-list">
-        <div class="pack-item"><span class="pack-num">01</span><div><span class="pack-label">Для бани</span><span class="pack-sub">Купальник или плавки, полотенце, шлёпки</span></div></div>
-        <div class="pack-item"><span class="pack-num">02</span><div><span class="pack-label">Тёплая одежда</span><span class="pack-sub">Вечером у костра бывает прохладно</span></div></div>
+      <div class="take-ps">
+        <strong>P.S.</strong> Зарядные устройства, «сменка», косметичка — на всякий случай, don't forget!
       </div>
-      <p class="pack-note">«Главное, что нужно взять с собой —<br>хорошее настроение и желание<br>классно провести время вместе»</p>
     </div>
-  </section>
+  </div>
+</section>
 
-</div>
-</main>
-
+<!-- ══════════════════════════════
+     FOOTER
+══════════════════════════════ -->
 <footer class="footer">
-  <svg class="footer-forest" viewBox="0 0 800 80" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMax slice">
-    <g fill="#3A5240">
-      <polygon points="0,80 10,50 20,80"/><polygon points="15,80 27,44 39,80"/>
-      <polygon points="35,80 48,48 61,80"/><polygon points="58,80 72,40 86,80"/>
-      <polygon points="82,80 97,46 112,80"/><polygon points="108,80 124,42 140,80"/>
-      <polygon points="136,80 153,48 170,80"/><polygon points="165,80 183,40 201,80"/>
-      <polygon points="196,80 215,44 234,80"/><polygon points="228,80 248,42 268,80"/>
-      <polygon points="262,80 283,46 304,80"/><polygon points="298,80 320,38 342,80"/>
-      <polygon points="336,80 359,44 382,80"/><polygon points="376,80 400,40 424,80"/>
-      <polygon points="418,80 443,44 468,80"/><polygon points="462,80 488,38 514,80"/>
-      <polygon points="508,80 535,44 562,80"/><polygon points="556,80 584,40 612,80"/>
-      <polygon points="606,80 635,46 664,80"/><polygon points="658,80 688,42 718,80"/>
-      <polygon points="712,80 743,48 774,80"/><polygon points="768,80 800,44 800,80"/>
-    </g>
-  </svg>
+  <div class="footer-orn">
+    <div class="footer-orn-line"></div>
+    <div class="footer-orn-d"></div>
+    <div class="footer-orn-line"></div>
+  </div>
   <p>29 — 31 мая · Жайлау, Сарыбулак</p>
-  <p style="margin-top:.4rem;font-size:1.1rem;">С любовью ждём вас 🤍</p>
+  <p>С любовью ждём вас 🤍</p>
 </footer>
 
 <script>
-// SCROLL
-const cards = document.querySelectorAll('.card');
+// SCROLL REVEAL
+const revealEls = document.querySelectorAll('.reveal');
 const io = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
 }, { threshold: 0.08 });
-cards.forEach(c => io.observe(c));
+revealEls.forEach(el => io.observe(el));
 
 // MUSIC
 let playing = false;
 const audio = document.getElementById('bgAudio');
 audio.volume = 0.4;
-
-function setUI(state) {
-  playing = state;
-  document.getElementById('musicLabel').textContent = state ? 'Пауза' : 'Музыка';
-  document.getElementById('musicIcon').innerHTML = state
+function setUI(s) {
+  playing = s;
+  document.getElementById('musicLabel').textContent = s ? 'Пауза' : 'Музыка';
+  document.getElementById('musicIcon').innerHTML = s
     ? '<rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/>'
     : '<path d="M9 18V5l12-2v13M9 18a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm12-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>';
 }
@@ -835,9 +926,9 @@ function startAudio() { audio.play().then(() => setUI(true)).catch(() => {}); }
 startAudio();
 function unlock() {
   if (!playing) startAudio();
-  ['click','touchstart','keydown','scroll'].forEach(e => document.removeEventListener(e, unlock));
+  ['click','touchstart','keydown','scroll'].forEach(ev => document.removeEventListener(ev, unlock));
 }
-['click','touchstart','keydown','scroll'].forEach(e => document.addEventListener(e, unlock, { passive: true }));
+['click','touchstart','keydown','scroll'].forEach(ev => document.addEventListener(ev, unlock, { passive: true }));
 function toggleMusic() {
   if (playing) { audio.pause(); setUI(false); }
   else { audio.play().catch(() => {}); setUI(true); }
@@ -865,36 +956,36 @@ function submitSurvey() {
   const name = document.getElementById('guestName').value.trim();
   if (!name) {
     const f = document.getElementById('guestName');
-    f.focus(); f.style.borderColor = 'rgba(107,45,58,0.6)';
+    f.focus(); f.style.borderColor = 'rgba(220,180,160,0.6)';
     setTimeout(() => f.style.borderColor = '', 2000); return;
   }
-  btn.disabled = true; btn.textContent = 'Отправляем...';
+  btn.disabled = true; btn.textContent = 'Sending...';
   const bbqVals  = [...document.querySelectorAll('#bbqGrid .opt-chip.selected')].map(e => e.textContent.trim());
   const stayVals = [...document.querySelectorAll('#stayGrid .check-item.checked')].map(e => e.querySelector('.check-item-label').textContent.trim());
   const alcVals  = [...document.querySelectorAll('#alcGrid .opt-chip.selected')].map(e => e.textContent.trim());
   const otherAlc = document.getElementById('otherAlcText').value.trim();
   if (otherAlc) alcVals.push(otherAlc);
   const url = 'https://docs.google.com/forms/d/e/' + FORM_ID + '/formResponse';
-  function addCheckbox(form, entryId, values) {
-    (values.length ? values : ['']).forEach(function(v) {
+  function addCB(form, id, vals) {
+    (vals.length ? vals : ['']).forEach(v => {
       var i = document.createElement('input');
-      i.type = 'hidden'; i.name = entryId; i.value = v; form.appendChild(i);
+      i.type='hidden'; i.name=id; i.value=v; form.appendChild(i);
     });
     var s = document.createElement('input');
-    s.type = 'hidden'; s.name = entryId + '_sentinel'; s.value = ''; form.appendChild(s);
+    s.type='hidden'; s.name=id+'_sentinel'; s.value=''; form.appendChild(s);
   }
   var iframe = document.createElement('iframe');
-  iframe.name = '_gf'; iframe.style.display = 'none';
+  iframe.name='_gf'; iframe.style.display='none';
   var form = document.createElement('form');
-  form.method = 'POST'; form.action = url; form.target = '_gf';
+  form.method='POST'; form.action=url; form.target='_gf';
   var ni = document.createElement('input');
-  ni.type = 'hidden'; ni.name = ENTRY.name; ni.value = name; form.appendChild(ni);
-  addCheckbox(form, ENTRY.bbq, bbqVals);
-  addCheckbox(form, ENTRY.stay, stayVals);
-  addCheckbox(form, ENTRY.alcohol, alcVals);
+  ni.type='hidden'; ni.name=ENTRY.name; ni.value=name; form.appendChild(ni);
+  addCB(form, ENTRY.bbq, bbqVals);
+  addCB(form, ENTRY.stay, stayVals);
+  addCB(form, ENTRY.alcohol, alcVals);
   document.body.append(iframe, form); form.submit();
-  setTimeout(function() {
-    btn.style.display = 'none'; ok.style.display = 'block';
+  setTimeout(() => {
+    btn.style.display='none'; ok.style.display='block';
     form.remove(); iframe.remove();
   }, 1500);
 }
