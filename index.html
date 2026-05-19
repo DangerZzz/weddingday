@@ -915,6 +915,7 @@ revealEls.forEach(el => io.observe(el));
 let playing = false;
 const audio = document.getElementById('bgAudio');
 audio.volume = 0.4;
+
 function setUI(s) {
   playing = s;
   document.getElementById('musicLabel').textContent = s ? 'Пауза' : 'Музыка';
@@ -922,16 +923,34 @@ function setUI(s) {
     ? '<rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/>'
     : '<path d="M9 18V5l12-2v13M9 18a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm12-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>';
 }
-function startAudio() { audio.play().then(() => setUI(true)).catch(() => {}); }
-startAudio();
-function unlock() {
-  if (!playing) startAudio();
-  ['click','touchstart','keydown','scroll'].forEach(ev => document.removeEventListener(ev, unlock));
+
+function startAudio() {
+  audio.play().then(function() { setUI(true); }).catch(function() {});
 }
-['click','touchstart','keydown','scroll'].forEach(ev => document.addEventListener(ev, unlock, { passive: true }));
+
+// 1) Attempt immediately
+startAudio();
+
+// 2) On any early interaction — fires before conscious user action
+var EVTS = ['click','touchstart','touchend','touchmove','mousedown','mousemove','keydown','scroll','pointerdown','visibilitychange'];
+function unlockOnce() {
+  if (!playing) startAudio();
+  EVTS.forEach(function(ev) { document.removeEventListener(ev, unlockOnce); });
+  window.removeEventListener('focus', unlockOnce);
+}
+EVTS.forEach(function(ev) { document.addEventListener(ev, unlockOnce, { passive: true }); });
+window.addEventListener('focus', unlockOnce);
+
+// 3) Retry every 400ms for 8 seconds — catches delayed browser unlock
+var _retries = 0;
+var _iv = setInterval(function() {
+  if (playing || _retries > 20) { clearInterval(_iv); return; }
+  startAudio(); _retries++;
+}, 400);
+
 function toggleMusic() {
   if (playing) { audio.pause(); setUI(false); }
-  else { audio.play().catch(() => {}); setUI(true); }
+  else { audio.play().catch(function(){}); setUI(true); }
 }
 
 // SURVEY
