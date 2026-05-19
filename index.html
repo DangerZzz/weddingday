@@ -2,11 +2,15 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
+<meta name="color-scheme" content="light">
+<meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Даниил & Дарья · 29–31 мая</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
+@media (prefers-color-scheme: dark) { html { filter: none !important; } }
+:root { color-scheme: light only; }
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
   --wine:    #3D1A22;
@@ -417,12 +421,62 @@ body { font-family: var(--font-b); background: #1a0e12; overflow-x: hidden; }
   .hero-corner { width: 140px; height: 140px; }
   .sec-dark, .sec-light { padding: 3.5rem 1.25rem; }
   .check-grid { grid-template-columns: 1fr; }
-  .loc-links  { grid-template-columns: 1fr; }
   .conn-links { grid-template-columns: 1fr; }
   .palette-row { flex-direction: column; }
 }
 @media (max-width: 380px) {
   .hero-names { font-size: 2.8rem; }
+}
+
+/* ── WINE HERO BOTTOM ── */
+.hero-wine-bottom {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  background: #3D1A22;
+  z-index: 1;
+}
+.hero-wine-trees { width: 100%; height: 180px; display: block; }
+.hero-wine-trees svg { display: block; width: 100%; height: 100%; }
+
+/* Countdown */
+.countdown {
+  display: flex; align-items: center; justify-content: center;
+  gap: 8px; padding: 1.5rem 1rem 2rem;
+  background: #3D1A22;
+}
+.cd-item { display: flex; flex-direction: column; align-items: center; gap: 4px; min-width: 48px; }
+.cd-num {
+  font-family: var(--font-d);
+  font-size: clamp(2rem, 7vw, 3rem);
+  font-weight: 300; color: #fff; line-height: 1;
+}
+.cd-label {
+  font-family: var(--font-b); font-size: 8px; font-weight: 300;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: rgba(255,255,255,0.35);
+}
+.cd-sep {
+  font-family: var(--font-d); font-size: 1.8rem; font-weight: 300;
+  color: rgba(255,255,255,0.2); line-height: 1; margin-bottom: 14px;
+}
+
+/* Hero padding to accommodate wine bottom */
+.hero { padding-bottom: 300px; }
+@media (max-width: 600px) {
+  .hero { padding-bottom: 260px; }
+  .hero-wine-trees { height: 140px; }
+}
+
+
+/* Seamless hero → wine bottom connection */
+.hero { overflow: hidden; }
+.hero-wine-bottom {
+  position: absolute; bottom: 0; left: 0; right: 0; z-index: 1;
+}
+/* Force light mode on all elements */
+* { forced-color-adjust: none; }
+@media (prefers-color-scheme: dark) {
+  html, body { background-color: #FDFCFA !important; color: #1E1C1A !important; }
+  img, video, svg { filter: none !important; }
 }
 </style>
 </head>
@@ -469,7 +523,7 @@ body { font-family: var(--font-b); background: #1a0e12; overflow-x: hidden; }
     </g>
   </svg>
 
-  <p class="hero-eyebrow">29 — 31 мая 2026 · Боровое</p>
+  <p class="hero-eyebrow">29 — 31 мая 2026</p>
   <h1 class="hero-names">
     Даниил<span class="hero-amp">&amp;</span>Дарья
   </h1>
@@ -480,86 +534,69 @@ body { font-family: var(--font-b); background: #1a0e12; overflow-x: hidden; }
   </div>
   <p class="hero-sub">приглашаем вас разделить с нами<br>наш самый счастливый день</p>
   <p class="hero-location">Жайлау 25 · Сарыбулак · Боровое</p>
-
-  <button class="music-btn" id="musicBtn" onclick="toggleMusic()">
-    <svg id="musicIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-      <rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/>
-    </svg>
-    <span id="musicLabel">Пауза</span>
-  </button>
   <audio id="bgAudio" loop preload="auto" src="audio.mp3"></audio>
 
-  <!-- Watercolor forest scene -->
-  <div class="forest-wrap">
-    <div class="forest-fade"></div>
-    <svg viewBox="0 0 1440 340" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMax slice">
-      <defs>
-        <radialGradient id="fg1" cx="25%" cy="70%" r="35%"><stop offset="0%" stop-color="rgba(58,82,64,0.18)"/><stop offset="100%" stop-color="transparent"/></radialGradient>
-        <radialGradient id="fg2" cx="75%" cy="65%" r="38%"><stop offset="0%" stop-color="rgba(58,82,64,0.14)"/><stop offset="100%" stop-color="transparent"/></radialGradient>
-        <radialGradient id="fg3" cx="50%" cy="80%" r="45%"><stop offset="0%" stop-color="rgba(80,105,85,0.12)"/><stop offset="100%" stop-color="transparent"/></radialGradient>
-        <filter id="wc"><feTurbulence type="fractalNoise" baseFrequency="0.035 0.055" numOctaves="4" seed="7"/><feDisplacementMap in="SourceGraphic" scale="4" xChannelSelector="R" yChannelSelector="G"/></filter>
-        <filter id="wcS"><feTurbulence type="fractalNoise" baseFrequency="0.022 0.038" numOctaves="3" seed="11"/><feDisplacementMap in="SourceGraphic" scale="5" xChannelSelector="R" yChannelSelector="G"/><feGaussianBlur stdDeviation="1"/></filter>
-        <linearGradient id="gnd" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="rgba(165,182,158,0.22)"/><stop offset="100%" stop-color="rgba(138,158,130,0.42)"/></linearGradient>
-        <linearGradient id="path" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="rgba(215,208,192,0.7)"/><stop offset="100%" stop-color="rgba(198,190,172,0.55)"/></linearGradient>
-        <linearGradient id="topF" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#FDFCFA"/><stop offset="40%" stop-color="rgba(253,252,250,0)"/></linearGradient>
-      </defs>
-      <ellipse cx="720" cy="330" rx="820" ry="75" fill="url(#gnd)"/>
-      <rect width="1440" height="340" fill="url(#fg3)"/>
-      <rect width="1440" height="340" fill="url(#fg1)"/>
-      <rect width="1440" height="340" fill="url(#fg2)"/>
-      <!-- Path -->
-      <path d="M640,340 Q672,295 688,255 Q700,225 706,198 Q712,172 716,155" stroke="url(#path)" stroke-width="24" fill="none" stroke-linecap="round" filter="url(#wcS)" opacity=".65"/>
-      <path d="M800,340 Q768,295 752,255 Q740,225 734,198 Q728,172 724,155" stroke="url(#path)" stroke-width="19" fill="none" stroke-linecap="round" filter="url(#wcS)" opacity=".55"/>
-      <!-- Back trees -->
-      <g filter="url(#wcS)" opacity="0.18"><g fill="#5A7060">
-        <polygon points="60,240 76,148 92,240"/><polygon points="82,244 100,138 118,244"/>
-        <polygon points="108,238 126,150 144,238"/><polygon points="268,235 288,130 308,235"/>
-        <polygon points="295,240 317,122 339,240"/><polygon points="328,232 350,142 372,232"/>
-        <polygon points="488,238 510,128 532,238"/><polygon points="515,242 538,120 561,242"/>
-        <polygon points="900,235 922,132 944,235"/><polygon points="928,240 952,126 976,240"/>
-        <polygon points="1210,238 1230,140 1250,238"/><polygon points="1238,242 1260,128 1282,242"/>
-        <polygon points="1298,235 1320,132 1342,235"/><polygon points="1328,240 1352,126 1376,240"/>
-      </g></g>
-      <!-- Mid trees -->
-      <g filter="url(#wc)" opacity="0.42"><g fill="#4A6452">
-        <polygon points="0,300 24,182 48,300"/><polygon points="38,295 65,168 92,295"/>
-        <polygon points="78,298 108,175 138,298"/><polygon points="120,292 152,162 184,292"/>
-        <polygon points="162,300 196,168 230,300"/><polygon points="205,295 240,155 275,295"/>
-        <polygon points="248,300 284,165 320,300"/><polygon points="292,292 330,152 368,292"/>
-        <polygon points="338,298 378,160 418,298"/>
-        <!-- Path gap 418–860 -->
-        <polygon points="860,295 900,158 940,295"/><polygon points="900,300 942,165 984,300"/>
-        <polygon points="942,292 985,152 1028,292"/><polygon points="985,298 1030,160 1075,298"/>
-        <polygon points="1030,295 1076,155 1122,295"/><polygon points="1078,300 1126,162 1174,300"/>
-        <polygon points="1128,292 1178,152 1228,292"/><polygon points="1180,298 1232,158 1284,298"/>
-        <polygon points="1238,295 1292,155 1346,295"/><polygon points="1300,300 1356,162 1412,300"/>
-        <polygon points="1368,295 1420,168 1440,295"/>
-      </g></g>
-      <!-- Front trees -->
-      <g filter="url(#wc)" opacity="0.7"><g fill="#384E40">
-        <polygon points="-8,340 22,205 52,340"/><polygon points="36,340 68,192 100,340"/>
-        <polygon points="80,340 115,198 150,340"/><polygon points="126,340 164,188 202,340"/>
-        <polygon points="174,340 214,195 254,340"/><polygon points="224,340 266,182 308,340"/>
-        <polygon points="276,340 320,190 364,340"/><polygon points="330,340 376,185 422,340"/>
-        <polygon points="385,340 432,178 479,340"/><polygon points="440,340 488,188 536,340"/>
-        <polygon points="496,340 545,182 594,340"/>
-        <!-- Path gap 594–846 -->
-        <polygon points="846,340 895,182 944,340"/><polygon points="902,340 952,188 1002,340"/>
-        <polygon points="958,340 1010,178 1062,340"/><polygon points="1016,340 1070,185 1124,340"/>
-        <polygon points="1076,340 1132,190 1188,340"/><polygon points="1138,340 1196,182 1254,340"/>
-        <polygon points="1202,340 1262,188 1322,340"/><polygon points="1268,340 1330,192 1392,340"/>
-        <polygon points="1338,340 1400,198 1440,340"/>
-      </g></g>
-      <!-- Trunks -->
-      <g stroke="#2C3E30" stroke-width="1.5" opacity="0.15">
-        <line x1="22" y1="285" x2="22" y2="340"/><line x1="68" y1="275" x2="68" y2="340"/>
-        <line x1="115" y1="280" x2="115" y2="340"/><line x1="164" y1="272" x2="164" y2="340"/>
-        <line x1="214" y1="278" x2="214" y2="340"/><line x1="266" y1="268" x2="266" y2="340"/>
-        <line x1="1132" y1="275" x2="1132" y2="340"/><line x1="1196" y1="278" x2="1196" y2="340"/>
-        <line x1="1262" y1="272" x2="1262" y2="340"/><line x1="1330" y1="280" x2="1330" y2="340"/>
-      </g>
-      <rect width="1440" height="340" fill="url(#topF)"/>
-    </svg>
+  <!-- WINE HERO BOTTOM with line-art trees + timer -->
+  <div class="hero-wine-bottom">
+    <!-- Line-art pine silhouette -->
+    <div class="hero-wine-trees">
+      <svg viewBox="0 0 1440 180" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMax slice">
+        <!-- Back layer -->
+        <g fill="rgba(255,255,255,0.06)">
+          <polygon points="60,180 76,110 92,180"/><polygon points="90,180 108,98 126,180"/>
+          <polygon points="128,180 148,108 168,180"/><polygon points="300,180 322,95 344,180"/>
+          <polygon points="338,180 362,100 386,180"/><polygon points="500,180 524,92 548,180"/>
+          <polygon points="540,180 566,102 592,180"/><polygon points="900,180 924,96 948,180"/>
+          <polygon points="940,180 966,100 992,180"/><polygon points="1200,180 1224,98 1248,180"/>
+          <polygon points="1242,180 1268,102 1294,180"/><polygon points="1340,180 1366,108 1392,180"/>
+        </g>
+        <!-- Mid layer -->
+        <g fill="rgba(255,255,255,0.1)">
+          <polygon points="0,180 22,118 44,180"/><polygon points="35,180 60,105 85,180"/>
+          <polygon points="75,180 102,112 129,180"/><polygon points="118,180 148,100 178,180"/>
+          <polygon points="162,180 194,108 226,180"/><polygon points="208,180 242,98 276,180"/>
+          <polygon points="258,180 294,106 330,180"/><polygon points="310,180 348,95 386,180"/>
+          <polygon points="362,180 402,108 442,180"/><polygon points="415,180 456,98 497,180"/>
+          <polygon points="468,180 510,105 552,180"/><polygon points="522,180 565,95 608,180"/>
+          <!-- path gap 608–832 -->
+          <polygon points="832,180 875,98 918,180"/><polygon points="885,180 930,105 975,180"/>
+          <polygon points="938,180 985,98 1032,180"/><polygon points="992,180 1040,106 1088,180"/>
+          <polygon points="1048,180 1098,95 1148,180"/><polygon points="1106,180 1158,102 1210,180"/>
+          <polygon points="1165,180 1218,108 1271,180"/><polygon points="1226,180 1280,98 1334,180"/>
+          <polygon points="1290,180 1346,105 1402,180"/><polygon points="1358,180 1415,112 1440,180"/>
+        </g>
+        <!-- Front layer — solid white silhouettes -->
+        <g fill="rgba(255,255,255,0.18)">
+          <polygon points="-8,180 18,125 44,180"/><polygon points="28,180 56,115 84,180"/>
+          <polygon points="68,180 98,118 128,180"/><polygon points="110,180 142,110 174,180"/>
+          <polygon points="155,180 188,115 221,180"/><polygon points="202,180 236,105 270,180"/>
+          <polygon points="250,180 285,112 320,180"/><polygon points="298,180 334,102 370,180"/>
+          <polygon points="348,180 385,108 422,180"/><polygon points="398,180 436,100 474,180"/>
+          <polygon points="448,180 487,108 526,180"/><polygon points="498,180 538,98 578,180"/>
+          <polygon points="548,180 588,105 628,180"/>
+          <!-- path gap -->
+          <polygon points="812,180 852,98 892,180"/><polygon points="860,180 902,105 944,180"/>
+          <polygon points="910,180 954,108 998,180"/><polygon points="960,180 1005,100 1050,180"/>
+          <polygon points="1012,180 1058,108 1104,180"/><polygon points="1065,180 1112,102 1159,180"/>
+          <polygon points="1120,180 1168,108 1216,180"/><polygon points="1178,180 1228,98 1278,180"/>
+          <polygon points="1238,180 1290,105 1342,180"/><polygon points="1300,180 1354,112 1408,180"/>
+          <polygon points="1368,180 1420,118 1440,180"/>
+        </g>
+        <!-- Ground fill -->
+        <rect x="0" y="165" width="1440" height="15" fill="rgba(255,255,255,0.08)"/>
+      </svg>
+    </div>
+
+    <!-- Countdown timer -->
+    <div class="countdown" id="countdown">
+      <div class="cd-item"><span class="cd-num" id="cd-d">--</span><span class="cd-label">дней</span></div>
+      <div class="cd-sep">:</div>
+      <div class="cd-item"><span class="cd-num" id="cd-h">--</span><span class="cd-label">часов</span></div>
+      <div class="cd-sep">:</div>
+      <div class="cd-item"><span class="cd-num" id="cd-m">--</span><span class="cd-label">минут</span></div>
+      <div class="cd-sep">:</div>
+      <div class="cd-item"><span class="cd-num" id="cd-s">--</span><span class="cd-label">секунд</span></div>
+    </div>
   </div>
 </section>
 
@@ -569,7 +606,6 @@ body { font-family: var(--font-b); background: #1a0e12; overflow-x: hidden; }
 <section class="sec-dark">
   <div class="inner">
     <div class="reveal">
-      <p class="sec-label">Schedule</p>
       <h2 class="sec-title">Wedding <em>Weekend</em></h2>
       <div class="sec-rule"><div class="sec-rule-d"></div></div>
     </div>
@@ -623,52 +659,22 @@ body { font-family: var(--font-b); background: #1a0e12; overflow-x: hidden; }
 <section class="sec-light">
   <div class="inner">
     <div class="reveal">
-      <p class="sec-label">Venue</p>
       <h2 class="sec-title"><em>Location</em></h2>
       <div class="sec-rule"><div class="sec-rule-d"></div></div>
-      <p class="loc-body">База отдыха «Жайлау», Сарыбулак. Сосновый лес, тишина и полная приватность — идеальное место для нашего weekend wedding.</p>
+      <p class="loc-body">База отдыха «Жайлау», Сарыбулак.<br>Сосновый лес, тишина и полная приватность — идеальное место для нашего weekend wedding.</p>
     </div>
 
     <!-- Map -->
     <div class="reveal">
-      <a href="https://2gis.kz/kokshetau/firm/70000001051483307" target="_blank" rel="noopener" class="map-wrap">
-        <div class="map-inner">
-          <svg viewBox="0 0 700 195" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
-            <defs>
-              <linearGradient id="mbg2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#EEF2EC"/><stop offset="100%" stop-color="#E4EBE2"/></linearGradient>
-              <radialGradient id="ml" cx="72%" cy="50%" r="38%"><stop offset="0%" stop-color="#c2d8ea" stop-opacity=".65"/><stop offset="100%" stop-color="#c2d8ea" stop-opacity="0"/></radialGradient>
-              <filter id="mwc2"><feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="3" seed="5"/><feDisplacementMap in="SourceGraphic" scale="3" xChannelSelector="R" yChannelSelector="G"/></filter>
-            </defs>
-            <rect width="700" height="195" fill="url(#mbg2)"/>
-            <ellipse cx="515" cy="98" rx="165" ry="72" fill="url(#ml)"/>
-            <ellipse cx="515" cy="98" rx="148" ry="58" fill="#c8dcea" opacity=".3"/>
-            <text x="515" y="104" text-anchor="middle" font-size="9" fill="rgba(100,145,175,0.4)" font-family="Georgia,serif" font-style="italic">озеро</text>
-            <g filter="url(#mwc2)" opacity=".52">
-              <g fill="#4A6452">
-                <polygon points="5,195 14,162 23,195"/><polygon points="18,195 28,156 38,195"/>
-                <polygon points="32,195 42,164 52,195"/><polygon points="46,195 57,152 68,195"/>
-                <polygon points="62,195 73,160 84,195"/><polygon points="600,195 610,160 620,195"/>
-                <polygon points="615,195 626,153 637,195"/><polygon points="630,195 642,163 654,195"/>
-                <polygon points="646,195 658,150 670,195"/><polygon points="663,195 675,158 687,195"/>
-                <polygon points="190,0 198,24 206,0"/><polygon points="204,0 213,27 222,0"/>
-                <polygon points="220,0 230,21 240,0"/><polygon points="238,0 248,25 258,0"/>
-                <polygon points="286,0 298,23 310,0"/><polygon points="308,0 320,19 332,0"/>
-              </g>
-            </g>
-            <path d="M0,126 Q80,120 158,122 Q248,124 308,118 Q360,113 394,114" stroke="rgba(205,195,175,0.75)" stroke-width="6" fill="none" stroke-linecap="round"/>
-            <path d="M394,114 Q414,108 427,98 Q437,90 443,100" stroke="rgba(195,182,160,0.65)" stroke-width="4.5" fill="none" stroke-linecap="round"/>
-            <g transform="translate(443,96)">
-              <circle cx="0" cy="0" r="17" fill="rgba(107,45,58,0.14)"/>
-              <circle cx="0" cy="0" r="11" fill="rgba(107,45,58,0.88)"/>
-              <circle cx="0" cy="-3" r="4" fill="rgba(255,255,255,0.92)"/>
-              <path d="M-4,0 Q0,7 4,0" fill="rgba(255,255,255,0.75)"/>
-            </g>
-            <circle cx="443" cy="96" r="14" fill="none" stroke="rgba(107,45,58,0.5)" stroke-width="1">
-              <animate attributeName="r" from="12" to="28" dur="2.5s" repeatCount="indefinite"/>
-              <animate attributeName="opacity" from="0.5" to="0" dur="2.5s" repeatCount="indefinite"/>
-            </circle>
-          </svg>
-          <div class="map-pin-label"><span class="map-pin-dot"></span>Жайлау 25 · маршрут в 2GIS</div>
+      <a href="https://2gis.kz/kokshetau/firm/70000001051483307" target="_blank" rel="noopener" class="map-wrap" style="display:block;text-decoration:none;">
+        <div class="map-inner" style="position:relative;height:200px;overflow:hidden;border-radius:var(--r-sm);">
+          <iframe
+            src="https://www.openstreetmap.org/export/embed.html?bbox=70.328%2C53.012%2C70.368%2C53.032&layer=mapnik&marker=53.022682%2C70.348687"
+            style="width:100%;height:100%;border:none;pointer-events:none;"
+            loading="lazy"
+            title="Жайлау, Сарыбулак">
+          </iframe>
+          <div class="map-pin-label"><span class="map-pin-dot"></span>Жайлау 25, Сарыбулак</div>
         </div>
       </a>
     </div>
@@ -699,7 +705,6 @@ body { font-family: var(--font-b); background: #1a0e12; overflow-x: hidden; }
 <section class="sec-dark">
   <div class="inner">
     <div class="reveal">
-      <p class="sec-label">Dress Code &amp; Vibe</p>
       <h2 class="sec-title">Style &amp; <em>Atmosphere</em></h2>
       <div class="sec-rule"><div class="sec-rule-d"></div></div>
     </div>
@@ -714,23 +719,23 @@ body { font-family: var(--font-b); background: #1a0e12; overflow-x: hidden; }
 
       <p style="font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,0.22);margin-bottom:.75rem;">Color Palette</p>
       <div class="palette-row">
-        <div class="palette-chip" style="background:rgba(107,45,58,0.6);color:rgba(255,215,205,0.85);border:0.5px solid rgba(107,45,58,0.5);">Бордо</div>
-        <div class="palette-chip" style="background:rgba(82,78,74,0.5);color:rgba(215,210,200,0.8);border:0.5px solid rgba(82,78,74,0.4);">Серый</div>
-        <div class="palette-chip" style="background:rgba(50,38,32,0.7);color:rgba(215,205,190,0.8);border:0.5px solid rgba(50,38,32,0.5);">Тёмный</div>
-        <div class="palette-chip" style="background:rgba(175,158,132,0.25);color:rgba(215,205,188,0.8);border:0.5px solid rgba(175,158,132,0.3);">Бежевый</div>
-        <div class="palette-chip" style="background:rgba(48,70,38,0.55);color:rgba(190,215,180,0.8);border:0.5px solid rgba(48,70,38,0.4);">Лесной</div>
+        <div class="palette-chip" style="background:rgba(255,255,255,0.12);color:rgba(255,255,255,0.85);border:0.5px solid rgba(255,255,255,0.25);">Белый</div>
+        <div class="palette-chip" style="background:rgba(107,45,58,0.7);color:rgba(255,215,205,0.9);border:0.5px solid rgba(107,45,58,0.5);">Винный</div>
+        <div class="palette-chip" style="background:rgba(180,176,170,0.25);color:rgba(210,206,200,0.85);border:0.5px solid rgba(180,176,170,0.35);">Светло-серый</div>
+        <div class="palette-chip" style="background:rgba(80,20,30,0.7);color:rgba(255,205,200,0.85);border:0.5px solid rgba(80,20,30,0.5);">Бордовый</div>
+        <div class="palette-chip" style="background:rgba(55,52,48,0.65);color:rgba(210,206,200,0.85);border:0.5px solid rgba(55,52,48,0.45);">Тёмно-серый</div>
       </div>
 
       <div class="vibe-text">
         Хотим провести этот weekend в тёплой атмосфере, с множеством шуток и лёгкого юмора.<br>
-        <span style="color:rgba(220,180,160,0.7);">Весёлые outfits +87 к карме )</span>
+        <span style="color:rgba(220,180,160,0.7);">Весёлые outfits +87 к карме</span>
       </div>
     </div>
 
     <div class="mini-card-dark reveal">
       <div class="gift-rule" style="border-top:none;padding-top:0;margin-top:0;">
         <p class="gift-title">О подарках</p>
-        <p class="gift-body">Пожалуйста, не дарите нам вещи — нам правда некуда их класть. Если хочется нас порадовать — подарите деньги: мы уже знаем, на что их потратим с удовольствием.</p>
+        <p class="gift-body">Пожалуйста, не дарите нам вещи — нам правда некуда их класть.<br>Если хочется нас порадовать — подарите деньги: мы уже знаем, на что их потратим с удовольствием.</p>
       </div>
     </div>
   </div>
@@ -742,27 +747,29 @@ body { font-family: var(--font-b); background: #1a0e12; overflow-x: hidden; }
 <section class="sec-light">
   <div class="inner">
     <div class="reveal">
-      <p class="sec-label">Stay Connected</p>
       <h2 class="sec-title">Connection &amp; <em>Drive</em></h2>
       <div class="sec-rule"><div class="sec-rule-d"></div></div>
     </div>
 
     <div class="mini-card-light reveal">
       <p class="conn-text">
-        Хотели бы сохранить в памяти этот день по максимуму.<br>
-        Пожалуйста, делитесь всем, что попадается на глаза)<br><br>
+        Для нас праздник начинается заранее — и нам хотелось бы, чтобы вы присоединились к чату уже сейчас. Хочется видеть все этапы сборов, идеи и обсуждения в моменте)<br><br>Хотели бы сохранить в памяти этот день по максимуму.<br>
+        Пожалуйста, делитесь всем, что попадается на глаза<br><br>
         Смешные фото вас и окружающего, «кружочки» во время сборов/дороги, интересные и красивые пейзажи, видеоотчёт праздника и всего, что вызовет улыбку спустя время.
       </p>
-      <div class="conn-links">
+      <div class="conn-links" style="grid-template-columns:1fr;">
         <a href="https://t.me/+Kq9xZkt-S_llYzc6" target="_blank" rel="noopener" class="conn-link">
           <div class="conn-link-icon icon-tg">
             <svg viewBox="0 0 24 24" fill="none"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8l-1.7 8.02c-.12.58-.46.72-.93.45l-2.57-1.9-1.24 1.19c-.14.14-.26.26-.53.26l.19-2.7 4.89-4.42c.21-.19-.05-.29-.33-.1L7.38 14.4l-2.52-.79c-.55-.17-.56-.55.12-.81l9.85-3.8c.46-.17.86.11.81.8z" fill="#29B6F6"/></svg>
           </div>
           <div>
             <span class="conn-link-name">Telegram Chat</span>
-            <span class="conn-link-sub">Общий чат гостей</span>
+            <span class="conn-link-sub">Присоединяйтесь заранее</span>
           </div>
         </a>
+      </div>
+      <p style="font-size:12px;color:var(--mist);margin:1.25rem 0 .5rem;">После праздника вы сможете забрать все фото тут:</p>
+      <div class="conn-links" style="grid-template-columns:1fr;">
         <a href="https://drive.google.com/drive/folders/1t7xyIY9RA-c0rFaBGhfdycdzyX5VwN1Z?usp=sharing" target="_blank" rel="noopener" class="conn-link">
           <div class="conn-link-icon icon-gdrive">
             <svg viewBox="0 0 24 24" fill="none"><path d="M7.71 3L2 13l3.85 6.67h12.3L22 13 16.29 3H7.71z" stroke="#4285F4" stroke-width="1.5" fill="none"/><path d="M2 13h20M8.5 19.67L12 13l3.5 6.67" stroke="#4285F4" stroke-width="1.2" stroke-linecap="round"/></svg>
@@ -783,7 +790,6 @@ body { font-family: var(--font-b); background: #1a0e12; overflow-x: hidden; }
 <section class="sec-dark">
   <div class="inner">
     <div class="reveal">
-      <p class="sec-label">RSVP</p>
       <h2 class="sec-title"><em>Questionnaire</em></h2>
       <div class="sec-rule"><div class="sec-rule-d"></div></div>
       <p style="font-size:13.5px;color:rgba(255,255,255,0.4);margin-bottom:1.75rem;line-height:1.85;">Помогите нам подготовиться — это займёт одну минуту.</p>
@@ -854,8 +860,7 @@ body { font-family: var(--font-b); background: #1a0e12; overflow-x: hidden; }
 <section class="sec-light">
   <div class="inner">
     <div class="reveal">
-      <p class="sec-label">Packing List</p>
-      <h2 class="sec-title">Take <em>it</em></h2>
+      <h2 class="sec-title">Take it, <em>please</em></h2>
       <div class="sec-rule"><div class="sec-rule-d"></div></div>
     </div>
 
@@ -875,7 +880,7 @@ body { font-family: var(--font-b); background: #1a0e12; overflow-x: hidden; }
         <div class="take-item">
           <p class="take-item-title">Chill <em>time</em></p>
           <p class="take-item-body">
-            Майский лес суров:<br><br>
+            Не забывайте — майский лес суров:<br><br>
             <strong>Evening:</strong> закрытая тёплая одежда, обувь, аэрозоль от насекомых<br>
             <strong>Midday:</strong> шорты, майки, шлёпки, SPF<br>
             <strong>Optional:</strong> camping equipment / hobby supplies — если заскучаете
@@ -884,7 +889,7 @@ body { font-family: var(--font-b); background: #1a0e12; overflow-x: hidden; }
       </div>
 
       <div class="take-ps">
-        <strong>P.S.</strong> Зарядные устройства, «сменка», косметичка — на всякий случай, don't forget!
+        <strong>P.S.</strong> Зарядные устройства, «сменка», косметичка — на всякий случай, don't forget!<br><br>И, самое главное, <strong>ХОРОШЕЕ НАСТРОЕНИЕ!</strong><br><br><strong>P.P.S.:</strong> Улыбку, как и усы, можем наклеить
       </div>
     </div>
   </div>
@@ -911,51 +916,57 @@ const io = new IntersectionObserver(entries => {
 }, { threshold: 0.08 });
 revealEls.forEach(el => io.observe(el));
 
-// MUSIC
-let playing = false;
-const audio = document.getElementById('bgAudio');
+// MUSIC — AudioContext unlock for iOS + aggressive autoplay
+var playing = false;
+var audio = document.getElementById('bgAudio');
 audio.volume = 0.4;
+
+// iOS requires AudioContext to be created/resumed on user gesture
+var _ctx = null;
+function ensureCtx() {
+  if (!_ctx) {
+    try { _ctx = new (window.AudioContext || window.webkitAudioContext)(); } catch(e) {}
+  }
+  if (_ctx && _ctx.state === 'suspended') { _ctx.resume(); }
+}
 
 function setUI(s) {
   playing = s;
-  document.getElementById('musicLabel').textContent = s ? 'Пауза' : 'Музыка';
-  document.getElementById('musicIcon').innerHTML = s
-    ? '<rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/>'
-    : '<path d="M9 18V5l12-2v13M9 18a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm12-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>';
 }
 
 function startAudio() {
+  ensureCtx();
   audio.play().then(function() { setUI(true); }).catch(function() {});
 }
 
-// 1) Attempt immediately
+// 1) Immediate attempt
 startAudio();
 
-// 2) On any early interaction — fires before conscious user action
-var EVTS = ['click','touchstart','touchend','touchmove','mousedown','mousemove','keydown','scroll','pointerdown','visibilitychange'];
-function unlockOnce() {
+// 2) On ANY interaction — catches iOS which needs gesture
+var EVTS = ['click','touchstart','touchend','touchmove','mousedown','mousemove',
+            'keydown','scroll','pointerdown','wheel'];
+function unlockOnce(e) {
+  ensureCtx();
   if (!playing) startAudio();
   EVTS.forEach(function(ev) { document.removeEventListener(ev, unlockOnce); });
   window.removeEventListener('focus', unlockOnce);
 }
-EVTS.forEach(function(ev) { document.addEventListener(ev, unlockOnce, { passive: true }); });
+EVTS.forEach(function(ev) {
+  document.addEventListener(ev, unlockOnce, { passive: true });
+});
 window.addEventListener('focus', unlockOnce);
 
-// 3) Scroll trigger — most reliable on mobile
-var _scrolled = false;
+// 3) Scroll-specific trigger
 window.addEventListener('scroll', function onScroll() {
-  if (!_scrolled) {
-    _scrolled = true;
-    if (!playing) startAudio();
-    window.removeEventListener('scroll', onScroll);
-  }
+  ensureCtx();
+  if (!playing) startAudio();
+  window.removeEventListener('scroll', onScroll);
 }, { passive: true });
 
-// 4) Retry every 400ms for 8 seconds — catches delayed browser unlock
-var _retries = 0;
-var _iv = setInterval(function() {
-  if (playing || _retries > 20) { clearInterval(_iv); return; }
-  startAudio(); _retries++;
+// 4) Retry loop
+var _r = 0, _iv = setInterval(function() {
+  if (playing || _r > 25) { clearInterval(_iv); return; }
+  startAudio(); _r++;
 }, 400);
 
 function toggleMusic() {
@@ -1018,6 +1029,32 @@ function submitSurvey() {
     form.remove(); iframe.remove();
   }, 1500);
 }
+
+// COUNTDOWN — target: 29 May 2026 14:00 local time
+(function() {
+  var target = new Date('2026-05-29T14:00:00');
+  function update() {
+    var now  = new Date();
+    var diff = target - now;
+    if (diff <= 0) {
+      document.getElementById('countdown').innerHTML =
+        '<span style="font-family:var(--font-d);font-size:1.5rem;color:#fff;font-style:italic;opacity:.7;">Уже сегодня 🤍</span>';
+      return;
+    }
+    var d = Math.floor(diff / 86400000);
+    var h = Math.floor((diff % 86400000) / 3600000);
+    var m = Math.floor((diff % 3600000)  / 60000);
+    var s = Math.floor((diff % 60000)    / 1000);
+    function pad(n) { return n < 10 ? '0'+n : ''+n; }
+    document.getElementById('cd-d').textContent = pad(d);
+    document.getElementById('cd-h').textContent = pad(h);
+    document.getElementById('cd-m').textContent = pad(m);
+    document.getElementById('cd-s').textContent = pad(s);
+  }
+  update();
+  setInterval(update, 1000);
+})();
+
 </script>
 </body>
 </html>
