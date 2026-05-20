@@ -824,201 +824,162 @@ body.splash-done { overflow-x: hidden; overflow-y: auto; }
 
 .splash {
   position: fixed; inset: 0; z-index: 9999;
-  background: #F0ECE6;
+  background: #FAF8F5;
   display: flex; flex-direction: column;
   align-items: center; justify-content: center;
-  text-align: center; padding: 0;
-  transition: opacity 0.9s ease;
+  text-align: center; padding: 2rem 1.5rem;
   overflow: hidden;
+  transition: opacity 0.9s ease;
 }
 .splash.hiding { opacity: 0; pointer-events: none; }
 .splash.hidden { display: none; }
 
-/* ── Envelope ── */
+/* Text above */
+.splash-above {
+  margin-bottom: 2rem;
+  animation: splashFadeUp 0.9s ease 0.15s both;
+}
+.splash-script {
+  font-family: var(--font-d); font-style: italic; font-weight: 300;
+  font-size: clamp(1.4rem, 5vw, 2rem);
+  color: rgba(61,26,34,0.22); letter-spacing: 0.04em; margin-bottom: 0.5rem;
+}
+.splash-title {
+  font-family: var(--font-b); font-size: 10px; font-weight: 500;
+  letter-spacing: 0.32em; text-transform: uppercase;
+  color: rgba(61,26,34,0.5);
+}
+
+/* ENVELOPE — wide landscape rectangle */
 .envelope-wrap {
   position: relative;
-  width: min(88vw, 340px);
-  aspect-ratio: 1 / 1.25;
+  width: min(90vw, 400px);
+  height: min(56vw, 250px);   /* forced landscape height */
   cursor: pointer;
   flex-shrink: 0;
+  animation: splashFadeUp 0.9s ease 0.35s both;
 }
 
-/* Envelope body */
-.env-body {
-  position: absolute; inset: 0;
-  border-radius: 4px;
-  overflow: hidden;
-}
-
-/* Back flap — bottom triangle */
+/* Back bottom diamond */
 .env-back-bottom {
-  position: absolute; bottom: 0; left: 0; right: 0;
-  height: 55%; clip-path: polygon(0% 100%, 50% 0%, 100% 100%);
-  background: #E8E2DA;
-  border: none;
+  position: absolute; bottom: 0; left: 0; right: 0; height: 55%;
+  clip-path: polygon(0% 100%, 50% 0%, 100% 100%);
+  background: rgba(0,0,0,0.12);
+  z-index: 1;
 }
-
+/* Back top diamond */
+.env-back-top {
+  position: absolute; top: 0; left: 0; right: 0; height: 55%;
+  clip-path: polygon(0% 0%, 50% 100%, 100% 0%);
+  background: rgba(0,0,0,0.08);
+  z-index: 1;
+}
 /* Side flaps */
 .env-flap-left {
-  position: absolute; left: 0; top: 0; bottom: 0;
-  width: 51%;
+  position: absolute; left: 0; top: 0; bottom: 0; width: 52%;
   clip-path: polygon(0% 0%, 100% 50%, 0% 100%);
-  background: #EAE4DC;
+  background: rgba(0,0,0,0.06);
+  z-index: 1;
 }
 .env-flap-right {
-  position: absolute; right: 0; top: 0; bottom: 0;
-  width: 51%;
+  position: absolute; right: 0; top: 0; bottom: 0; width: 52%;
   clip-path: polygon(100% 0%, 0% 50%, 100% 100%);
-  background: #EAE4DC;
+  background: rgba(0,0,0,0.06);
+  z-index: 1;
 }
 
-/* Top flap — triangle that folds open */
+/* Main envelope body — burgundy */
+.env-body {
+  position: absolute; inset: 0;
+  background: var(--wine);
+  border-radius: 3px;
+  z-index: 0;
+}
+
+/* Inner (lighter, visible behind flaps) */
+.env-inner {
+  position: absolute; inset: 1px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 2px; z-index: 2;
+}
+
+/* Top opening flap */
 .env-flap-top {
-  position: absolute; top: 0; left: 0; right: 0;
-  height: 52%; z-index: 4;
+  position: absolute; top: 0; left: 0; right: 0; height: 55%;
+  z-index: 5;
   transform-origin: top center;
   transform-style: preserve-3d;
-  transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 0.75s cubic-bezier(0.4,0,0.2,1);
 }
 .env-flap-top-face {
   position: absolute; inset: 0;
   clip-path: polygon(0% 0%, 100% 0%, 50% 100%);
-  background: linear-gradient(160deg, #EDE7DF 0%, #E2DAD0 100%);
+  background: linear-gradient(170deg, #5A1F2C 0%, #3D1A22 100%);
   backface-visibility: hidden;
 }
-/* Subtle fold shadow on flap */
 .env-flap-top-face::after {
   content: '';
   position: absolute; inset: 0;
   clip-path: polygon(0% 0%, 100% 0%, 50% 100%);
-  background: linear-gradient(180deg, rgba(0,0,0,0.03) 0%, rgba(0,0,0,0.07) 100%);
+  background: linear-gradient(180deg, rgba(255,255,255,0.06) 0%, rgba(0,0,0,0.12) 100%);
 }
-
-/* Open state */
 .envelope-wrap.opening .env-flap-top {
-  transform: perspective(600px) rotateX(-175deg);
+  transform: perspective(700px) rotateX(-178deg);
 }
 
-/* Envelope outline / edge */
+/* Outline border */
 .env-outline {
   position: absolute; inset: 0;
-  border: 0.5px solid rgba(107,45,58,0.12);
-  border-radius: 4px;
-  z-index: 5; pointer-events: none;
+  border: 0.5px solid rgba(255,255,255,0.08);
+  border-radius: 3px; z-index: 6; pointer-events: none;
 }
 
-/* Envelope inner — visible when open */
-.env-inner {
-  position: absolute; inset: 1px;
-  background: #F8F4EE;
-  display: flex; align-items: center; justify-content: center;
-  border-radius: 3px; z-index: 1;
+/* Inner fold lines (subtle X pattern) */
+.env-fold-line-v {
+  position: absolute; top: 0; bottom: 0; left: 50%;
+  width: 0.5px; background: rgba(255,255,255,0.06); z-index: 3;
+  transform: translateX(-50%);
 }
-.env-inner-text {
-  font-family: var(--font-d); font-style: italic; font-weight: 300;
-  font-size: 1.1rem; color: rgba(107,45,58,0.6);
-  letter-spacing: 0.06em;
+.env-fold-line-h {
+  position: absolute; left: 0; right: 0; top: 50%;
+  height: 0.5px; background: rgba(255,255,255,0.06); z-index: 3;
+  transform: translateY(-50%);
 }
 
-/* ── Wax seal ── */
+/* Wax seal centered */
 .wax-seal {
-  position: absolute;
-  left: 50%; transform: translateX(-50%);
-  /* sits at flap fold point */
-  top: calc(52% - 36px);
-  z-index: 6;
+  position: absolute; left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 7;
   width: 72px; height: 72px;
   cursor: pointer;
   transition: transform 0.3s ease;
-  filter: drop-shadow(0 3px 8px rgba(61,26,34,0.25));
+  filter: drop-shadow(0 3px 10px rgba(0,0,0,0.35));
 }
-.wax-seal:hover { transform: translateX(-50%) scale(1.06); }
-
-/* Wax ripple on click */
+.wax-seal:hover { transform: translate(-50%,-50%) scale(1.07); }
 .wax-seal.clicked { animation: sealPop 0.4s ease; }
 @keyframes sealPop {
-  0%   { transform: translateX(-50%) scale(1); }
-  40%  { transform: translateX(-50%) scale(0.88); }
-  100% { transform: translateX(-50%) scale(1); }
+  0%   { transform: translate(-50%,-50%) scale(1); }
+  40%  { transform: translate(-50%,-50%) scale(0.85); }
+  100% { transform: translate(-50%,-50%) scale(1); }
 }
 
-/* ── Text above/below envelope ── */
-.splash-above {
-  margin-bottom: 2rem; z-index: 2;
-}
-.splash-script {
-  font-family: var(--font-d);
-  font-style: italic; font-weight: 300;
-  font-size: clamp(1.6rem, 6vw, 2.4rem);
-  color: rgba(61,26,34,0.18);
-  letter-spacing: 0.04em; line-height: 1.2;
-  margin-bottom: 0.75rem;
-}
-.splash-title {
-  font-family: var(--font-b); font-size: 9px; font-weight: 400;
-  letter-spacing: 0.35em; text-transform: uppercase;
-  color: rgba(61,26,34,0.45);
-}
-
+/* Hint below */
 .splash-below {
-  margin-top: 2rem; z-index: 2;
-  animation: splashHintPulse 3s ease infinite;
+  margin-top: 2rem;
+  animation: splashFadeUp 0.9s ease 0.85s both;
 }
 .splash-hint {
-  font-family: var(--font-d);
-  font-style: italic; font-weight: 300;
-  font-size: 14px; color: rgba(61,26,34,0.45);
+  font-family: var(--font-d); font-style: italic; font-weight: 300;
+  font-size: 14px; color: rgba(61,26,34,0.4);
   line-height: 1.8; letter-spacing: 0.04em;
+  animation: splashHintPulse 3s ease 1.5s infinite;
 }
-@keyframes splashHintPulse {
-  0%,100% { opacity: 0.7; } 50% { opacity: 1; }
-}
+@keyframes splashHintPulse { 0%,100%{opacity:.65;} 50%{opacity:1;} }
 
-/* entrance */
-.splash-above  { animation: splashFadeUp 0.9s ease 0.2s both; }
-.envelope-wrap { animation: splashFadeUp 0.9s ease 0.4s both; }
-.splash-below  { animation: splashFadeUp 0.9s ease 0.9s both; }
 @keyframes splashFadeUp {
-  from { opacity: 0; transform: translateY(18px); }
+  from { opacity: 0; transform: translateY(16px); }
   to   { opacity: 1; transform: translateY(0); }
-}
-
-/* Letter slides up from envelope when opening */
-.env-letter {
-  position: absolute;
-  left: 10%; right: 10%;
-  bottom: 8%;
-  height: 75%;
-  background: #FDFAF6;
-  border: 0.5px solid rgba(107,45,58,0.1);
-  border-radius: 3px;
-  z-index: 2;
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center; gap: 8px;
-  padding: 1rem;
-  transform: translateY(0);
-  transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1) 0.3s;
-}
-.envelope-wrap.opening .env-letter {
-  transform: translateY(-30%);
-}
-.env-letter-name {
-  font-family: var(--font-d);
-  font-size: clamp(1rem, 4vw, 1.4rem);
-  font-weight: 300; letter-spacing: 0.12em;
-  text-transform: uppercase; color: rgba(61,26,34,0.75);
-}
-.env-letter-amp {
-  font-style: italic; font-size: 0.7em;
-  color: rgba(107,45,58,0.5); letter-spacing: 0.08em;
-}
-.env-letter-line {
-  width: 30px; height: 0.5px; background: rgba(107,45,58,0.2);
-}
-.env-letter-date {
-  font-family: var(--font-b); font-size: 8px; font-weight: 300;
-  letter-spacing: 0.22em; text-transform: uppercase;
-  color: rgba(61,26,34,0.35);
 }
 
 /* ══════════════════════════════════
@@ -1262,208 +1223,243 @@ body.splash-done { overflow-x: hidden; overflow-y: auto; }
 }
 
 /* ══════════════════════════════════
-   SPLASH SCREEN — envelope style
+   RICH BOTANICAL & ORNAMENTAL DECOR
 ══════════════════════════════════ */
-body { overflow: hidden; }
-body.splash-done { overflow-x: hidden; overflow-y: auto; }
 
-.splash {
-  position: fixed; inset: 0; z-index: 9999;
-  background: #F0ECE6;
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  text-align: center; padding: 0;
-  transition: opacity 0.9s ease;
-  overflow: hidden;
-}
-.splash.hiding { opacity: 0; pointer-events: none; }
-.splash.hidden { display: none; }
-
-/* ── Envelope ── */
-.envelope-wrap {
-  position: relative;
-  width: min(88vw, 340px);
-  aspect-ratio: 1 / 1.25;
-  cursor: pointer;
-  flex-shrink: 0;
-}
-
-/* Envelope body */
-.env-body {
-  position: absolute; inset: 0;
-  border-radius: 4px;
-  overflow: hidden;
-}
-
-/* Back flap — bottom triangle */
-.env-back-bottom {
-  position: absolute; bottom: 0; left: 0; right: 0;
-  height: 55%; clip-path: polygon(0% 100%, 50% 0%, 100% 100%);
-  background: #E8E2DA;
-  border: none;
-}
-
-/* Side flaps */
-.env-flap-left {
-  position: absolute; left: 0; top: 0; bottom: 0;
-  width: 51%;
-  clip-path: polygon(0% 0%, 100% 50%, 0% 100%);
-  background: #EAE4DC;
-}
-.env-flap-right {
-  position: absolute; right: 0; top: 0; bottom: 0;
-  width: 51%;
-  clip-path: polygon(100% 0%, 0% 50%, 100% 100%);
-  background: #EAE4DC;
-}
-
-/* Top flap — triangle that folds open */
-.env-flap-top {
-  position: absolute; top: 0; left: 0; right: 0;
-  height: 52%; z-index: 4;
-  transform-origin: top center;
-  transform-style: preserve-3d;
-  transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
-}
-.env-flap-top-face {
-  position: absolute; inset: 0;
-  clip-path: polygon(0% 0%, 100% 0%, 50% 100%);
-  background: linear-gradient(160deg, #EDE7DF 0%, #E2DAD0 100%);
-  backface-visibility: hidden;
-}
-/* Subtle fold shadow on flap */
-.env-flap-top-face::after {
+/* ─ Hero: additional watermark ornament ─ */
+.hero-top::after {
   content: '';
-  position: absolute; inset: 0;
-  clip-path: polygon(0% 0%, 100% 0%, 50% 100%);
-  background: linear-gradient(180deg, rgba(0,0,0,0.03) 0%, rgba(0,0,0,0.07) 100%);
-}
-
-/* Open state */
-.envelope-wrap.opening .env-flap-top {
-  transform: perspective(600px) rotateX(-175deg);
-}
-
-/* Envelope outline / edge */
-.env-outline {
-  position: absolute; inset: 0;
-  border: 0.5px solid rgba(107,45,58,0.12);
-  border-radius: 4px;
-  z-index: 5; pointer-events: none;
-}
-
-/* Envelope inner — visible when open */
-.env-inner {
-  position: absolute; inset: 1px;
-  background: #F8F4EE;
-  display: flex; align-items: center; justify-content: center;
-  border-radius: 3px; z-index: 1;
-}
-.env-inner-text {
-  font-family: var(--font-d); font-style: italic; font-weight: 300;
-  font-size: 1.1rem; color: rgba(107,45,58,0.6);
-  letter-spacing: 0.06em;
-}
-
-/* ── Wax seal ── */
-.wax-seal {
   position: absolute;
-  left: 50%; transform: translateX(-50%);
-  /* sits at flap fold point */
-  top: calc(52% - 36px);
-  z-index: 6;
-  width: 72px; height: 72px;
-  cursor: pointer;
-  transition: transform 0.3s ease;
-  filter: drop-shadow(0 3px 8px rgba(61,26,34,0.25));
-}
-.wax-seal:hover { transform: translateX(-50%) scale(1.06); }
-
-/* Wax ripple on click */
-.wax-seal.clicked { animation: sealPop 0.4s ease; }
-@keyframes sealPop {
-  0%   { transform: translateX(-50%) scale(1); }
-  40%  { transform: translateX(-50%) scale(0.88); }
-  100% { transform: translateX(-50%) scale(1); }
+  bottom: 0; left: 50%; transform: translateX(-50%);
+  width: 200px; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(220,180,160,0.25), transparent);
 }
 
-/* ── Text above/below envelope ── */
-.splash-above {
-  margin-bottom: 2rem; z-index: 2;
+/* ─ Full-width thin decorative rules between sections ─ */
+.sec-dark::before, .sec-light::before {
+  width: 160px; height: 160px;
+  top: -5px; left: -5px;
 }
-.splash-script {
-  font-family: var(--font-d);
-  font-style: italic; font-weight: 300;
-  font-size: clamp(1.6rem, 6vw, 2.4rem);
-  color: rgba(61,26,34,0.18);
-  letter-spacing: 0.04em; line-height: 1.2;
-  margin-bottom: 0.75rem;
-}
-.splash-title {
-  font-family: var(--font-b); font-size: 9px; font-weight: 400;
-  letter-spacing: 0.35em; text-transform: uppercase;
-  color: rgba(61,26,34,0.45);
+.sec-dark::after, .sec-light::after {
+  width: 160px; height: 160px;
+  bottom: -5px; right: -5px;
 }
 
-.splash-below {
-  margin-top: 2rem; z-index: 2;
-  animation: splashHintPulse 3s ease infinite;
+/* ─ Ornamental SVG sprigs — richer pine with cones ─ */
+/* Dark section corners */
+.sec-dark::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 160'%3E%3Cg stroke='%23E0C8B0' stroke-width='0.7' fill='none' stroke-linecap='round' opacity='0.22'%3E%3Cpath d='M6,154 Q35,112 65,72 Q95,32 152,6'/%3E%3Cpath d='M14,144 Q9,128 24,120'/%3E%3Cpath d='M22,132 Q16,115 32,107'/%3E%3Cpath d='M32,118 Q25,100 43,93'/%3E%3Cpath d='M44,103 Q36,84 55,77'/%3E%3Cpath d='M57,88 Q48,69 68,62'/%3E%3Cpath d='M72,73 Q62,54 83,48'/%3E%3Cpath d='M88,58 Q78,39 100,34'/%3E%3Cpath d='M106,43 Q96,24 118,20'/%3E%3Cpath d='M20,140 Q32,124 16,114'/%3E%3Cpath d='M30,126 Q44,108 26,100'/%3E%3Cpath d='M42,111 Q57,93 38,85'/%3E%3Cpath d='M56,96 Q72,78 52,70'/%3E%3Cpath d='M70,81 Q87,62 67,55'/%3E%3Cpath d='M86,66 Q104,47 84,41'/%3E%3Cellipse cx='65' cy='72' rx='3' ry='4' stroke-width='0.6' opacity='0.5'/%3E%3Cellipse cx='95' cy='45' rx='2.5' ry='3.5' stroke-width='0.5' opacity='0.4'/%3E%3Ccircle cx='65' cy='72' r='1.2' fill='%23E0C8B0' opacity='0.35'/%3E%3Ccircle cx='95' cy='45' r='1' fill='%23E0C8B0' opacity='0.3'/%3E%3C/g%3E%3C/svg%3E");
 }
-.splash-hint {
-  font-family: var(--font-d);
-  font-style: italic; font-weight: 300;
-  font-size: 14px; color: rgba(61,26,34,0.45);
-  line-height: 1.8; letter-spacing: 0.04em;
-}
-@keyframes splashHintPulse {
-  0%,100% { opacity: 0.7; } 50% { opacity: 1; }
+.sec-dark::after {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 160'%3E%3Cg stroke='%23E0C8B0' stroke-width='0.7' fill='none' stroke-linecap='round' opacity='0.22'%3E%3Cpath d='M6,154 Q35,112 65,72 Q95,32 152,6'/%3E%3Cpath d='M14,144 Q9,128 24,120'/%3E%3Cpath d='M22,132 Q16,115 32,107'/%3E%3Cpath d='M32,118 Q25,100 43,93'/%3E%3Cpath d='M44,103 Q36,84 55,77'/%3E%3Cpath d='M57,88 Q48,69 68,62'/%3E%3Cpath d='M72,73 Q62,54 83,48'/%3E%3Cpath d='M88,58 Q78,39 100,34'/%3E%3Cpath d='M20,140 Q32,124 16,114'/%3E%3Cpath d='M30,126 Q44,108 26,100'/%3E%3Cpath d='M42,111 Q57,93 38,85'/%3E%3Cpath d='M56,96 Q72,78 52,70'/%3E%3Cpath d='M70,81 Q87,62 67,55'/%3E%3Cellipse cx='65' cy='72' rx='3' ry='4' stroke-width='0.6' opacity='0.5'/%3E%3Ccircle cx='65' cy='72' r='1.2' fill='%23E0C8B0' opacity='0.35'/%3E%3C/g%3E%3C/svg%3E");
 }
 
-/* entrance */
-.splash-above  { animation: splashFadeUp 0.9s ease 0.2s both; }
-.envelope-wrap { animation: splashFadeUp 0.9s ease 0.4s both; }
-.splash-below  { animation: splashFadeUp 0.9s ease 0.9s both; }
-@keyframes splashFadeUp {
-  from { opacity: 0; transform: translateY(18px); }
-  to   { opacity: 1; transform: translateY(0); }
+/* Light section corners — burgundy */
+.sec-light::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 160'%3E%3Cg stroke='%236B2D3A' stroke-width='0.7' fill='none' stroke-linecap='round' opacity='0.18'%3E%3Cpath d='M6,154 Q35,112 65,72 Q95,32 152,6'/%3E%3Cpath d='M14,144 Q9,128 24,120'/%3E%3Cpath d='M22,132 Q16,115 32,107'/%3E%3Cpath d='M32,118 Q25,100 43,93'/%3E%3Cpath d='M44,103 Q36,84 55,77'/%3E%3Cpath d='M57,88 Q48,69 68,62'/%3E%3Cpath d='M72,73 Q62,54 83,48'/%3E%3Cpath d='M88,58 Q78,39 100,34'/%3E%3Cpath d='M106,43 Q96,24 118,20'/%3E%3Cpath d='M20,140 Q32,124 16,114'/%3E%3Cpath d='M30,126 Q44,108 26,100'/%3E%3Cpath d='M42,111 Q57,93 38,85'/%3E%3Cpath d='M56,96 Q72,78 52,70'/%3E%3Cpath d='M70,81 Q87,62 67,55'/%3E%3Cpath d='M86,66 Q104,47 84,41'/%3E%3Cellipse cx='65' cy='72' rx='3' ry='4' stroke-width='0.6' opacity='0.45'/%3E%3Cellipse cx='95' cy='45' rx='2.5' ry='3.5' stroke-width='0.5' opacity='0.35'/%3E%3Ccircle cx='65' cy='72' r='1.2' fill='%236B2D3A' opacity='0.3'/%3E%3Ccircle cx='95' cy='45' r='1' fill='%236B2D3A' opacity='0.25'/%3E%3C/g%3E%3C/svg%3E");
+}
+.sec-light::after {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 160'%3E%3Cg stroke='%236B2D3A' stroke-width='0.7' fill='none' stroke-linecap='round' opacity='0.18'%3E%3Cpath d='M6,154 Q35,112 65,72 Q95,32 152,6'/%3E%3Cpath d='M14,144 Q9,128 24,120'/%3E%3Cpath d='M22,132 Q16,115 32,107'/%3E%3Cpath d='M32,118 Q25,100 43,93'/%3E%3Cpath d='M44,103 Q36,84 55,77'/%3E%3Cpath d='M57,88 Q48,69 68,62'/%3E%3Cpath d='M72,73 Q62,54 83,48'/%3E%3Cpath d='M88,58 Q78,39 100,34'/%3E%3Cpath d='M20,140 Q32,124 16,114'/%3E%3Cpath d='M30,126 Q44,108 26,100'/%3E%3Cpath d='M42,111 Q57,93 38,85'/%3E%3Cpath d='M56,96 Q72,78 52,70'/%3E%3Cellipse cx='65' cy='72' rx='3' ry='4' stroke-width='0.6' opacity='0.45'/%3E%3Ccircle cx='65' cy='72' r='1.2' fill='%236B2D3A' opacity='0.3'/%3E%3C/g%3E%3C/svg%3E");
 }
 
-/* Letter slides up from envelope when opening */
-.env-letter {
+/* ─ sec-rule gets inline ornamental flourish ─ */
+.sec-rule { position: relative; }
+
+/* ─ Mini-card decorative pin-stripe top border ─ */
+.mini-card-dark {
+  border-top: 1px solid rgba(220,180,160,0.2);
+}
+.mini-card-light {
+  border-top: 1px solid rgba(107,45,58,0.12);
+}
+
+/* ─ Ornamental divider between ww-day cards ─ */
+.ww-day-sep {
+  display: flex; align-items: center; gap: 8px;
+  padding: 0 0.5rem;
+}
+.ww-day-sep::before, .ww-day-sep::after {
+  content: ''; flex: 1; height: 0.5px;
+}
+.sec-light .ww-day-sep::before, .sec-light .ww-day-sep::after { background: rgba(107,45,58,0.1); }
+.sec-dark  .ww-day-sep::before, .sec-dark  .ww-day-sep::after { background: rgba(255,255,255,0.08); }
+.ww-day-sep-icon { font-size: 8px; opacity: 0.4; }
+
+/* ─ Floating botanical watermark in center of big sections ─ */
+.sec-watermark {
   position: absolute;
-  left: 10%; right: 10%;
-  bottom: 8%;
-  height: 75%;
-  background: #FDFAF6;
-  border: 0.5px solid rgba(107,45,58,0.1);
-  border-radius: 3px;
-  z-index: 2;
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center; gap: 8px;
-  padding: 1rem;
-  transform: translateY(0);
-  transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1) 0.3s;
+  top: 50%; left: 50%; transform: translate(-50%,-50%);
+  pointer-events: none; z-index: 0; opacity: 0.04;
+  width: 280px; height: 280px;
 }
-.envelope-wrap.opening .env-letter {
-  transform: translateY(-30%);
+
+/* ─ Hero decorative band at bottom ─ */
+.hero-bottom-rule {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  height: 3px; pointer-events: none;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(220,180,160,0.15) 20%,
+    rgba(220,180,160,0.35) 50%,
+    rgba(220,180,160,0.15) 80%,
+    transparent 100%);
 }
-.env-letter-name {
-  font-family: var(--font-d);
-  font-size: clamp(1rem, 4vw, 1.4rem);
-  font-weight: 300; letter-spacing: 0.12em;
-  text-transform: uppercase; color: rgba(61,26,34,0.75);
+
+/* ─ Section title decorative accent left ─ */
+.sec-title::before {
+  content: '';
+  display: inline-block;
+  width: 3px; height: 0.9em;
+  background: currentColor;
+  opacity: 0.15;
+  margin-right: 10px;
+  vertical-align: middle;
+  border-radius: 2px;
+  transform: translateY(-1px);
 }
-.env-letter-amp {
-  font-style: italic; font-size: 0.7em;
-  color: rgba(107,45,58,0.5); letter-spacing: 0.08em;
+
+/* ─ Footer enhanced ─ */
+.footer-orn-line { width: 70px; }
+
+/* ─ Dots row ornament ─ */
+.orn-dots {
+  display: flex; align-items: center; gap: 6px;
+  justify-content: center; margin: 1.25rem 0;
 }
-.env-letter-line {
-  width: 30px; height: 0.5px; background: rgba(107,45,58,0.2);
+.orn-dots span {
+  width: 3px; height: 3px; border-radius: 50%;
+  background: rgba(220,180,160,0.4);
 }
-.env-letter-date {
-  font-family: var(--font-b); font-size: 8px; font-weight: 300;
-  letter-spacing: 0.22em; text-transform: uppercase;
-  color: rgba(61,26,34,0.35);
+.orn-dots span:nth-child(2) { width: 5px; height: 5px; }
+.orn-dots-light span { background: rgba(107,45,58,0.25); }
+.orn-dots-light span:nth-child(2) { background: rgba(107,45,58,0.4); }
+
+@media (max-width:600px) {
+  .sec-dark::before, .sec-dark::after,
+  .sec-light::before, .sec-light::after {
+    width: 100px; height: 100px; opacity: 0.9;
+  }
+  .sec-watermark { width: 180px; height: 180px; }
+}
+
+/* ══════════════════════════════════
+   RICH BOTANICAL & ORNAMENTAL DECOR
+══════════════════════════════════ */
+
+/* ─ Hero: additional watermark ornament ─ */
+.hero-top::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 50%; transform: translateX(-50%);
+  width: 200px; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(220,180,160,0.25), transparent);
+}
+
+/* ─ Full-width thin decorative rules between sections ─ */
+.sec-dark::before, .sec-light::before {
+  width: 160px; height: 160px;
+  top: -5px; left: -5px;
+}
+.sec-dark::after, .sec-light::after {
+  width: 160px; height: 160px;
+  bottom: -5px; right: -5px;
+}
+
+/* ─ Ornamental SVG sprigs — richer pine with cones ─ */
+/* Dark section corners */
+.sec-dark::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 160'%3E%3Cg stroke='%23E0C8B0' stroke-width='0.7' fill='none' stroke-linecap='round' opacity='0.22'%3E%3Cpath d='M6,154 Q35,112 65,72 Q95,32 152,6'/%3E%3Cpath d='M14,144 Q9,128 24,120'/%3E%3Cpath d='M22,132 Q16,115 32,107'/%3E%3Cpath d='M32,118 Q25,100 43,93'/%3E%3Cpath d='M44,103 Q36,84 55,77'/%3E%3Cpath d='M57,88 Q48,69 68,62'/%3E%3Cpath d='M72,73 Q62,54 83,48'/%3E%3Cpath d='M88,58 Q78,39 100,34'/%3E%3Cpath d='M106,43 Q96,24 118,20'/%3E%3Cpath d='M20,140 Q32,124 16,114'/%3E%3Cpath d='M30,126 Q44,108 26,100'/%3E%3Cpath d='M42,111 Q57,93 38,85'/%3E%3Cpath d='M56,96 Q72,78 52,70'/%3E%3Cpath d='M70,81 Q87,62 67,55'/%3E%3Cpath d='M86,66 Q104,47 84,41'/%3E%3Cellipse cx='65' cy='72' rx='3' ry='4' stroke-width='0.6' opacity='0.5'/%3E%3Cellipse cx='95' cy='45' rx='2.5' ry='3.5' stroke-width='0.5' opacity='0.4'/%3E%3Ccircle cx='65' cy='72' r='1.2' fill='%23E0C8B0' opacity='0.35'/%3E%3Ccircle cx='95' cy='45' r='1' fill='%23E0C8B0' opacity='0.3'/%3E%3C/g%3E%3C/svg%3E");
+}
+.sec-dark::after {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 160'%3E%3Cg stroke='%23E0C8B0' stroke-width='0.7' fill='none' stroke-linecap='round' opacity='0.22'%3E%3Cpath d='M6,154 Q35,112 65,72 Q95,32 152,6'/%3E%3Cpath d='M14,144 Q9,128 24,120'/%3E%3Cpath d='M22,132 Q16,115 32,107'/%3E%3Cpath d='M32,118 Q25,100 43,93'/%3E%3Cpath d='M44,103 Q36,84 55,77'/%3E%3Cpath d='M57,88 Q48,69 68,62'/%3E%3Cpath d='M72,73 Q62,54 83,48'/%3E%3Cpath d='M88,58 Q78,39 100,34'/%3E%3Cpath d='M20,140 Q32,124 16,114'/%3E%3Cpath d='M30,126 Q44,108 26,100'/%3E%3Cpath d='M42,111 Q57,93 38,85'/%3E%3Cpath d='M56,96 Q72,78 52,70'/%3E%3Cpath d='M70,81 Q87,62 67,55'/%3E%3Cellipse cx='65' cy='72' rx='3' ry='4' stroke-width='0.6' opacity='0.5'/%3E%3Ccircle cx='65' cy='72' r='1.2' fill='%23E0C8B0' opacity='0.35'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* Light section corners — burgundy */
+.sec-light::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 160'%3E%3Cg stroke='%236B2D3A' stroke-width='0.7' fill='none' stroke-linecap='round' opacity='0.18'%3E%3Cpath d='M6,154 Q35,112 65,72 Q95,32 152,6'/%3E%3Cpath d='M14,144 Q9,128 24,120'/%3E%3Cpath d='M22,132 Q16,115 32,107'/%3E%3Cpath d='M32,118 Q25,100 43,93'/%3E%3Cpath d='M44,103 Q36,84 55,77'/%3E%3Cpath d='M57,88 Q48,69 68,62'/%3E%3Cpath d='M72,73 Q62,54 83,48'/%3E%3Cpath d='M88,58 Q78,39 100,34'/%3E%3Cpath d='M106,43 Q96,24 118,20'/%3E%3Cpath d='M20,140 Q32,124 16,114'/%3E%3Cpath d='M30,126 Q44,108 26,100'/%3E%3Cpath d='M42,111 Q57,93 38,85'/%3E%3Cpath d='M56,96 Q72,78 52,70'/%3E%3Cpath d='M70,81 Q87,62 67,55'/%3E%3Cpath d='M86,66 Q104,47 84,41'/%3E%3Cellipse cx='65' cy='72' rx='3' ry='4' stroke-width='0.6' opacity='0.45'/%3E%3Cellipse cx='95' cy='45' rx='2.5' ry='3.5' stroke-width='0.5' opacity='0.35'/%3E%3Ccircle cx='65' cy='72' r='1.2' fill='%236B2D3A' opacity='0.3'/%3E%3Ccircle cx='95' cy='45' r='1' fill='%236B2D3A' opacity='0.25'/%3E%3C/g%3E%3C/svg%3E");
+}
+.sec-light::after {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 160'%3E%3Cg stroke='%236B2D3A' stroke-width='0.7' fill='none' stroke-linecap='round' opacity='0.18'%3E%3Cpath d='M6,154 Q35,112 65,72 Q95,32 152,6'/%3E%3Cpath d='M14,144 Q9,128 24,120'/%3E%3Cpath d='M22,132 Q16,115 32,107'/%3E%3Cpath d='M32,118 Q25,100 43,93'/%3E%3Cpath d='M44,103 Q36,84 55,77'/%3E%3Cpath d='M57,88 Q48,69 68,62'/%3E%3Cpath d='M72,73 Q62,54 83,48'/%3E%3Cpath d='M88,58 Q78,39 100,34'/%3E%3Cpath d='M20,140 Q32,124 16,114'/%3E%3Cpath d='M30,126 Q44,108 26,100'/%3E%3Cpath d='M42,111 Q57,93 38,85'/%3E%3Cpath d='M56,96 Q72,78 52,70'/%3E%3Cellipse cx='65' cy='72' rx='3' ry='4' stroke-width='0.6' opacity='0.45'/%3E%3Ccircle cx='65' cy='72' r='1.2' fill='%236B2D3A' opacity='0.3'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* ─ sec-rule gets inline ornamental flourish ─ */
+.sec-rule { position: relative; }
+
+/* ─ Mini-card decorative pin-stripe top border ─ */
+.mini-card-dark {
+  border-top: 1px solid rgba(220,180,160,0.2);
+}
+.mini-card-light {
+  border-top: 1px solid rgba(107,45,58,0.12);
+}
+
+/* ─ Ornamental divider between ww-day cards ─ */
+.ww-day-sep {
+  display: flex; align-items: center; gap: 8px;
+  padding: 0 0.5rem;
+}
+.ww-day-sep::before, .ww-day-sep::after {
+  content: ''; flex: 1; height: 0.5px;
+}
+.sec-light .ww-day-sep::before, .sec-light .ww-day-sep::after { background: rgba(107,45,58,0.1); }
+.sec-dark  .ww-day-sep::before, .sec-dark  .ww-day-sep::after { background: rgba(255,255,255,0.08); }
+.ww-day-sep-icon { font-size: 8px; opacity: 0.4; }
+
+/* ─ Floating botanical watermark in center of big sections ─ */
+.sec-watermark {
+  position: absolute;
+  top: 50%; left: 50%; transform: translate(-50%,-50%);
+  pointer-events: none; z-index: 0; opacity: 0.04;
+  width: 280px; height: 280px;
+}
+
+/* ─ Hero decorative band at bottom ─ */
+.hero-bottom-rule {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  height: 3px; pointer-events: none;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(220,180,160,0.15) 20%,
+    rgba(220,180,160,0.35) 50%,
+    rgba(220,180,160,0.15) 80%,
+    transparent 100%);
+}
+
+/* ─ Section title decorative accent left ─ */
+.sec-title::before {
+  content: '';
+  display: inline-block;
+  width: 3px; height: 0.9em;
+  background: currentColor;
+  opacity: 0.15;
+  margin-right: 10px;
+  vertical-align: middle;
+  border-radius: 2px;
+  transform: translateY(-1px);
+}
+
+/* ─ Footer enhanced ─ */
+.footer-orn-line { width: 70px; }
+
+/* ─ Dots row ornament ─ */
+.orn-dots {
+  display: flex; align-items: center; gap: 6px;
+  justify-content: center; margin: 1.25rem 0;
+}
+.orn-dots span {
+  width: 3px; height: 3px; border-radius: 50%;
+  background: rgba(220,180,160,0.4);
+}
+.orn-dots span:nth-child(2) { width: 5px; height: 5px; }
+.orn-dots-light span { background: rgba(107,45,58,0.25); }
+.orn-dots-light span:nth-child(2) { background: rgba(107,45,58,0.4); }
+
+@media (max-width:600px) {
+  .sec-dark::before, .sec-dark::after,
+  .sec-light::before, .sec-light::after {
+    width: 100px; height: 100px; opacity: 0.9;
+  }
+  .sec-watermark { width: 180px; height: 180px; }
 }
 
 /* ══════════════════════════════════
@@ -1592,14 +1588,7 @@ body.splash-done { overflow-x: hidden; overflow-y: auto; }
 body { overflow: hidden; }
 body.splash-done { overflow-x: hidden; overflow-y: auto; }
 
-.splash {
-  position: fixed; inset: 0; z-index: 9999;
-  background: #3D1A22;
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  text-align: center; padding: 3rem 2rem;
-  transition: opacity 0.9s ease, transform 0.9s ease;
-}
+
 .splash.hiding {
   opacity: 0; transform: scale(1.04);
   pointer-events: none;
@@ -1745,104 +1734,99 @@ body.splash-done { overflow-x: hidden; overflow-y: auto; }
 <!-- ══ SPLASH SCREEN ══ -->
 <div class="splash" id="splash">
 
+  <!-- Above label -->
   <div class="splash-above">
     <p class="splash-script">Wedding day</p>
-    <p class="splash-title">Приглашение на свадьбу</p>
+    <p class="splash-title">Вам приглашение</p>
   </div>
 
-  <!-- ENVELOPE -->
-  <div class="envelope-wrap" id="envelopeWrap" onclick="openEnvelope()">
+  <!-- HORIZONTAL ENVELOPE -->
+  <div class="envelope-wrap" id="envelopeWrap">
 
-    <!-- Inner page (visible through opening) -->
-    <div class="env-inner">
-      <span class="env-inner-text">Даниил &amp; Дарья</span>
-    </div>
-
-    <!-- Letter that slides up -->
-    <div class="env-letter">
-      <div class="env-letter-line"></div>
-      <p class="env-letter-name">Даниил <span class="env-letter-amp">и</span> Дарья</p>
-      <div class="env-letter-line"></div>
-      <p class="env-letter-date">29 — 31 мая 2026</p>
-    </div>
-
-    <!-- Envelope body parts -->
+    <!-- Back layers -->
     <div class="env-body">
+      <div class="env-back-top"></div>
       <div class="env-back-bottom"></div>
       <div class="env-flap-left"></div>
       <div class="env-flap-right"></div>
     </div>
 
-    <!-- Top flap (folds open) -->
+    <!-- Inner surface -->
+    <div class="env-inner"></div>
+
+    <!-- Top flap (opens) -->
     <div class="env-flap-top" id="envFlapTop">
       <div class="env-flap-top-face"></div>
     </div>
 
-    <!-- Outline border -->
+    <!-- Outline -->
     <div class="env-outline"></div>
 
-    <!-- Wax seal SVG -->
-    <svg class="wax-seal" id="waxSeal" viewBox="0 0 72 72" xmlns="http://www.w3.org/2000/svg">
+    <!-- Wax seal — centered -->
+    <svg class="wax-seal" id="waxSeal" viewBox="0 0 76 76" xmlns="http://www.w3.org/2000/svg">
       <defs>
-        <radialGradient id="waxGrad" cx="42%" cy="38%" r="58%">
+        <radialGradient id="wg" cx="40%" cy="36%" r="60%">
           <stop offset="0%"   stop-color="#8B3A4E"/>
-          <stop offset="45%"  stop-color="#6B2D3A"/>
+          <stop offset="50%"  stop-color="#6B2D3A"/>
           <stop offset="100%" stop-color="#3D1A22"/>
         </radialGradient>
-        <radialGradient id="waxShine" cx="38%" cy="32%" r="45%">
-          <stop offset="0%"   stop-color="rgba(255,255,255,0.22)"/>
+        <radialGradient id="ws" cx="36%" cy="30%" r="44%">
+          <stop offset="0%"   stop-color="rgba(255,255,255,0.24)"/>
           <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
         </radialGradient>
       </defs>
-      <!-- Outer drip ring — irregular organic shape -->
-      <path d="M36,4 Q42,3 47,5 Q54,7 58,12 Q63,18 64,25 Q66,31 65,37 Q64,44 60,49 Q56,55 50,58 Q44,62 37,63 Q30,64 24,61 Q17,58 13,53 Q8,47 7,40 Q5,33 7,27 Q9,20 14,15 Q19,9 26,6 Q30,4 36,4Z"
-            fill="url(#waxGrad)"/>
-      <!-- Shine overlay -->
-      <path d="M36,4 Q42,3 47,5 Q54,7 58,12 Q63,18 64,25 Q66,31 65,37 Q64,44 60,49 Q56,55 50,58 Q44,62 37,63 Q30,64 24,61 Q17,58 13,53 Q8,47 7,40 Q5,33 7,27 Q9,20 14,15 Q19,9 26,6 Q30,4 36,4Z"
-            fill="url(#waxShine)"/>
-      <!-- Outer decorative ring -->
-      <circle cx="36" cy="34" r="22" fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="0.8"/>
+      <!-- Organic wax drip shape -->
+      <path d="M38,3 Q45,2 51,5 Q58,8 62,14 Q67,21 67,29 Q68,36 66,43 Q63,51 57,56 Q51,61 43,63 Q36,65 29,62 Q22,59 17,53 Q11,47 9,39 Q7,32 9,25 Q11,17 17,11 Q23,5 31,3 Q34,2 38,3Z"
+            fill="url(#wg)"/>
+      <path d="M38,3 Q45,2 51,5 Q58,8 62,14 Q67,21 67,29 Q68,36 66,43 Q63,51 57,56 Q51,61 43,63 Q36,65 29,62 Q22,59 17,53 Q11,47 9,39 Q7,32 9,25 Q11,17 17,11 Q23,5 31,3 Q34,2 38,3Z"
+            fill="url(#ws)"/>
+      <!-- Outer ring -->
+      <circle cx="38" cy="33" r="23" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="0.7"/>
       <!-- Inner ring -->
-      <circle cx="36" cy="34" r="17" fill="none" stroke="rgba(255,255,255,0.14)" stroke-width="0.6"/>
+      <circle cx="38" cy="33" r="17.5" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="0.6"/>
       <!-- Laurel left -->
-      <g stroke="rgba(255,255,255,0.5)" stroke-width="0.7" fill="none" stroke-linecap="round">
-        <path d="M19,34 Q20,30 23,29"/><path d="M19,34 Q20,38 23,39"/>
-        <path d="M21,31 Q23,27 26,27"/><path d="M21,37 Q23,41 26,41"/>
-        <path d="M24,28 Q27,25 29,26"/><path d="M24,40 Q27,43 29,42"/>
-        <path d="M19,34 Q22,34 29,34" stroke-width="0.5"/>
+      <g stroke="rgba(255,255,255,0.55)" stroke-width="0.65" fill="none" stroke-linecap="round">
+        <path d="M20,33 Q21,29 24,28"/><path d="M20,33 Q21,37 24,38"/>
+        <path d="M22,30 Q25,26 28,26"/><path d="M22,36 Q25,40 28,40"/>
+        <path d="M25,27 Q28,24 31,25"/><path d="M25,39 Q28,42 31,41"/>
+        <path d="M20,33 L30,33" stroke-width="0.45"/>
       </g>
       <!-- Laurel right -->
-      <g stroke="rgba(255,255,255,0.5)" stroke-width="0.7" fill="none" stroke-linecap="round">
-        <path d="M53,34 Q52,30 49,29"/><path d="M53,34 Q52,38 49,39"/>
-        <path d="M51,31 Q49,27 46,27"/><path d="M51,37 Q49,41 46,41"/>
-        <path d="M48,28 Q45,25 43,26"/><path d="M48,40 Q45,43 43,42"/>
-        <path d="M53,34 Q50,34 43,34" stroke-width="0.5"/>
+      <g stroke="rgba(255,255,255,0.55)" stroke-width="0.65" fill="none" stroke-linecap="round">
+        <path d="M56,33 Q55,29 52,28"/><path d="M56,33 Q55,37 52,38"/>
+        <path d="M54,30 Q51,26 48,26"/><path d="M54,36 Q51,40 48,40"/>
+        <path d="M51,27 Q48,24 45,25"/><path d="M51,39 Q48,42 45,41"/>
+        <path d="M56,33 L46,33" stroke-width="0.45"/>
       </g>
       <!-- Initials Д & Д -->
-      <text x="36" y="31" text-anchor="middle"
-            font-family="Cormorant Garamond, Georgia, serif"
-            font-size="9" font-weight="300" font-style="italic"
-            fill="rgba(255,255,255,0.85)" letter-spacing="1">Д</text>
-      <text x="36" y="39" text-anchor="middle"
-            font-family="Cormorant Garamond, Georgia, serif"
+      <text x="38" y="29" text-anchor="middle"
+            font-family="Cormorant Garamond,Georgia,serif"
+            font-size="9.5" font-weight="300" font-style="italic"
+            fill="rgba(255,255,255,0.88)">Д</text>
+      <text x="38" y="37" text-anchor="middle"
+            font-family="Cormorant Garamond,Georgia,serif"
             font-size="7" font-weight="300"
-            fill="rgba(255,255,255,0.5)" letter-spacing="2">&amp;</text>
-      <text x="36" y="47" text-anchor="middle"
-            font-family="Cormorant Garamond, Georgia, serif"
-            font-size="9" font-weight="300" font-style="italic"
-            fill="rgba(255,255,255,0.85)" letter-spacing="1">Д</text>
-      <!-- Top decoration -->
-      <path d="M30,22 Q36,19 42,22" stroke="rgba(255,255,255,0.35)" stroke-width="0.6" fill="none"/>
-      <circle cx="36" cy="20" r="1.2" fill="rgba(255,255,255,0.4)"/>
+            fill="rgba(255,255,255,0.5)">&amp;</text>
+      <text x="38" y="45" text-anchor="middle"
+            font-family="Cormorant Garamond,Georgia,serif"
+            font-size="9.5" font-weight="300" font-style="italic"
+            fill="rgba(255,255,255,0.88)">Д</text>
+      <!-- Top accent -->
+      <path d="M32,19 Q38,16 44,19" stroke="rgba(255,255,255,0.3)" stroke-width="0.6" fill="none"/>
+      <circle cx="38" cy="17" r="1.3" fill="rgba(255,255,255,0.38)"/>
     </svg>
+
   </div><!-- /envelope-wrap -->
 
+  <!-- Below hint -->
   <div class="splash-below">
     <p class="splash-hint">нажмите на печать,<br>чтобы открыть</p>
   </div>
 
 </div>
 <!-- ══ END SPLASH ══ -->
+
+
 
 <!-- ══ 1. HERO ══ -->
 <section class="hero">
