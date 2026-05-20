@@ -815,9 +815,271 @@ body {
   }
   .sec-watermark { width: 180px; height: 180px; }
 }
+
+/* ══════════════════════════════════
+   SPLASH SCREEN
+══════════════════════════════════ */
+body { overflow: hidden; }
+body.splash-done { overflow-x: hidden; overflow-y: auto; }
+
+.splash {
+  position: fixed; inset: 0; z-index: 9999;
+  background: #3D1A22;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  text-align: center; padding: 3rem 2rem;
+  transition: opacity 0.9s ease, transform 0.9s ease;
+}
+.splash.hiding {
+  opacity: 0; transform: scale(1.04);
+  pointer-events: none;
+}
+.splash.hidden { display: none; }
+
+/* Same botanical corners as hero */
+.splash-corner {
+  position: absolute; width: 180px; height: 180px; pointer-events: none;
+}
+.splash-corner.tl { top: 0; left: 0; }
+.splash-corner.tr { top: 0; right: 0; transform: scaleX(-1); }
+.splash-corner.bl { bottom: 0; left: 0; transform: scaleY(-1); opacity: .5; }
+.splash-corner.br { bottom: 0; right: 0; transform: scale(-1); opacity: .5; }
+
+/* Top / bottom thin gold rules */
+.splash-rule-t {
+  position: absolute; top: 18px; left: 8%; right: 8%;
+  height: 0.5px;
+  background: linear-gradient(90deg, transparent, rgba(220,180,160,0.25), transparent);
+}
+.splash-rule-b {
+  position: absolute; bottom: 18px; left: 8%; right: 8%;
+  height: 0.5px;
+  background: linear-gradient(90deg, transparent, rgba(220,180,160,0.25), transparent);
+}
+
+.splash-pine { margin-bottom: 1.75rem; opacity: 0.85; }
+
+.splash-eyebrow {
+  font-family: var(--font-b); font-size: 9px; font-weight: 300;
+  letter-spacing: 0.38em; text-transform: uppercase;
+  color: rgba(220,180,160,0.5); margin-bottom: 1.75rem;
+}
+
+.splash-names-wrap {
+  position: relative; padding: 1.25rem 2.5rem; margin-bottom: 0.5rem;
+}
+.splash-names-wrap::before {
+  content: ''; position: absolute; top: 0; left: 0;
+  width: 18px; height: 18px;
+  border-top: 0.5px solid rgba(220,180,160,0.35);
+  border-left: 0.5px solid rgba(220,180,160,0.35);
+}
+.splash-names-wrap::after {
+  content: ''; position: absolute; bottom: 0; right: 0;
+  width: 18px; height: 18px;
+  border-bottom: 0.5px solid rgba(220,180,160,0.35);
+  border-right: 0.5px solid rgba(220,180,160,0.35);
+}
+
+.splash-names {
+  font-family: var(--font-d);
+  font-size: clamp(2.2rem, 10vw, 4.2rem);
+  font-weight: 300; line-height: 1.1;
+  color: rgba(255,255,255,0.95);
+  letter-spacing: 0.14em; text-transform: uppercase;
+}
+.splash-amp {
+  font-family: var(--font-d); font-style: italic;
+  font-size: 0.5em; color: rgba(220,180,160,0.85);
+  display: block; letter-spacing: 0.12em;
+  margin: 0.3rem 0; text-transform: none; font-weight: 300;
+}
+
+.splash-orn {
+  display: flex; align-items: center; gap: 10px;
+  justify-content: center; margin: 1rem 0 1.5rem;
+}
+.splash-orn-line  { width: 45px; height: 0.5px; background: rgba(220,180,160,0.28); }
+.splash-orn-diamond {
+  width: 5px; height: 5px;
+  border: 0.5px solid rgba(220,180,160,0.4); transform: rotate(45deg);
+}
+.splash-orn-dot { width: 3px; height: 3px; background: rgba(220,180,160,0.28); border-radius: 50%; }
+
+.splash-invite {
+  font-family: var(--font-d); font-size: 14px;
+  font-style: italic; font-weight: 300;
+  color: rgba(255,255,255,0.5); line-height: 1.9;
+  margin-bottom: 1.25rem;
+}
+
+.splash-date {
+  font-family: var(--font-b); font-size: 9px; font-weight: 300;
+  letter-spacing: 0.28em; text-transform: uppercase;
+  color: rgba(255,255,255,0.35); margin-bottom: 2.5rem;
+}
+
+/* Open button */
+.splash-btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 1rem 2.5rem;
+  background: transparent;
+  border: 0.5px solid rgba(220,180,160,0.4);
+  border-radius: 50px;
+  font-family: var(--font-b); font-size: 11px; font-weight: 400;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: rgba(220,180,160,0.8);
+  cursor: pointer;
+  transition: all 0.35s ease;
+  animation: splashBtnPulse 3s ease infinite;
+}
+.splash-btn:hover {
+  background: rgba(220,180,160,0.1);
+  border-color: rgba(220,180,160,0.7);
+  color: rgba(220,180,160,1);
+  transform: scale(1.04);
+}
+.splash-btn svg { width: 14px; height: 14px; opacity: 0.7; }
+
+@keyframes splashBtnPulse {
+  0%,100% { box-shadow: 0 0 0 0 rgba(220,180,160,0); }
+  50%      { box-shadow: 0 0 0 8px rgba(220,180,160,0.08); }
+}
+
+/* ── Entrance animation ── */
+.splash-pine,
+.splash-eyebrow,
+.splash-names-wrap,
+.splash-orn,
+.splash-invite,
+.splash-date,
+.splash-btn {
+  animation: splashFadeUp 1s ease both;
+}
+.splash-pine     { animation-delay: 0.1s; }
+.splash-eyebrow  { animation-delay: 0.25s; }
+.splash-names-wrap { animation-delay: 0.4s; }
+.splash-orn      { animation-delay: 0.55s; }
+.splash-invite   { animation-delay: 0.65s; }
+.splash-date     { animation-delay: 0.75s; }
+.splash-btn      { animation-delay: 0.95s; }
+
+@keyframes splashFadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
 </style>
 </head>
 <body>
+
+<!-- ══ SPLASH SCREEN ══ -->
+<div class="splash" id="splash">
+  <div class="splash-rule-t"></div>
+  <div class="splash-rule-b"></div>
+
+  <div class="splash-corner tl"><svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;">
+      <g stroke="#D0A88E" stroke-width="0.7" fill="none" stroke-linecap="round" opacity="0.28">
+        <path d="M5,195 Q35,145 70,100 Q105,55 190,8"/>
+        <path d="M12,185 Q5,165 22,153"/><path d="M22,172 Q13,153 32,140"/>
+        <path d="M33,158 Q22,138 44,126"/><path d="M46,143 Q33,124 56,112"/>
+        <path d="M60,127 Q46,108 70,97"/><path d="M76,111 Q62,93 87,83"/>
+        <path d="M94,95 Q80,77 105,68"/><path d="M114,78 Q101,61 126,53"/>
+        <path d="M16,188 Q28,168 10,156"/><path d="M28,174 Q42,155 24,143"/>
+        <path d="M42,160 Q57,141 39,130"/><path d="M58,144 Q74,126 56,115"/>
+        <circle cx="70" cy="100" r="1.5" fill="#D0A88E" opacity=".5"/>
+        <circle cx="105" cy="68" r="1.2" fill="#D0A88E" opacity=".4"/>
+        <circle cx="140" cy="42" r="1" fill="#D0A88E" opacity=".35"/>
+      </g>
+    </svg></div>
+  <div class="splash-corner tr"><svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;">
+      <g stroke="#D0A88E" stroke-width="0.7" fill="none" stroke-linecap="round" opacity="0.28">
+        <path d="M5,195 Q35,145 70,100 Q105,55 190,8"/>
+        <path d="M12,185 Q5,165 22,153"/><path d="M22,172 Q13,153 32,140"/>
+        <path d="M33,158 Q22,138 44,126"/><path d="M46,143 Q33,124 56,112"/>
+        <path d="M60,127 Q46,108 70,97"/><path d="M76,111 Q62,93 87,83"/>
+        <path d="M94,95 Q80,77 105,68"/><path d="M114,78 Q101,61 126,53"/>
+        <path d="M16,188 Q28,168 10,156"/><path d="M28,174 Q42,155 24,143"/>
+        <path d="M42,160 Q57,141 39,130"/><path d="M58,144 Q74,126 56,115"/>
+        <circle cx="70" cy="100" r="1.5" fill="#D0A88E" opacity=".5"/>
+        <circle cx="105" cy="68" r="1.2" fill="#D0A88E" opacity=".4"/>
+        <circle cx="140" cy="42" r="1" fill="#D0A88E" opacity=".35"/>
+      </g>
+    </svg></div>
+  <div class="splash-corner bl"><svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;">
+      <g stroke="#D0A88E" stroke-width="0.7" fill="none" stroke-linecap="round" opacity="0.28">
+        <path d="M5,195 Q35,145 70,100 Q105,55 190,8"/>
+        <path d="M12,185 Q5,165 22,153"/><path d="M22,172 Q13,153 32,140"/>
+        <path d="M33,158 Q22,138 44,126"/><path d="M46,143 Q33,124 56,112"/>
+        <path d="M60,127 Q46,108 70,97"/><path d="M76,111 Q62,93 87,83"/>
+        <path d="M94,95 Q80,77 105,68"/><path d="M114,78 Q101,61 126,53"/>
+        <path d="M16,188 Q28,168 10,156"/><path d="M28,174 Q42,155 24,143"/>
+        <path d="M42,160 Q57,141 39,130"/><path d="M58,144 Q74,126 56,115"/>
+        <circle cx="70" cy="100" r="1.5" fill="#D0A88E" opacity=".5"/>
+        <circle cx="105" cy="68" r="1.2" fill="#D0A88E" opacity=".4"/>
+        <circle cx="140" cy="42" r="1" fill="#D0A88E" opacity=".35"/>
+      </g>
+    </svg></div>
+  <div class="splash-corner br"><svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;">
+      <g stroke="#D0A88E" stroke-width="0.7" fill="none" stroke-linecap="round" opacity="0.28">
+        <path d="M5,195 Q35,145 70,100 Q105,55 190,8"/>
+        <path d="M12,185 Q5,165 22,153"/><path d="M22,172 Q13,153 32,140"/>
+        <path d="M33,158 Q22,138 44,126"/><path d="M46,143 Q33,124 56,112"/>
+        <path d="M60,127 Q46,108 70,97"/><path d="M76,111 Q62,93 87,83"/>
+        <path d="M94,95 Q80,77 105,68"/><path d="M114,78 Q101,61 126,53"/>
+        <path d="M16,188 Q28,168 10,156"/><path d="M28,174 Q42,155 24,143"/>
+        <path d="M42,160 Q57,141 39,130"/><path d="M58,144 Q74,126 56,115"/>
+        <circle cx="70" cy="100" r="1.5" fill="#D0A88E" opacity=".5"/>
+        <circle cx="105" cy="68" r="1.2" fill="#D0A88E" opacity=".4"/>
+        <circle cx="140" cy="42" r="1" fill="#D0A88E" opacity=".35"/>
+      </g>
+    </svg></div>
+
+  <!-- Pine icon -->
+  <div class="splash-pine">
+    <svg width="64" height="44" viewBox="0 0 80 50" xmlns="http://www.w3.org/2000/svg">
+      <g stroke="rgba(220,180,160,0.7)" stroke-width="0.85" fill="none" stroke-linecap="round">
+        <path d="M40,48 Q40,30 40,8"/>
+        <path d="M40,18 Q29,14 19,18"/><path d="M40,18 Q51,14 61,18"/>
+        <path d="M40,26 Q25,21 13,26"/><path d="M40,26 Q55,21 67,26"/>
+        <path d="M40,34 Q23,28 9,34"/><path d="M40,34 Q57,28 71,34"/>
+        <path d="M40,42 Q21,36 5,42"/><path d="M40,42 Q59,36 75,42"/>
+        <ellipse cx="40" cy="6" rx="3.5" ry="4.5" stroke-width="0.75"/>
+        <path d="M37,4 Q40,2.5 43,4"/>
+        <path d="M36.5,7 Q40,5.5 43.5,7"/>
+      </g>
+    </svg>
+  </div>
+
+  <p class="splash-eyebrow">Приглашение на свадьбу</p>
+
+  <div class="splash-names-wrap">
+    <p class="splash-names">
+      Даниил<span class="splash-amp">и</span>Дарья
+    </p>
+  </div>
+
+  <div class="splash-orn">
+    <div class="splash-orn-line"></div>
+    <div class="splash-orn-dot"></div>
+    <div class="splash-orn-diamond"></div>
+    <div class="splash-orn-dot"></div>
+    <div class="splash-orn-line"></div>
+  </div>
+
+  <p class="splash-invite">
+    рады пригласить вас разделить<br>этот особенный день с нами
+  </p>
+  <p class="splash-date">29 — 31 мая 2026 · Сарыбулак · Боровое</p>
+
+  <button class="splash-btn" onclick="openSite()">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/>
+    </svg>
+    Открыть приглашение
+  </button>
+</div>
+
+
 
 <!-- ══ 1. HERO ══ -->
 <section class="hero">
@@ -1204,8 +1466,8 @@ body {
   <p class="footer-date">29 — 31 мая 2026</p>
   <div class="footer-divider"></div>
   <p class="footer-addr">Жайлау 25 · Сарыбулак · Боровое</p>
-  <p class="footer-wait" style="margin-top:1.5rem;">С любовью,</p>
-  <p class="footer-love">ждём вас!</p>
+  <p class="footer-wait" style="margin-top:1.5rem;">Ждём вас!</p>
+  <p class="footer-love">с любовью,</p>
 </footer>
 
 <script>
@@ -1336,6 +1598,25 @@ function submitSurvey() {
     form.remove(); iframe.remove();
   }, 1500);
 }
+
+// ── SPLASH SCREEN ──
+function openSite() {
+  var splash = document.getElementById('splash');
+
+  // This button click = user gesture → unlock audio
+  startAudio();
+
+  // Animate out
+  splash.classList.add('hiding');
+  document.body.classList.add('splash-done');
+
+  setTimeout(function() {
+    splash.classList.add('hidden');
+    // Scroll to top of main content
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }, 900);
+}
+
 </script>
 </body>
 </html>
