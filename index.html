@@ -824,6 +824,697 @@ body.splash-done { overflow-x: hidden; overflow-y: auto; }
 
 .splash {
   position: fixed; inset: 0; z-index: 9999;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  text-align: center; padding: 2.5rem 1.5rem;
+  overflow: hidden;
+  transition: opacity 1s ease;
+  background-color: #F2EDE4;
+}
+
+/* Heavy grain texture */
+.splash::before {
+  content: '';
+  position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.09'/%3E%3C/svg%3E");
+  background-size: 300px 300px;
+  mix-blend-mode: multiply;
+}
+
+/* Deep radial vignette */
+.splash::after {
+  content: '';
+  position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background:
+    radial-gradient(ellipse at 50% 50%, rgba(242,237,228,0) 20%, rgba(61,26,34,0.12) 70%, rgba(61,26,34,0.28) 100%);
+}
+
+/* Z-order wrapper for all content */
+.splash-above, .envelope-wrap, .splash-below { position: relative; z-index: 2; }
+
+/* Botanical corner SVGs */
+.splash-corner-svg {
+  position: absolute; pointer-events: none; z-index: 1;
+  width: 200px; height: 200px;
+}
+.splash-corner-svg.tl { top: -8px; left: -8px; opacity: 0.28; }
+.splash-corner-svg.tr { top: -8px; right: -8px; transform: scaleX(-1); opacity: 0.28; }
+.splash-corner-svg.bl { bottom: -8px; left: -8px; transform: scaleY(-1); opacity: 0.14; }
+.splash-corner-svg.br { bottom: -8px; right: -8px; transform: scale(-1); opacity: 0.14; }
+
+/* Small pine icon top center */
+.splash-pine-top {
+  position: relative; z-index: 2;
+  margin-bottom: 0.75rem;
+  animation: splashFadeUp 0.8s ease 0.05s both;
+  opacity: 0.7;
+}
+
+.splash.hiding { opacity: 0; pointer-events: none; }
+.splash.hidden { display: none; }
+
+/* ── ABOVE TEXT ── */
+.splash-above {
+  margin-bottom: 2.25rem;
+  animation: splashFadeUp 0.85s ease 0.2s both;
+}
+.splash-script {
+  font-family: var(--font-d); font-style: italic; font-weight: 300;
+  font-size: clamp(2.6rem, 9vw, 3.8rem);
+  color: rgba(61,26,34,0.28);
+  letter-spacing: 0.02em; line-height: 1.15;
+  margin-bottom: 0.5rem;
+}
+.splash-title {
+  font-family: var(--font-b); font-size: 12px; font-weight: 600;
+  letter-spacing: 0.42em; text-transform: uppercase;
+  color: rgba(61,26,34,0.72);
+  margin-bottom: 0.85rem;
+}
+/* Ornamental rule */
+.splash-title-rule {
+  display: flex; align-items: center; gap: 10px; justify-content: center;
+}
+.splash-title-rule-line  { width: 40px; height: 0.5px; background: rgba(107,45,58,0.35); }
+.splash-title-rule-diamond {
+  width: 5px; height: 5px;
+  border: 0.5px solid rgba(107,45,58,0.5); transform: rotate(45deg);
+}
+.splash-title-rule-dot { width: 3px; height: 3px; border-radius: 50%; background: rgba(107,45,58,0.3); }
+
+/* Names */
+.splash-names {
+  font-family: var(--font-d); font-weight: 300;
+  font-size: clamp(1.6rem, 6vw, 2.4rem);
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: rgba(61,26,34,0.65); line-height: 1.2;
+  margin-top: 0.85rem;
+}
+.splash-names-amp {
+  font-style: italic; font-size: 0.65em; letter-spacing: 0.1em;
+  color: rgba(107,45,58,0.55); font-weight: 300;
+}
+
+/* ── ENVELOPE ── */
+.envelope-wrap {
+  position: relative;
+  width: min(calc(100% - 2.5rem), 480px);
+  aspect-ratio: 1.65 / 1;
+  cursor: pointer; flex-shrink: 0;
+  animation: splashFadeUp 0.85s ease 0.55s both;
+  filter:
+    drop-shadow(0 20px 50px rgba(61,26,34,0.28))
+    drop-shadow(0 4px 12px rgba(61,26,34,0.18))
+    drop-shadow(0 1px 3px rgba(61,26,34,0.12));
+}
+.env-body {
+  position: absolute; inset: 0;
+  background: linear-gradient(145deg, #4A1E2A 0%, #3D1A22 50%, #2E1219 100%);
+  border-radius: 18px; z-index: 0; overflow: hidden;
+}
+/* Subtle texture on envelope surface */
+.env-body::after {
+  content: '';
+  position: absolute; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
+  mix-blend-mode: overlay;
+}
+.env-back-bottom {
+  position: absolute; bottom: 0; left: 0; right: 0; height: 56%;
+  clip-path: polygon(0% 100%, 50% 0%, 100% 100%);
+  background: rgba(0,0,0,0.18); z-index: 1;
+}
+.env-back-top {
+  position: absolute; top: 0; left: 0; right: 0; height: 56%;
+  clip-path: polygon(0% 0%, 50% 100%, 100% 0%);
+  background: rgba(0,0,0,0.12); z-index: 1;
+}
+.env-flap-left {
+  position: absolute; left: 0; top: 0; bottom: 0; width: 52%;
+  clip-path: polygon(0% 0%, 100% 50%, 0% 100%);
+  background: rgba(0,0,0,0.09); z-index: 1;
+}
+.env-flap-right {
+  position: absolute; right: 0; top: 0; bottom: 0; width: 52%;
+  clip-path: polygon(100% 0%, 0% 50%, 100% 100%);
+  background: rgba(0,0,0,0.09); z-index: 1;
+}
+.env-inner {
+  position: absolute; inset: 1px;
+  background: rgba(255,255,255,0.04);
+  border-radius: 17px; z-index: 2;
+}
+/* Gold thin lines along fold edges */
+.env-inner::before {
+  content: '';
+  position: absolute; top: 0; left: 8%; right: 8%; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(220,180,130,0.15), transparent);
+}
+.env-inner::after {
+  content: '';
+  position: absolute; top: 50%; left: 0; right: 0; height: 0.5px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent);
+}
+.env-flap-top {
+  position: absolute; top: 0; left: 0; right: 0; height: 56%;
+  border-radius: 18px 18px 0 0; overflow: hidden;
+  z-index: 5;
+  transform-origin: top center; transform-style: preserve-3d;
+  transition: transform 0.8s cubic-bezier(0.4,0,0.2,1);
+}
+.env-flap-top-face {
+  position: absolute; inset: 0;
+  clip-path: polygon(0% 0%, 100% 0%, 50% 100%);
+  background: linear-gradient(165deg, #5E2232 0%, #4A1B26 50%, #3D1522 100%);
+  backface-visibility: hidden;
+}
+.env-flap-top-face::before {
+  content: '';
+  position: absolute; inset: 0;
+  clip-path: polygon(0% 0%, 100% 0%, 50% 100%);
+  background: linear-gradient(180deg, rgba(255,255,255,0.08) 0%, transparent 50%);
+}
+.env-flap-top-face::after {
+  content: '';
+  position: absolute; inset: 0;
+  clip-path: polygon(0% 0%, 100% 0%, 50% 100%);
+  background: linear-gradient(180deg, transparent 50%, rgba(0,0,0,0.18) 100%);
+}
+.envelope-wrap.opening .env-flap-top {
+  transform: perspective(800px) rotateX(-178deg);
+}
+.env-outline {
+  position: absolute; inset: 0;
+  border: 0.5px solid rgba(255,255,255,0.08);
+  border-radius: 18px; z-index: 6; pointer-events: none;
+}
+/* Diagonal fold lines (very subtle) */
+.env-fold-line-v {
+  position: absolute; top: 0; bottom: 0; left: 50%;
+  width: 0.5px;
+  background: linear-gradient(180deg, transparent, rgba(255,255,255,0.06) 30%, rgba(255,255,255,0.06) 70%, transparent);
+  z-index: 3; transform: translateX(-50%);
+}
+.env-fold-line-h {
+  position: absolute; left: 0; right: 0; top: 50%;
+  height: 0.5px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.06) 30%, rgba(255,255,255,0.06) 70%, transparent);
+  z-index: 3; transform: translateY(-50%);
+}
+
+/* ── WAX SEAL ── */
+.wax-seal {
+  position: absolute; left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 7; width: 84px; height: 84px;
+  cursor: pointer; transition: transform 0.35s ease;
+  filter:
+    drop-shadow(0 6px 16px rgba(0,0,0,0.5))
+    drop-shadow(0 2px 4px rgba(0,0,0,0.35));
+}
+.wax-seal:hover { transform: translate(-50%,-50%) scale(1.1); }
+.wax-seal.clicked { animation: sealPop 0.45s ease; }
+@keyframes sealPop {
+  0%   { transform: translate(-50%,-50%) scale(1); }
+  35%  { transform: translate(-50%,-50%) scale(0.82); }
+  70%  { transform: translate(-50%,-50%) scale(1.05); }
+  100% { transform: translate(-50%,-50%) scale(1); }
+}
+
+/* ── BELOW HINT ── */
+.splash-below {
+  margin-top: 2rem;
+  animation: splashFadeUp 0.85s ease 1s both;
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+}
+.splash-hint {
+  font-family: var(--font-d); font-style: italic; font-weight: 300;
+  font-size: 16px; color: rgba(61,26,34,0.55);
+  line-height: 1.75; letter-spacing: 0.05em;
+  animation: splashHintPulse 3s ease 2s infinite;
+}
+/* Small arrow down */
+.splash-hint-arrow {
+  width: 1px; height: 28px;
+  background: linear-gradient(to bottom, rgba(107,45,58,0.4), transparent);
+  animation: splashHintPulse 3s ease 2s infinite;
+}
+@keyframes splashHintPulse { 0%,100%{opacity:.55;} 50%{opacity:1;} }
+
+@keyframes splashFadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+/* ══════════════════════════════════
+   RICH BOTANICAL & ORNAMENTAL DECOR
+══════════════════════════════════ */
+
+/* ─ Hero: additional watermark ornament ─ */
+.hero-top::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 50%; transform: translateX(-50%);
+  width: 200px; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(220,180,160,0.25), transparent);
+}
+
+/* ─ Full-width thin decorative rules between sections ─ */
+.sec-dark::before, .sec-light::before {
+  width: 160px; height: 160px;
+  top: -5px; left: -5px;
+}
+.sec-dark::after, .sec-light::after {
+  width: 160px; height: 160px;
+  bottom: -5px; right: -5px;
+}
+
+/* ─ Ornamental SVG sprigs — richer pine with cones ─ */
+/* Dark section corners */
+.sec-dark::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 160'%3E%3Cg stroke='%23E0C8B0' stroke-width='0.7' fill='none' stroke-linecap='round' opacity='0.22'%3E%3Cpath d='M6,154 Q35,112 65,72 Q95,32 152,6'/%3E%3Cpath d='M14,144 Q9,128 24,120'/%3E%3Cpath d='M22,132 Q16,115 32,107'/%3E%3Cpath d='M32,118 Q25,100 43,93'/%3E%3Cpath d='M44,103 Q36,84 55,77'/%3E%3Cpath d='M57,88 Q48,69 68,62'/%3E%3Cpath d='M72,73 Q62,54 83,48'/%3E%3Cpath d='M88,58 Q78,39 100,34'/%3E%3Cpath d='M106,43 Q96,24 118,20'/%3E%3Cpath d='M20,140 Q32,124 16,114'/%3E%3Cpath d='M30,126 Q44,108 26,100'/%3E%3Cpath d='M42,111 Q57,93 38,85'/%3E%3Cpath d='M56,96 Q72,78 52,70'/%3E%3Cpath d='M70,81 Q87,62 67,55'/%3E%3Cpath d='M86,66 Q104,47 84,41'/%3E%3Cellipse cx='65' cy='72' rx='3' ry='4' stroke-width='0.6' opacity='0.5'/%3E%3Cellipse cx='95' cy='45' rx='2.5' ry='3.5' stroke-width='0.5' opacity='0.4'/%3E%3Ccircle cx='65' cy='72' r='1.2' fill='%23E0C8B0' opacity='0.35'/%3E%3Ccircle cx='95' cy='45' r='1' fill='%23E0C8B0' opacity='0.3'/%3E%3C/g%3E%3C/svg%3E");
+}
+.sec-dark::after {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 160'%3E%3Cg stroke='%23E0C8B0' stroke-width='0.7' fill='none' stroke-linecap='round' opacity='0.22'%3E%3Cpath d='M6,154 Q35,112 65,72 Q95,32 152,6'/%3E%3Cpath d='M14,144 Q9,128 24,120'/%3E%3Cpath d='M22,132 Q16,115 32,107'/%3E%3Cpath d='M32,118 Q25,100 43,93'/%3E%3Cpath d='M44,103 Q36,84 55,77'/%3E%3Cpath d='M57,88 Q48,69 68,62'/%3E%3Cpath d='M72,73 Q62,54 83,48'/%3E%3Cpath d='M88,58 Q78,39 100,34'/%3E%3Cpath d='M20,140 Q32,124 16,114'/%3E%3Cpath d='M30,126 Q44,108 26,100'/%3E%3Cpath d='M42,111 Q57,93 38,85'/%3E%3Cpath d='M56,96 Q72,78 52,70'/%3E%3Cpath d='M70,81 Q87,62 67,55'/%3E%3Cellipse cx='65' cy='72' rx='3' ry='4' stroke-width='0.6' opacity='0.5'/%3E%3Ccircle cx='65' cy='72' r='1.2' fill='%23E0C8B0' opacity='0.35'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* Light section corners — burgundy */
+.sec-light::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 160'%3E%3Cg stroke='%236B2D3A' stroke-width='0.7' fill='none' stroke-linecap='round' opacity='0.18'%3E%3Cpath d='M6,154 Q35,112 65,72 Q95,32 152,6'/%3E%3Cpath d='M14,144 Q9,128 24,120'/%3E%3Cpath d='M22,132 Q16,115 32,107'/%3E%3Cpath d='M32,118 Q25,100 43,93'/%3E%3Cpath d='M44,103 Q36,84 55,77'/%3E%3Cpath d='M57,88 Q48,69 68,62'/%3E%3Cpath d='M72,73 Q62,54 83,48'/%3E%3Cpath d='M88,58 Q78,39 100,34'/%3E%3Cpath d='M106,43 Q96,24 118,20'/%3E%3Cpath d='M20,140 Q32,124 16,114'/%3E%3Cpath d='M30,126 Q44,108 26,100'/%3E%3Cpath d='M42,111 Q57,93 38,85'/%3E%3Cpath d='M56,96 Q72,78 52,70'/%3E%3Cpath d='M70,81 Q87,62 67,55'/%3E%3Cpath d='M86,66 Q104,47 84,41'/%3E%3Cellipse cx='65' cy='72' rx='3' ry='4' stroke-width='0.6' opacity='0.45'/%3E%3Cellipse cx='95' cy='45' rx='2.5' ry='3.5' stroke-width='0.5' opacity='0.35'/%3E%3Ccircle cx='65' cy='72' r='1.2' fill='%236B2D3A' opacity='0.3'/%3E%3Ccircle cx='95' cy='45' r='1' fill='%236B2D3A' opacity='0.25'/%3E%3C/g%3E%3C/svg%3E");
+}
+.sec-light::after {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 160'%3E%3Cg stroke='%236B2D3A' stroke-width='0.7' fill='none' stroke-linecap='round' opacity='0.18'%3E%3Cpath d='M6,154 Q35,112 65,72 Q95,32 152,6'/%3E%3Cpath d='M14,144 Q9,128 24,120'/%3E%3Cpath d='M22,132 Q16,115 32,107'/%3E%3Cpath d='M32,118 Q25,100 43,93'/%3E%3Cpath d='M44,103 Q36,84 55,77'/%3E%3Cpath d='M57,88 Q48,69 68,62'/%3E%3Cpath d='M72,73 Q62,54 83,48'/%3E%3Cpath d='M88,58 Q78,39 100,34'/%3E%3Cpath d='M20,140 Q32,124 16,114'/%3E%3Cpath d='M30,126 Q44,108 26,100'/%3E%3Cpath d='M42,111 Q57,93 38,85'/%3E%3Cpath d='M56,96 Q72,78 52,70'/%3E%3Cellipse cx='65' cy='72' rx='3' ry='4' stroke-width='0.6' opacity='0.45'/%3E%3Ccircle cx='65' cy='72' r='1.2' fill='%236B2D3A' opacity='0.3'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* ─ sec-rule gets inline ornamental flourish ─ */
+.sec-rule { position: relative; }
+
+/* ─ Mini-card decorative pin-stripe top border ─ */
+.mini-card-dark {
+  border-top: 1px solid rgba(220,180,160,0.2);
+}
+.mini-card-light {
+  border-top: 1px solid rgba(107,45,58,0.12);
+}
+
+/* ─ Ornamental divider between ww-day cards ─ */
+.ww-day-sep {
+  display: flex; align-items: center; gap: 8px;
+  padding: 0 0.5rem;
+}
+.ww-day-sep::before, .ww-day-sep::after {
+  content: ''; flex: 1; height: 0.5px;
+}
+.sec-light .ww-day-sep::before, .sec-light .ww-day-sep::after { background: rgba(107,45,58,0.1); }
+.sec-dark  .ww-day-sep::before, .sec-dark  .ww-day-sep::after { background: rgba(255,255,255,0.08); }
+.ww-day-sep-icon { font-size: 8px; opacity: 0.4; }
+
+/* ─ Floating botanical watermark in center of big sections ─ */
+.sec-watermark {
+  position: absolute;
+  top: 50%; left: 50%; transform: translate(-50%,-50%);
+  pointer-events: none; z-index: 0; opacity: 0.04;
+  width: 280px; height: 280px;
+}
+
+/* ─ Hero decorative band at bottom ─ */
+.hero-bottom-rule {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  height: 3px; pointer-events: none;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(220,180,160,0.15) 20%,
+    rgba(220,180,160,0.35) 50%,
+    rgba(220,180,160,0.15) 80%,
+    transparent 100%);
+}
+
+/* ─ Section title decorative accent left ─ */
+.sec-title::before {
+  content: '';
+  display: inline-block;
+  width: 3px; height: 0.9em;
+  background: currentColor;
+  opacity: 0.15;
+  margin-right: 10px;
+  vertical-align: middle;
+  border-radius: 2px;
+  transform: translateY(-1px);
+}
+
+/* ─ Footer enhanced ─ */
+.footer-orn-line { width: 70px; }
+
+/* ─ Dots row ornament ─ */
+.orn-dots {
+  display: flex; align-items: center; gap: 6px;
+  justify-content: center; margin: 1.25rem 0;
+}
+.orn-dots span {
+  width: 3px; height: 3px; border-radius: 50%;
+  background: rgba(220,180,160,0.4);
+}
+.orn-dots span:nth-child(2) { width: 5px; height: 5px; }
+.orn-dots-light span { background: rgba(107,45,58,0.25); }
+.orn-dots-light span:nth-child(2) { background: rgba(107,45,58,0.4); }
+
+@media (max-width:600px) {
+  .sec-dark::before, .sec-dark::after,
+  .sec-light::before, .sec-light::after {
+    width: 100px; height: 100px; opacity: 0.9;
+  }
+  .sec-watermark { width: 180px; height: 180px; }
+}
+
+/* ══════════════════════════════════
+   SPLASH SCREEN — envelope style
+══════════════════════════════════ */
+body { overflow: hidden; }
+body.splash-done { overflow-x: hidden; overflow-y: auto; }
+
+.splash {
+  position: fixed; inset: 0; z-index: 9999;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  text-align: center; padding: 2.5rem 1.5rem;
+  overflow: hidden;
+  transition: opacity 0.9s ease;
+  /* Layered background: cream + noise + subtle radial vignette */
+  background-color: #F5F0E8;
+}
+
+/* Linen/grain texture */
+.splash::before {
+  content: '';
+  position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='0.055'/%3E%3C/svg%3E");
+  background-size: 400px 400px;
+}
+
+/* Radial vignette — darker corners, lighter centre */
+.splash::after {
+  content: '';
+  position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background: radial-gradient(ellipse at 50% 50%,
+    rgba(245,240,232,0) 0%,
+    rgba(61,26,34,0.06) 60%,
+    rgba(61,26,34,0.14) 100%);
+}
+
+/* Botanical corner SVGs — top-left & bottom-right */
+.splash-corner-svg {
+  position: absolute; pointer-events: none; z-index: 1;
+  width: 160px; height: 160px; opacity: 0.22;
+}
+.splash-corner-svg.tl { top: 0; left: 0; }
+.splash-corner-svg.br { bottom: 0; right: 0; transform: scale(-1); }
+
+/* All content above bg layers */
+.splash-above,
+.envelope-wrap,
+.splash-below { position: relative; z-index: 2; }
+
+.splash.hiding { opacity: 0; pointer-events: none; }
+.splash.hidden { display: none; }
+
+/* ── Above text ── */
+.splash-above {
+  margin-bottom: 2rem;
+  animation: splashFadeUp 0.9s ease 0.15s both;
+}
+.splash-script {
+  font-family: var(--font-d); font-style: italic; font-weight: 300;
+  font-size: clamp(2rem, 7vw, 2.8rem);
+  color: rgba(61,26,34,0.3);
+  letter-spacing: 0.03em; line-height: 1.2;
+  margin-bottom: 0.6rem;
+}
+.splash-title {
+  font-family: var(--font-b); font-size: 11px; font-weight: 500;
+  letter-spacing: 0.38em; text-transform: uppercase;
+  color: rgba(61,26,34,0.65);
+}
+/* Thin ornamental rule under title */
+.splash-title-rule {
+  display: flex; align-items: center; gap: 8px;
+  justify-content: center; margin-top: 0.75rem;
+}
+.splash-title-rule-line { width: 30px; height: 0.5px; background: rgba(107,45,58,0.3); }
+.splash-title-rule-diamond {
+  width: 4px; height: 4px;
+  border: 0.5px solid rgba(107,45,58,0.4);
+  transform: rotate(45deg);
+}
+
+/* ── Envelope ── */
+.envelope-wrap {
+  position: relative;
+  width: min(calc(100% - 2.5rem), 480px);
+  aspect-ratio: 1.65 / 1;
+  cursor: pointer;
+  flex-shrink: 0;
+  animation: splashFadeUp 0.9s ease 0.35s both;
+  filter: drop-shadow(0 12px 36px rgba(61,26,34,0.22)) drop-shadow(0 2px 8px rgba(61,26,34,0.12));
+}
+.env-body {
+  position: absolute; inset: 0;
+  background: var(--wine);
+  border-radius: 16px; z-index: 0; overflow: hidden;
+}
+.env-back-bottom {
+  position: absolute; bottom: 0; left: 0; right: 0; height: 55%;
+  clip-path: polygon(0% 100%, 50% 0%, 100% 100%);
+  background: rgba(0,0,0,0.15); z-index: 1;
+}
+.env-back-top {
+  position: absolute; top: 0; left: 0; right: 0; height: 55%;
+  clip-path: polygon(0% 0%, 50% 100%, 100% 0%);
+  background: rgba(0,0,0,0.1); z-index: 1;
+}
+.env-flap-left {
+  position: absolute; left: 0; top: 0; bottom: 0; width: 52%;
+  clip-path: polygon(0% 0%, 100% 50%, 0% 100%);
+  background: rgba(0,0,0,0.07); z-index: 1;
+}
+.env-flap-right {
+  position: absolute; right: 0; top: 0; bottom: 0; width: 52%;
+  clip-path: polygon(100% 0%, 0% 50%, 100% 100%);
+  background: rgba(0,0,0,0.07); z-index: 1;
+}
+.env-inner {
+  position: absolute; inset: 1px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 15px; z-index: 2;
+}
+/* Subtle light line along top edge */
+.env-inner::before {
+  content: '';
+  position: absolute; top: 0; left: 8%; right: 8%; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.12), transparent);
+}
+.env-flap-top {
+  position: absolute; top: 0; left: 0; right: 0; height: 55%;
+  border-radius: 16px 16px 0 0; overflow: hidden;
+  z-index: 5;
+  transform-origin: top center;
+  transform-style: preserve-3d;
+  transition: transform 0.75s cubic-bezier(0.4,0,0.2,1);
+}
+.env-flap-top-face {
+  position: absolute; inset: 0;
+  clip-path: polygon(0% 0%, 100% 0%, 50% 100%);
+  background: linear-gradient(170deg, #5A1F2C 0%, #3D1A22 100%);
+  backface-visibility: hidden;
+}
+.env-flap-top-face::after {
+  content: '';
+  position: absolute; inset: 0;
+  clip-path: polygon(0% 0%, 100% 0%, 50% 100%);
+  background: linear-gradient(180deg, rgba(255,255,255,0.07) 0%, rgba(0,0,0,0.14) 100%);
+}
+.envelope-wrap.opening .env-flap-top {
+  transform: perspective(700px) rotateX(-178deg);
+}
+.env-outline {
+  position: absolute; inset: 0;
+  border: 0.5px solid rgba(255,255,255,0.1);
+  border-radius: 16px; z-index: 6; pointer-events: none;
+}
+.env-fold-line-v {
+  position: absolute; top: 0; bottom: 0; left: 50%;
+  width: 0.5px; background: rgba(255,255,255,0.05); z-index: 3;
+  transform: translateX(-50%);
+}
+.env-fold-line-h {
+  position: absolute; left: 0; right: 0; top: 50%;
+  height: 0.5px; background: rgba(255,255,255,0.05); z-index: 3;
+  transform: translateY(-50%);
+}
+
+/* ── Wax seal ── */
+.wax-seal {
+  position: absolute; left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 7; width: 76px; height: 76px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  filter: drop-shadow(0 4px 12px rgba(0,0,0,0.4)) drop-shadow(0 1px 3px rgba(0,0,0,0.3));
+}
+.wax-seal:hover { transform: translate(-50%,-50%) scale(1.08); }
+.wax-seal.clicked { animation: sealPop 0.4s ease; }
+@keyframes sealPop {
+  0%   { transform: translate(-50%,-50%) scale(1); }
+  40%  { transform: translate(-50%,-50%) scale(0.84); }
+  100% { transform: translate(-50%,-50%) scale(1); }
+}
+
+/* ── Hint below ── */
+.splash-below {
+  margin-top: 1.75rem;
+  animation: splashFadeUp 0.9s ease 0.85s both;
+}
+.splash-hint {
+  font-family: var(--font-d); font-style: italic; font-weight: 300;
+  font-size: 15px; color: rgba(61,26,34,0.5);
+  line-height: 1.8; letter-spacing: 0.04em;
+  animation: splashHintPulse 3s ease 1.5s infinite;
+}
+@keyframes splashHintPulse { 0%,100%{opacity:.6;} 50%{opacity:1;} }
+
+@keyframes splashFadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ══════════════════════════════════
+   RICH BOTANICAL & ORNAMENTAL DECOR
+══════════════════════════════════ */
+
+/* ─ Hero: additional watermark ornament ─ */
+.hero-top::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 50%; transform: translateX(-50%);
+  width: 200px; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(220,180,160,0.25), transparent);
+}
+
+/* ─ Full-width thin decorative rules between sections ─ */
+.sec-dark::before, .sec-light::before {
+  width: 160px; height: 160px;
+  top: -5px; left: -5px;
+}
+.sec-dark::after, .sec-light::after {
+  width: 160px; height: 160px;
+  bottom: -5px; right: -5px;
+}
+
+/* ─ Ornamental SVG sprigs — richer pine with cones ─ */
+/* Dark section corners */
+.sec-dark::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 160'%3E%3Cg stroke='%23E0C8B0' stroke-width='0.7' fill='none' stroke-linecap='round' opacity='0.22'%3E%3Cpath d='M6,154 Q35,112 65,72 Q95,32 152,6'/%3E%3Cpath d='M14,144 Q9,128 24,120'/%3E%3Cpath d='M22,132 Q16,115 32,107'/%3E%3Cpath d='M32,118 Q25,100 43,93'/%3E%3Cpath d='M44,103 Q36,84 55,77'/%3E%3Cpath d='M57,88 Q48,69 68,62'/%3E%3Cpath d='M72,73 Q62,54 83,48'/%3E%3Cpath d='M88,58 Q78,39 100,34'/%3E%3Cpath d='M106,43 Q96,24 118,20'/%3E%3Cpath d='M20,140 Q32,124 16,114'/%3E%3Cpath d='M30,126 Q44,108 26,100'/%3E%3Cpath d='M42,111 Q57,93 38,85'/%3E%3Cpath d='M56,96 Q72,78 52,70'/%3E%3Cpath d='M70,81 Q87,62 67,55'/%3E%3Cpath d='M86,66 Q104,47 84,41'/%3E%3Cellipse cx='65' cy='72' rx='3' ry='4' stroke-width='0.6' opacity='0.5'/%3E%3Cellipse cx='95' cy='45' rx='2.5' ry='3.5' stroke-width='0.5' opacity='0.4'/%3E%3Ccircle cx='65' cy='72' r='1.2' fill='%23E0C8B0' opacity='0.35'/%3E%3Ccircle cx='95' cy='45' r='1' fill='%23E0C8B0' opacity='0.3'/%3E%3C/g%3E%3C/svg%3E");
+}
+.sec-dark::after {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 160'%3E%3Cg stroke='%23E0C8B0' stroke-width='0.7' fill='none' stroke-linecap='round' opacity='0.22'%3E%3Cpath d='M6,154 Q35,112 65,72 Q95,32 152,6'/%3E%3Cpath d='M14,144 Q9,128 24,120'/%3E%3Cpath d='M22,132 Q16,115 32,107'/%3E%3Cpath d='M32,118 Q25,100 43,93'/%3E%3Cpath d='M44,103 Q36,84 55,77'/%3E%3Cpath d='M57,88 Q48,69 68,62'/%3E%3Cpath d='M72,73 Q62,54 83,48'/%3E%3Cpath d='M88,58 Q78,39 100,34'/%3E%3Cpath d='M20,140 Q32,124 16,114'/%3E%3Cpath d='M30,126 Q44,108 26,100'/%3E%3Cpath d='M42,111 Q57,93 38,85'/%3E%3Cpath d='M56,96 Q72,78 52,70'/%3E%3Cpath d='M70,81 Q87,62 67,55'/%3E%3Cellipse cx='65' cy='72' rx='3' ry='4' stroke-width='0.6' opacity='0.5'/%3E%3Ccircle cx='65' cy='72' r='1.2' fill='%23E0C8B0' opacity='0.35'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* Light section corners — burgundy */
+.sec-light::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 160'%3E%3Cg stroke='%236B2D3A' stroke-width='0.7' fill='none' stroke-linecap='round' opacity='0.18'%3E%3Cpath d='M6,154 Q35,112 65,72 Q95,32 152,6'/%3E%3Cpath d='M14,144 Q9,128 24,120'/%3E%3Cpath d='M22,132 Q16,115 32,107'/%3E%3Cpath d='M32,118 Q25,100 43,93'/%3E%3Cpath d='M44,103 Q36,84 55,77'/%3E%3Cpath d='M57,88 Q48,69 68,62'/%3E%3Cpath d='M72,73 Q62,54 83,48'/%3E%3Cpath d='M88,58 Q78,39 100,34'/%3E%3Cpath d='M106,43 Q96,24 118,20'/%3E%3Cpath d='M20,140 Q32,124 16,114'/%3E%3Cpath d='M30,126 Q44,108 26,100'/%3E%3Cpath d='M42,111 Q57,93 38,85'/%3E%3Cpath d='M56,96 Q72,78 52,70'/%3E%3Cpath d='M70,81 Q87,62 67,55'/%3E%3Cpath d='M86,66 Q104,47 84,41'/%3E%3Cellipse cx='65' cy='72' rx='3' ry='4' stroke-width='0.6' opacity='0.45'/%3E%3Cellipse cx='95' cy='45' rx='2.5' ry='3.5' stroke-width='0.5' opacity='0.35'/%3E%3Ccircle cx='65' cy='72' r='1.2' fill='%236B2D3A' opacity='0.3'/%3E%3Ccircle cx='95' cy='45' r='1' fill='%236B2D3A' opacity='0.25'/%3E%3C/g%3E%3C/svg%3E");
+}
+.sec-light::after {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 160'%3E%3Cg stroke='%236B2D3A' stroke-width='0.7' fill='none' stroke-linecap='round' opacity='0.18'%3E%3Cpath d='M6,154 Q35,112 65,72 Q95,32 152,6'/%3E%3Cpath d='M14,144 Q9,128 24,120'/%3E%3Cpath d='M22,132 Q16,115 32,107'/%3E%3Cpath d='M32,118 Q25,100 43,93'/%3E%3Cpath d='M44,103 Q36,84 55,77'/%3E%3Cpath d='M57,88 Q48,69 68,62'/%3E%3Cpath d='M72,73 Q62,54 83,48'/%3E%3Cpath d='M88,58 Q78,39 100,34'/%3E%3Cpath d='M20,140 Q32,124 16,114'/%3E%3Cpath d='M30,126 Q44,108 26,100'/%3E%3Cpath d='M42,111 Q57,93 38,85'/%3E%3Cpath d='M56,96 Q72,78 52,70'/%3E%3Cellipse cx='65' cy='72' rx='3' ry='4' stroke-width='0.6' opacity='0.45'/%3E%3Ccircle cx='65' cy='72' r='1.2' fill='%236B2D3A' opacity='0.3'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* ─ sec-rule gets inline ornamental flourish ─ */
+.sec-rule { position: relative; }
+
+/* ─ Mini-card decorative pin-stripe top border ─ */
+.mini-card-dark {
+  border-top: 1px solid rgba(220,180,160,0.2);
+}
+.mini-card-light {
+  border-top: 1px solid rgba(107,45,58,0.12);
+}
+
+/* ─ Ornamental divider between ww-day cards ─ */
+.ww-day-sep {
+  display: flex; align-items: center; gap: 8px;
+  padding: 0 0.5rem;
+}
+.ww-day-sep::before, .ww-day-sep::after {
+  content: ''; flex: 1; height: 0.5px;
+}
+.sec-light .ww-day-sep::before, .sec-light .ww-day-sep::after { background: rgba(107,45,58,0.1); }
+.sec-dark  .ww-day-sep::before, .sec-dark  .ww-day-sep::after { background: rgba(255,255,255,0.08); }
+.ww-day-sep-icon { font-size: 8px; opacity: 0.4; }
+
+/* ─ Floating botanical watermark in center of big sections ─ */
+.sec-watermark {
+  position: absolute;
+  top: 50%; left: 50%; transform: translate(-50%,-50%);
+  pointer-events: none; z-index: 0; opacity: 0.04;
+  width: 280px; height: 280px;
+}
+
+/* ─ Hero decorative band at bottom ─ */
+.hero-bottom-rule {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  height: 3px; pointer-events: none;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(220,180,160,0.15) 20%,
+    rgba(220,180,160,0.35) 50%,
+    rgba(220,180,160,0.15) 80%,
+    transparent 100%);
+}
+
+/* ─ Section title decorative accent left ─ */
+.sec-title::before {
+  content: '';
+  display: inline-block;
+  width: 3px; height: 0.9em;
+  background: currentColor;
+  opacity: 0.15;
+  margin-right: 10px;
+  vertical-align: middle;
+  border-radius: 2px;
+  transform: translateY(-1px);
+}
+
+/* ─ Footer enhanced ─ */
+.footer-orn-line { width: 70px; }
+
+/* ─ Dots row ornament ─ */
+.orn-dots {
+  display: flex; align-items: center; gap: 6px;
+  justify-content: center; margin: 1.25rem 0;
+}
+.orn-dots span {
+  width: 3px; height: 3px; border-radius: 50%;
+  background: rgba(220,180,160,0.4);
+}
+.orn-dots span:nth-child(2) { width: 5px; height: 5px; }
+.orn-dots-light span { background: rgba(107,45,58,0.25); }
+.orn-dots-light span:nth-child(2) { background: rgba(107,45,58,0.4); }
+
+@media (max-width:600px) {
+  .sec-dark::before, .sec-dark::after,
+  .sec-light::before, .sec-light::after {
+    width: 100px; height: 100px; opacity: 0.9;
+  }
+  .sec-watermark { width: 180px; height: 180px; }
+}
+
+/* ══════════════════════════════════
+   SPLASH SCREEN — envelope style
+══════════════════════════════════ */
+body { overflow: hidden; }
+body.splash-done { overflow-x: hidden; overflow-y: auto; }
+
+.splash {
+  position: fixed; inset: 0; z-index: 9999;
   background: #FAF8F5;
   display: flex; flex-direction: column;
   align-items: center; justify-content: center;
@@ -1738,97 +2429,184 @@ body.splash-done { overflow-x: hidden; overflow-y: auto; }
 <!-- ══ SPLASH SCREEN ══ -->
 <div class="splash" id="splash">
 
-  <!-- Above label -->
+  <!-- 4-corner botanical decoration -->
+  <svg class="splash-corner-svg tl" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><g stroke="#6B2D3A" stroke-width="0.75" fill="none" stroke-linecap="round">
+      <path d="M5,195 Q35,145 70,100 Q105,55 190,8"/>
+      <path d="M12,185 Q5,165 22,153"/><path d="M22,172 Q13,153 32,140"/>
+      <path d="M33,158 Q22,138 44,126"/><path d="M46,143 Q33,124 56,112"/>
+      <path d="M60,127 Q46,108 70,97"/><path d="M76,111 Q62,93 87,83"/>
+      <path d="M94,95 Q80,77 105,68"/><path d="M114,78 Q101,61 126,53"/>
+      <path d="M16,188 Q28,168 10,156"/><path d="M28,174 Q42,155 24,143"/>
+      <path d="M42,160 Q57,141 39,130"/><path d="M58,144 Q74,126 56,115"/>
+      <path d="M75,128 Q92,110 73,100"/>
+      <ellipse cx="70" cy="100" rx="4" ry="5.5" stroke-width="0.6"/>
+      <ellipse cx="105" cy="68" rx="3.5" ry="4.5" stroke-width="0.5"/>
+      <circle cx="70" cy="100" r="1.5" fill="#6B2D3A"/>
+      <circle cx="105" cy="68" r="1.2" fill="#6B2D3A"/>
+      <circle cx="140" cy="42" r="1" fill="#6B2D3A"/>
+    </g></svg>
+  <svg class="splash-corner-svg tr" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><g stroke="#6B2D3A" stroke-width="0.75" fill="none" stroke-linecap="round">
+      <path d="M5,195 Q35,145 70,100 Q105,55 190,8"/>
+      <path d="M12,185 Q5,165 22,153"/><path d="M22,172 Q13,153 32,140"/>
+      <path d="M33,158 Q22,138 44,126"/><path d="M46,143 Q33,124 56,112"/>
+      <path d="M60,127 Q46,108 70,97"/><path d="M76,111 Q62,93 87,83"/>
+      <path d="M94,95 Q80,77 105,68"/><path d="M114,78 Q101,61 126,53"/>
+      <path d="M16,188 Q28,168 10,156"/><path d="M28,174 Q42,155 24,143"/>
+      <path d="M42,160 Q57,141 39,130"/><path d="M58,144 Q74,126 56,115"/>
+      <path d="M75,128 Q92,110 73,100"/>
+      <ellipse cx="70" cy="100" rx="4" ry="5.5" stroke-width="0.6"/>
+      <ellipse cx="105" cy="68" rx="3.5" ry="4.5" stroke-width="0.5"/>
+      <circle cx="70" cy="100" r="1.5" fill="#6B2D3A"/>
+      <circle cx="105" cy="68" r="1.2" fill="#6B2D3A"/>
+      <circle cx="140" cy="42" r="1" fill="#6B2D3A"/>
+    </g></svg>
+  <svg class="splash-corner-svg bl" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><g stroke="#6B2D3A" stroke-width="0.75" fill="none" stroke-linecap="round">
+      <path d="M5,195 Q35,145 70,100 Q105,55 190,8"/>
+      <path d="M12,185 Q5,165 22,153"/><path d="M22,172 Q13,153 32,140"/>
+      <path d="M33,158 Q22,138 44,126"/><path d="M46,143 Q33,124 56,112"/>
+      <path d="M60,127 Q46,108 70,97"/><path d="M76,111 Q62,93 87,83"/>
+      <path d="M94,95 Q80,77 105,68"/><path d="M114,78 Q101,61 126,53"/>
+      <path d="M16,188 Q28,168 10,156"/><path d="M28,174 Q42,155 24,143"/>
+      <path d="M42,160 Q57,141 39,130"/><path d="M58,144 Q74,126 56,115"/>
+      <path d="M75,128 Q92,110 73,100"/>
+      <ellipse cx="70" cy="100" rx="4" ry="5.5" stroke-width="0.6"/>
+      <ellipse cx="105" cy="68" rx="3.5" ry="4.5" stroke-width="0.5"/>
+      <circle cx="70" cy="100" r="1.5" fill="#6B2D3A"/>
+      <circle cx="105" cy="68" r="1.2" fill="#6B2D3A"/>
+      <circle cx="140" cy="42" r="1" fill="#6B2D3A"/>
+    </g></svg>
+  <svg class="splash-corner-svg br" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><g stroke="#6B2D3A" stroke-width="0.75" fill="none" stroke-linecap="round">
+      <path d="M5,195 Q35,145 70,100 Q105,55 190,8"/>
+      <path d="M12,185 Q5,165 22,153"/><path d="M22,172 Q13,153 32,140"/>
+      <path d="M33,158 Q22,138 44,126"/><path d="M46,143 Q33,124 56,112"/>
+      <path d="M60,127 Q46,108 70,97"/><path d="M76,111 Q62,93 87,83"/>
+      <path d="M94,95 Q80,77 105,68"/><path d="M114,78 Q101,61 126,53"/>
+      <path d="M16,188 Q28,168 10,156"/><path d="M28,174 Q42,155 24,143"/>
+      <path d="M42,160 Q57,141 39,130"/><path d="M58,144 Q74,126 56,115"/>
+      <path d="M75,128 Q92,110 73,100"/>
+      <ellipse cx="70" cy="100" rx="4" ry="5.5" stroke-width="0.6"/>
+      <ellipse cx="105" cy="68" rx="3.5" ry="4.5" stroke-width="0.5"/>
+      <circle cx="70" cy="100" r="1.5" fill="#6B2D3A"/>
+      <circle cx="105" cy="68" r="1.2" fill="#6B2D3A"/>
+      <circle cx="140" cy="42" r="1" fill="#6B2D3A"/>
+    </g></svg>
+
+  <!-- Pine icon -->
+  <div class="splash-pine-top">
+    <svg width="56" height="38" viewBox="0 0 80 50" xmlns="http://www.w3.org/2000/svg">
+      <g stroke="rgba(61,26,34,0.55)" stroke-width="0.9" fill="none" stroke-linecap="round">
+        <path d="M40,48 Q40,30 40,8"/>
+        <path d="M40,18 Q29,14 19,18"/><path d="M40,18 Q51,14 61,18"/>
+        <path d="M40,26 Q25,21 13,26"/><path d="M40,26 Q55,21 67,26"/>
+        <path d="M40,34 Q23,28 9,34"/><path d="M40,34 Q57,28 71,34"/>
+        <path d="M40,42 Q21,36 5,42"/><path d="M40,42 Q59,36 75,42"/>
+        <ellipse cx="40" cy="6" rx="3.5" ry="4.5" stroke-width="0.75"/>
+      </g>
+    </svg>
+  </div>
+
+  <!-- Above text -->
   <div class="splash-above">
     <p class="splash-script">Wedding day</p>
     <p class="splash-title">Вам приглашение</p>
+    <div class="splash-title-rule">
+      <div class="splash-title-rule-line"></div>
+      <div class="splash-title-rule-dot"></div>
+      <div class="splash-title-rule-diamond"></div>
+      <div class="splash-title-rule-dot"></div>
+      <div class="splash-title-rule-line"></div>
+    </div>
   </div>
 
-  <!-- HORIZONTAL ENVELOPE -->
+  <!-- ENVELOPE -->
   <div class="envelope-wrap" id="envelopeWrap">
-
-    <!-- Back layers -->
-    <div class="env-body">
-      <div class="env-back-top"></div>
-      <div class="env-back-bottom"></div>
-      <div class="env-flap-left"></div>
-      <div class="env-flap-right"></div>
-    </div>
-
-    <!-- Inner surface -->
+    <div class="env-body"></div>
+    <div class="env-back-top"></div>
+    <div class="env-back-bottom"></div>
+    <div class="env-flap-left"></div>
+    <div class="env-flap-right"></div>
     <div class="env-inner"></div>
-
-    <!-- Top flap (opens) -->
     <div class="env-flap-top" id="envFlapTop">
       <div class="env-flap-top-face"></div>
     </div>
-
-    <!-- Outline -->
     <div class="env-outline"></div>
+    <div class="env-fold-line-v"></div>
+    <div class="env-fold-line-h"></div>
 
-    <!-- Wax seal — centered -->
-    <svg class="wax-seal" id="waxSeal" viewBox="0 0 76 76" xmlns="http://www.w3.org/2000/svg">
+    <!-- Wax seal -->
+    <svg class="wax-seal" id="waxSeal" viewBox="0 0 84 84" xmlns="http://www.w3.org/2000/svg">
       <defs>
-        <radialGradient id="wg" cx="40%" cy="36%" r="60%">
-          <stop offset="0%"   stop-color="#8B3A4E"/>
-          <stop offset="50%"  stop-color="#6B2D3A"/>
-          <stop offset="100%" stop-color="#3D1A22"/>
+        <radialGradient id="wg" cx="38%" cy="34%" r="62%">
+          <stop offset="0%"   stop-color="#9B4458"/>
+          <stop offset="40%"  stop-color="#7A2D3E"/>
+          <stop offset="75%"  stop-color="#5C1F2C"/>
+          <stop offset="100%" stop-color="#3D1522"/>
         </radialGradient>
-        <radialGradient id="ws" cx="36%" cy="30%" r="44%">
-          <stop offset="0%"   stop-color="rgba(255,255,255,0.24)"/>
+        <radialGradient id="wgShine" cx="35%" cy="28%" r="42%">
+          <stop offset="0%"   stop-color="rgba(255,255,255,0.28)"/>
+          <stop offset="60%"  stop-color="rgba(255,255,255,0.06)"/>
           <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
         </radialGradient>
+        <radialGradient id="wgDeep" cx="60%" cy="65%" r="50%">
+          <stop offset="0%"   stop-color="rgba(0,0,0,0.25)"/>
+          <stop offset="100%" stop-color="rgba(0,0,0,0)"/>
+        </radialGradient>
       </defs>
-      <!-- Organic wax drip shape -->
-      <path d="M38,3 Q45,2 51,5 Q58,8 62,14 Q67,21 67,29 Q68,36 66,43 Q63,51 57,56 Q51,61 43,63 Q36,65 29,62 Q22,59 17,53 Q11,47 9,39 Q7,32 9,25 Q11,17 17,11 Q23,5 31,3 Q34,2 38,3Z"
-            fill="url(#wg)"/>
-      <path d="M38,3 Q45,2 51,5 Q58,8 62,14 Q67,21 67,29 Q68,36 66,43 Q63,51 57,56 Q51,61 43,63 Q36,65 29,62 Q22,59 17,53 Q11,47 9,39 Q7,32 9,25 Q11,17 17,11 Q23,5 31,3 Q34,2 38,3Z"
-            fill="url(#ws)"/>
-      <!-- Outer ring -->
-      <circle cx="38" cy="33" r="23" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="0.7"/>
-      <!-- Inner ring -->
-      <circle cx="38" cy="33" r="17.5" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="0.6"/>
+      <!-- Organic irregular wax shape -->
+      <path d="M42,3 Q50,2 57,6 Q65,10 69,18 Q74,26 74,35 Q75,44 71,52 Q66,60 58,65 Q50,70 41,71 Q32,72 24,68 Q16,63 11,55 Q5,47 4,38 Q3,29 7,21 Q11,13 19,8 Q27,3 35,2 Q38,2 42,3Z" fill="url(#wg)"/>
+      <path d="M42,3 Q50,2 57,6 Q65,10 69,18 Q74,26 74,35 Q75,44 71,52 Q66,60 58,65 Q50,70 41,71 Q32,72 24,68 Q16,63 11,55 Q5,47 4,38 Q3,29 7,21 Q11,13 19,8 Q27,3 35,2 Q38,2 42,3Z" fill="url(#wgShine)"/>
+      <path d="M42,3 Q50,2 57,6 Q65,10 69,18 Q74,26 74,35 Q75,44 71,52 Q66,60 58,65 Q50,70 41,71 Q32,72 24,68 Q16,63 11,55 Q5,47 4,38 Q3,29 7,21 Q11,13 19,8 Q27,3 35,2 Q38,2 42,3Z" fill="url(#wgDeep)"/>
+      <!-- Outer decorative ring -->
+      <circle cx="42" cy="37" r="27" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="0.7"/>
+      <!-- Dotted inner ring -->
+      <circle cx="42" cy="37" r="21" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="0.5" stroke-dasharray="2 3"/>
+      <!-- Inner solid ring -->
+      <circle cx="42" cy="37" r="18" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/>
       <!-- Laurel left -->
-      <g stroke="rgba(255,255,255,0.55)" stroke-width="0.65" fill="none" stroke-linecap="round">
-        <path d="M20,33 Q21,29 24,28"/><path d="M20,33 Q21,37 24,38"/>
-        <path d="M22,30 Q25,26 28,26"/><path d="M22,36 Q25,40 28,40"/>
-        <path d="M25,27 Q28,24 31,25"/><path d="M25,39 Q28,42 31,41"/>
-        <path d="M20,33 L30,33" stroke-width="0.45"/>
+      <g stroke="rgba(255,255,255,0.6)" stroke-width="0.7" fill="none" stroke-linecap="round">
+        <path d="M22,37 Q23,32 27,31"/><path d="M22,37 Q23,42 27,43"/>
+        <path d="M24,33 Q28,28 32,29"/><path d="M24,41 Q28,46 32,45"/>
+        <path d="M28,29 Q32,25 35,27"/><path d="M28,45 Q32,49 35,47"/>
+        <path d="M22,37 L33,37" stroke-width="0.45" stroke-dasharray="1.5 2"/>
       </g>
       <!-- Laurel right -->
-      <g stroke="rgba(255,255,255,0.55)" stroke-width="0.65" fill="none" stroke-linecap="round">
-        <path d="M56,33 Q55,29 52,28"/><path d="M56,33 Q55,37 52,38"/>
-        <path d="M54,30 Q51,26 48,26"/><path d="M54,36 Q51,40 48,40"/>
-        <path d="M51,27 Q48,24 45,25"/><path d="M51,39 Q48,42 45,41"/>
-        <path d="M56,33 L46,33" stroke-width="0.45"/>
+      <g stroke="rgba(255,255,255,0.6)" stroke-width="0.7" fill="none" stroke-linecap="round">
+        <path d="M62,37 Q61,32 57,31"/><path d="M62,37 Q61,42 57,43"/>
+        <path d="M60,33 Q56,28 52,29"/><path d="M60,41 Q56,46 52,45"/>
+        <path d="M56,29 Q52,25 49,27"/><path d="M56,45 Q52,49 49,47"/>
+        <path d="M62,37 L51,37" stroke-width="0.45" stroke-dasharray="1.5 2"/>
       </g>
-      <!-- Initials Д & Д -->
-      <text x="38" y="29" text-anchor="middle"
+      <!-- Monogram Д & Д -->
+      <text x="42" y="33" text-anchor="middle"
             font-family="Cormorant Garamond,Georgia,serif"
-            font-size="9.5" font-weight="300" font-style="italic"
-            fill="rgba(255,255,255,0.88)">Д</text>
-      <text x="38" y="37" text-anchor="middle"
+            font-size="11" font-weight="300" font-style="italic"
+            fill="rgba(255,255,255,0.92)">Д</text>
+      <text x="42" y="41" text-anchor="middle"
             font-family="Cormorant Garamond,Georgia,serif"
-            font-size="7" font-weight="300"
-            fill="rgba(255,255,255,0.5)">&amp;</text>
-      <text x="38" y="45" text-anchor="middle"
+            font-size="8" font-weight="300"
+            fill="rgba(255,255,255,0.55)">&amp;</text>
+      <text x="42" y="50" text-anchor="middle"
             font-family="Cormorant Garamond,Georgia,serif"
-            font-size="9.5" font-weight="300" font-style="italic"
-            fill="rgba(255,255,255,0.88)">Д</text>
-      <!-- Top accent -->
-      <path d="M32,19 Q38,16 44,19" stroke="rgba(255,255,255,0.3)" stroke-width="0.6" fill="none"/>
-      <circle cx="38" cy="17" r="1.3" fill="rgba(255,255,255,0.38)"/>
+            font-size="11" font-weight="300" font-style="italic"
+            fill="rgba(255,255,255,0.92)">Д</text>
+      <!-- Top ornament -->
+      <path d="M34,21 Q42,18 50,21" stroke="rgba(255,255,255,0.35)" stroke-width="0.7" fill="none"/>
+      <circle cx="42" cy="19" r="1.5" fill="rgba(255,255,255,0.4)"/>
+      <circle cx="36" cy="22" r="0.8" fill="rgba(255,255,255,0.25)"/>
+      <circle cx="48" cy="22" r="0.8" fill="rgba(255,255,255,0.25)"/>
     </svg>
-
   </div><!-- /envelope-wrap -->
 
   <!-- Below hint -->
   <div class="splash-below">
     <p class="splash-hint">нажмите на печать,<br>чтобы открыть</p>
+    <div class="splash-hint-arrow"></div>
   </div>
 
 </div>
 <!-- ══ END SPLASH ══ -->
+
+
 
 
 
