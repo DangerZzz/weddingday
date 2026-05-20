@@ -827,7 +827,8 @@ body.splash-done { overflow-x: hidden; overflow-y: auto; }
   background: #FAF8F5;
   display: flex; flex-direction: column;
   align-items: center; justify-content: center;
-  text-align: center; padding: 2rem 1.5rem;
+  text-align: center; padding: 0;
+  min-height: 100dvh; min-height: 100vh;
   overflow: hidden;
   transition: opacity 0.9s ease;
 }
@@ -836,7 +837,7 @@ body.splash-done { overflow-x: hidden; overflow-y: auto; }
 
 /* Text above */
 .splash-above {
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
   animation: splashFadeUp 0.9s ease 0.15s both;
 }
 .splash-script {
@@ -853,8 +854,8 @@ body.splash-done { overflow-x: hidden; overflow-y: auto; }
 /* ENVELOPE — wide landscape rectangle */
 .envelope-wrap {
   position: relative;
-  width: min(90vw, 400px);
-  height: min(56vw, 250px);   /* forced landscape height */
+  width: calc(100% - 2.5rem);
+  aspect-ratio: 1.6 / 1;
   cursor: pointer;
   flex-shrink: 0;
   animation: splashFadeUp 0.9s ease 0.35s both;
@@ -892,20 +893,23 @@ body.splash-done { overflow-x: hidden; overflow-y: auto; }
 .env-body {
   position: absolute; inset: 0;
   background: var(--wine);
-  border-radius: 3px;
+  border-radius: 16px;
   z-index: 0;
+  overflow: hidden;
 }
 
 /* Inner (lighter, visible behind flaps) */
 .env-inner {
   position: absolute; inset: 1px;
   background: rgba(255,255,255,0.06);
-  border-radius: 2px; z-index: 2;
+  border-radius: 15px; z-index: 2;
 }
 
 /* Top opening flap */
 .env-flap-top {
   position: absolute; top: 0; left: 0; right: 0; height: 55%;
+  border-radius: 16px 16px 0 0;
+  overflow: hidden;
   z-index: 5;
   transform-origin: top center;
   transform-style: preserve-3d;
@@ -931,7 +935,7 @@ body.splash-done { overflow-x: hidden; overflow-y: auto; }
 .env-outline {
   position: absolute; inset: 0;
   border: 0.5px solid rgba(255,255,255,0.08);
-  border-radius: 3px; z-index: 6; pointer-events: none;
+  border-radius: 16px; z-index: 6; pointer-events: none;
 }
 
 /* Inner fold lines (subtle X pattern) */
@@ -966,7 +970,7 @@ body.splash-done { overflow-x: hidden; overflow-y: auto; }
 
 /* Hint below */
 .splash-below {
-  margin-top: 2rem;
+  margin-top: 1.5rem;
   animation: splashFadeUp 0.9s ease 0.85s both;
 }
 .splash-hint {
