@@ -2,7 +2,9 @@
 <html lang="ru" style="color-scheme:light">
 <head>
 <meta charset="UTF-8">
-<meta name="color-scheme" content="light">
+<meta name="color-scheme" content="light only">
+<meta name="theme-color" content="#FDFCFA">
+<meta name="supported-color-schemes" content="light">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Даниил & Дарья · 29–31 мая</title>
@@ -10,16 +12,32 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 /* ── FORCE LIGHT MODE — overrides system dark theme on all browsers ── */
-:root { color-scheme: light !important; }
-html  { color-scheme: light !important; background: #FDFCFA !important; }
-@media (prefers-color-scheme: dark) {
-  html, body, * {
-    color-scheme: light !important;
-    forced-color-adjust: none !important;
-  }
-  html  { background: #FDFCFA !important; }
-  body  { background: #FDFCFA !important; color: #1E1C1A !important; }
+:root {
+  color-scheme: light only !important;
+  --force-bg: #FDFCFA;
 }
+html {
+  color-scheme: light only !important;
+  background: #FDFCFA !important;
+  forced-color-adjust: none !important;
+}
+html, body {
+  background: #FDFCFA !important;
+  color: #1E1C1A !important;
+}
+/* Force light mode on ALL browsers and OS settings */
+@media (prefers-color-scheme: dark) {
+  html, body { background: #FDFCFA !important; color: #1E1C1A !important; }
+}
+@media (prefers-color-scheme: no-preference) {
+  html, body { background: #FDFCFA !important; }
+}
+/* Samsung Internet & Android Chrome dark-mode auto-invert override */
+@media (inverted-colors: inverted) {
+  html, body, * { filter: invert(0) !important; }
+}
+/* Disable Android browser forced colors */
+* { forced-color-adjust: none !important; }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -53,7 +71,7 @@ body {
   display: flex; flex-direction: column;
   align-items: center; justify-content: flex-start;
   text-align: center;
-  background: #FDFCFA !important;
+  background: #3D1A22 !important;
   overflow: hidden;
   min-height: 100vh;
 }
@@ -62,8 +80,8 @@ body {
 .hero::before {
   content: '';
   position: absolute; inset: 0; z-index: 0; pointer-events: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.028'/%3E%3C/svg%3E");
-  opacity: 0.6;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+  opacity: 0.7;
 }
 
 /* Top portion */
@@ -77,17 +95,17 @@ body {
 /* Thin full-width decorative rule at top */
 .hero-top-rule {
   position: absolute; top: 0; left: 5%; right: 5%; height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(107,45,58,0.2), transparent);
+  background: linear-gradient(90deg, transparent, rgba(220,180,160,0.25), transparent);
 }
 
 /* Pine icon */
-.hero-pine-icon { margin-bottom: 1.5rem; opacity: 0.5; }
+.hero-pine-icon { margin-bottom: 1.5rem; opacity: 0.85; }
 
 /* Date badge at top */
 .hero-eyebrow {
   font-family: var(--font-b); font-size: 9px; font-weight: 300;
   letter-spacing: 0.38em; text-transform: uppercase;
-  color: #A09890; margin-bottom: 2rem;
+  color: rgba(220,180,160,0.55); margin-bottom: 2rem;
 }
 
 /* Ornamental frame around names */
@@ -102,7 +120,7 @@ body {
   content: '';
   position: absolute;
   width: 18px; height: 18px;
-  border-color: rgba(107,45,58,0.2);
+  border-color: rgba(220,180,160,0.35);
   border-style: solid;
 }
 .hero-names-wrap::before { top: 0; left: 0; border-width: 0.5px 0 0 0.5px; }
@@ -112,14 +130,14 @@ body {
   font-family: var(--font-d);
   font-size: clamp(2.2rem, 9vw, 4rem);
   font-weight: 300; line-height: 1.1;
-  color: #1E1C1A;
+  color: rgba(255,255,255,0.95);
   letter-spacing: 0.15em;
   text-transform: uppercase;
 }
 .hero-amp {
   font-family: var(--font-d);
   font-style: italic; font-size: 0.55em;
-  color: var(--burg); display: block;
+  color: rgba(220,180,160,0.85); display: block;
   letter-spacing: 0.1em; margin: 0.3rem 0;
   text-transform: none; font-weight: 300;
 }
@@ -129,21 +147,21 @@ body {
   display: flex; align-items: center; gap: 10px;
   justify-content: center; margin: 0.5rem 0 1.25rem;
 }
-.hero-orn-line { width: 45px; height: 0.5px; background: rgba(107,45,58,0.2); }
+.hero-orn-line { width: 45px; height: 0.5px; background: rgba(220,180,160,0.3); }
 .hero-orn-diamond {
   width: 5px; height: 5px;
-  border: 0.5px solid rgba(107,45,58,0.35);
+  border: 0.5px solid rgba(220,180,160,0.4);
   transform: rotate(45deg);
 }
 .hero-orn-dot {
   width: 3px; height: 3px;
-  background: rgba(107,45,58,0.2); border-radius: 50%;
+  background: rgba(220,180,160,0.3); border-radius: 50%;
 }
 
 .hero-invite {
   font-family: var(--font-d);
   font-size: 14px; font-style: italic; font-weight: 300;
-  color: #7A7470; line-height: 1.9;
+  color: rgba(255,255,255,0.55); line-height: 1.9;
   margin-bottom: 1.75rem;
   letter-spacing: 0.04em;
 }
@@ -157,7 +175,7 @@ body {
   font-family: var(--font-b);
   font-size: 9px; font-weight: 300;
   letter-spacing: 0.25em; text-transform: uppercase;
-  color: #A09890;
+  color: rgba(255,255,255,0.4);
 }
 
 /* Wine bottom — full width, contains timer */
@@ -179,16 +197,16 @@ body {
 .cd-num {
   font-family: var(--font-d);
   font-size: clamp(1.8rem, 6vw, 2.8rem);
-  font-weight: 300; color: #1E1C1A; line-height: 1;
+  font-weight: 300; color: rgba(255,255,255,0.95); line-height: 1;
 }
 .cd-label {
   font-family: var(--font-b); font-size: 8px; font-weight: 300;
   letter-spacing: 0.2em; text-transform: uppercase;
-  color: #A09890;
+  color: rgba(220,180,160,0.55);
 }
 .cd-sep {
   font-family: var(--font-d); font-size: 1.5rem; font-weight: 300;
-  color: rgba(107,45,58,0.25); padding-bottom: 14px;
+  color: rgba(220,180,160,0.35); padding-bottom: 14px;
 }
 
 /* ══════════════════════════════════
@@ -434,7 +452,7 @@ body {
 
 .hero-divline-light {
   width: 0.5px; height: 30px;
-  background: rgba(107,45,58,0.2); margin: 1.75rem auto 0;
+  background: rgba(220,180,160,0.3); margin: 1.75rem auto 0;
 }
 .hero-top .countdown { padding: 1rem 1rem 0; }
 
@@ -550,6 +568,253 @@ body {
 .section-divider.on-light::before,
 .section-divider.on-light::after { background: rgba(107,45,58,0.12); }
 
+
+/* ══════════════════════════════════
+   CONTEXT-AWARE COMPONENT STYLES
+   Components adapt to parent section background
+══════════════════════════════════ */
+
+/* WW items inside light section */
+.sec-light .ww-day-header { border-bottom-color: rgba(107,45,58,0.12); }
+.sec-light .ww-day-date { color: var(--ink); }
+.sec-light .ww-day-name { color: var(--mist); }
+.sec-light .ww-item:hover { background: rgba(107,45,58,0.04); }
+.sec-light .ww-dot { background: var(--burg); opacity: 0.5; }
+.sec-light .ww-item-name { color: var(--ink); }
+.sec-light .ww-item-sub { color: var(--mist); }
+
+/* WW items inside dark section — already styled, but ensure */
+.sec-dark .ww-day-header { border-bottom-color: rgba(255,255,255,0.08); }
+.sec-dark .ww-day-date { color: rgba(255,255,255,0.9); }
+.sec-dark .ww-day-name { color: rgba(255,255,255,0.3); }
+
+/* Location body */
+.sec-light .loc-body { color: #5A5652; }
+.sec-dark  .loc-body { color: rgba(255,255,255,0.6); }
+
+/* Location links — auto-adapt */
+.sec-dark .loc-link {
+  background: rgba(255,255,255,0.05) !important;
+  border-color: rgba(255,255,255,0.09);
+  color: rgba(255,255,255,0.85);
+}
+.sec-dark .loc-link:hover { background: rgba(255,255,255,0.08) !important; border-color: rgba(220,180,160,0.3); }
+.sec-dark .loc-link-label { color: rgba(255,255,255,0.92); }
+.sec-dark .loc-link-sub { color: rgba(255,255,255,0.4); }
+
+/* Map label inside dark section */
+.sec-dark .map-pin-label {
+  background: rgba(255,255,255,0.95);
+  color: var(--ink);
+}
+
+/* Mood tags — light context */
+.sec-light .mood-tag {
+  background: rgba(107,45,58,0.06);
+  border-color: rgba(107,45,58,0.18);
+  color: var(--burg);
+}
+
+/* Outfits block — light context */
+.sec-light .outfits-block {
+  background: rgba(107,45,58,0.04);
+  border-color: rgba(107,45,58,0.12);
+  color: #5A5652;
+}
+.sec-light .outfits-block strong { color: var(--burg); }
+
+/* Gift on light bg */
+.mini-card-light .gift-title { color: var(--burg); }
+.mini-card-light .gift-body  { color: #5A5652; }
+
+/* Connection text inside dark */
+.sec-dark .conn-text { color: rgba(255,255,255,0.55); }
+.sec-dark .conn-note { color: rgba(255,255,255,0.4); }
+.sec-dark .conn-link {
+  background: rgba(255,255,255,0.05) !important;
+  border-color: rgba(255,255,255,0.09);
+  color: rgba(255,255,255,0.85);
+}
+.sec-dark .conn-link:hover { background: rgba(255,255,255,0.08) !important; border-color: rgba(220,180,160,0.3); }
+.sec-dark .conn-link-name { color: rgba(255,255,255,0.92); }
+.sec-dark .conn-link-sub { color: rgba(255,255,255,0.4); }
+/* sec-light Connection */
+.sec-light .conn-text { color: #5A5652; }
+.sec-light .conn-note { color: var(--mist); }
+
+/* QUESTIONNAIRE inside light section — invert form colors */
+.sec-light .q-title { color: var(--ink); }
+.sec-light .q-sub   { color: var(--mist); }
+.sec-light .name-field {
+  background: rgba(255,255,255,0.6) !important;
+  border-color: rgba(107,45,58,0.15);
+  color: var(--ink);
+}
+.sec-light .name-field::placeholder { color: var(--mist); }
+.sec-light .name-field:focus { border-color: rgba(107,45,58,0.4); }
+
+.sec-light .opt-chip {
+  background: rgba(255,255,255,0.6) !important;
+  border-color: rgba(107,45,58,0.15);
+  color: var(--ink);
+}
+.sec-light .opt-chip:hover { border-color: var(--burg); color: var(--burg); }
+.sec-light .opt-chip.selected { background: var(--burg) !important; border-color: var(--burg); color: #fff; }
+
+.sec-light .check-item {
+  border-color: rgba(107,45,58,0.12);
+  background: rgba(255,255,255,0.4);
+}
+.sec-light .check-item:hover { border-color: rgba(107,45,58,0.3); background: rgba(255,255,255,0.7); }
+.sec-light .check-item.checked { border-color: var(--burg); background: rgba(107,45,58,0.06) !important; }
+.sec-light .check-box {
+  border-color: rgba(107,45,58,0.2);
+  background: #fff !important;
+}
+.sec-light .check-item-label { color: var(--ink); }
+.sec-light .other-wrap input {
+  background: rgba(255,255,255,0.6) !important;
+  border-color: rgba(107,45,58,0.15);
+  color: var(--ink);
+}
+.sec-light .other-wrap input::placeholder { color: var(--mist); }
+
+/* survey help text inside light */
+.sec-light .inner > .reveal > p[style*="rgba(255,255,255"] { color: #5A5652 !important; }
+
+/* take-list items inside dark */
+.sec-dark .take-item-title { color: rgba(255,255,255,0.92); }
+.sec-dark .take-item-title em { color: rgba(220,180,160,0.85); }
+.sec-dark .take-item-body { color: rgba(255,255,255,0.55); }
+.sec-dark .take-item-body strong { color: rgba(255,255,255,0.85); }
+.sec-dark .take-divider { background: rgba(255,255,255,0.08); }
+.sec-dark .take-ps {
+  background: rgba(255,255,255,0.05) !important;
+  border-color: rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.6);
+}
+.sec-dark .take-ps strong { color: rgba(220,180,160,0.85); }
+
+
+/* ══════════════════════════════════
+   RICH BOTANICAL & ORNAMENTAL DECOR
+══════════════════════════════════ */
+
+/* ─ Hero: additional watermark ornament ─ */
+.hero-top::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 50%; transform: translateX(-50%);
+  width: 200px; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(220,180,160,0.25), transparent);
+}
+
+/* ─ Full-width thin decorative rules between sections ─ */
+.sec-dark::before, .sec-light::before {
+  width: 160px; height: 160px;
+  top: -5px; left: -5px;
+}
+.sec-dark::after, .sec-light::after {
+  width: 160px; height: 160px;
+  bottom: -5px; right: -5px;
+}
+
+/* ─ Ornamental SVG sprigs — richer pine with cones ─ */
+/* Dark section corners */
+.sec-dark::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 160'%3E%3Cg stroke='%23E0C8B0' stroke-width='0.7' fill='none' stroke-linecap='round' opacity='0.22'%3E%3Cpath d='M6,154 Q35,112 65,72 Q95,32 152,6'/%3E%3Cpath d='M14,144 Q9,128 24,120'/%3E%3Cpath d='M22,132 Q16,115 32,107'/%3E%3Cpath d='M32,118 Q25,100 43,93'/%3E%3Cpath d='M44,103 Q36,84 55,77'/%3E%3Cpath d='M57,88 Q48,69 68,62'/%3E%3Cpath d='M72,73 Q62,54 83,48'/%3E%3Cpath d='M88,58 Q78,39 100,34'/%3E%3Cpath d='M106,43 Q96,24 118,20'/%3E%3Cpath d='M20,140 Q32,124 16,114'/%3E%3Cpath d='M30,126 Q44,108 26,100'/%3E%3Cpath d='M42,111 Q57,93 38,85'/%3E%3Cpath d='M56,96 Q72,78 52,70'/%3E%3Cpath d='M70,81 Q87,62 67,55'/%3E%3Cpath d='M86,66 Q104,47 84,41'/%3E%3Cellipse cx='65' cy='72' rx='3' ry='4' stroke-width='0.6' opacity='0.5'/%3E%3Cellipse cx='95' cy='45' rx='2.5' ry='3.5' stroke-width='0.5' opacity='0.4'/%3E%3Ccircle cx='65' cy='72' r='1.2' fill='%23E0C8B0' opacity='0.35'/%3E%3Ccircle cx='95' cy='45' r='1' fill='%23E0C8B0' opacity='0.3'/%3E%3C/g%3E%3C/svg%3E");
+}
+.sec-dark::after {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 160'%3E%3Cg stroke='%23E0C8B0' stroke-width='0.7' fill='none' stroke-linecap='round' opacity='0.22'%3E%3Cpath d='M6,154 Q35,112 65,72 Q95,32 152,6'/%3E%3Cpath d='M14,144 Q9,128 24,120'/%3E%3Cpath d='M22,132 Q16,115 32,107'/%3E%3Cpath d='M32,118 Q25,100 43,93'/%3E%3Cpath d='M44,103 Q36,84 55,77'/%3E%3Cpath d='M57,88 Q48,69 68,62'/%3E%3Cpath d='M72,73 Q62,54 83,48'/%3E%3Cpath d='M88,58 Q78,39 100,34'/%3E%3Cpath d='M20,140 Q32,124 16,114'/%3E%3Cpath d='M30,126 Q44,108 26,100'/%3E%3Cpath d='M42,111 Q57,93 38,85'/%3E%3Cpath d='M56,96 Q72,78 52,70'/%3E%3Cpath d='M70,81 Q87,62 67,55'/%3E%3Cellipse cx='65' cy='72' rx='3' ry='4' stroke-width='0.6' opacity='0.5'/%3E%3Ccircle cx='65' cy='72' r='1.2' fill='%23E0C8B0' opacity='0.35'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* Light section corners — burgundy */
+.sec-light::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 160'%3E%3Cg stroke='%236B2D3A' stroke-width='0.7' fill='none' stroke-linecap='round' opacity='0.18'%3E%3Cpath d='M6,154 Q35,112 65,72 Q95,32 152,6'/%3E%3Cpath d='M14,144 Q9,128 24,120'/%3E%3Cpath d='M22,132 Q16,115 32,107'/%3E%3Cpath d='M32,118 Q25,100 43,93'/%3E%3Cpath d='M44,103 Q36,84 55,77'/%3E%3Cpath d='M57,88 Q48,69 68,62'/%3E%3Cpath d='M72,73 Q62,54 83,48'/%3E%3Cpath d='M88,58 Q78,39 100,34'/%3E%3Cpath d='M106,43 Q96,24 118,20'/%3E%3Cpath d='M20,140 Q32,124 16,114'/%3E%3Cpath d='M30,126 Q44,108 26,100'/%3E%3Cpath d='M42,111 Q57,93 38,85'/%3E%3Cpath d='M56,96 Q72,78 52,70'/%3E%3Cpath d='M70,81 Q87,62 67,55'/%3E%3Cpath d='M86,66 Q104,47 84,41'/%3E%3Cellipse cx='65' cy='72' rx='3' ry='4' stroke-width='0.6' opacity='0.45'/%3E%3Cellipse cx='95' cy='45' rx='2.5' ry='3.5' stroke-width='0.5' opacity='0.35'/%3E%3Ccircle cx='65' cy='72' r='1.2' fill='%236B2D3A' opacity='0.3'/%3E%3Ccircle cx='95' cy='45' r='1' fill='%236B2D3A' opacity='0.25'/%3E%3C/g%3E%3C/svg%3E");
+}
+.sec-light::after {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 160'%3E%3Cg stroke='%236B2D3A' stroke-width='0.7' fill='none' stroke-linecap='round' opacity='0.18'%3E%3Cpath d='M6,154 Q35,112 65,72 Q95,32 152,6'/%3E%3Cpath d='M14,144 Q9,128 24,120'/%3E%3Cpath d='M22,132 Q16,115 32,107'/%3E%3Cpath d='M32,118 Q25,100 43,93'/%3E%3Cpath d='M44,103 Q36,84 55,77'/%3E%3Cpath d='M57,88 Q48,69 68,62'/%3E%3Cpath d='M72,73 Q62,54 83,48'/%3E%3Cpath d='M88,58 Q78,39 100,34'/%3E%3Cpath d='M20,140 Q32,124 16,114'/%3E%3Cpath d='M30,126 Q44,108 26,100'/%3E%3Cpath d='M42,111 Q57,93 38,85'/%3E%3Cpath d='M56,96 Q72,78 52,70'/%3E%3Cellipse cx='65' cy='72' rx='3' ry='4' stroke-width='0.6' opacity='0.45'/%3E%3Ccircle cx='65' cy='72' r='1.2' fill='%236B2D3A' opacity='0.3'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* ─ sec-rule gets inline ornamental flourish ─ */
+.sec-rule { position: relative; }
+
+/* ─ Mini-card decorative pin-stripe top border ─ */
+.mini-card-dark {
+  border-top: 1px solid rgba(220,180,160,0.2);
+}
+.mini-card-light {
+  border-top: 1px solid rgba(107,45,58,0.12);
+}
+
+/* ─ Ornamental divider between ww-day cards ─ */
+.ww-day-sep {
+  display: flex; align-items: center; gap: 8px;
+  padding: 0 0.5rem;
+}
+.ww-day-sep::before, .ww-day-sep::after {
+  content: ''; flex: 1; height: 0.5px;
+}
+.sec-light .ww-day-sep::before, .sec-light .ww-day-sep::after { background: rgba(107,45,58,0.1); }
+.sec-dark  .ww-day-sep::before, .sec-dark  .ww-day-sep::after { background: rgba(255,255,255,0.08); }
+.ww-day-sep-icon { font-size: 8px; opacity: 0.4; }
+
+/* ─ Floating botanical watermark in center of big sections ─ */
+.sec-watermark {
+  position: absolute;
+  top: 50%; left: 50%; transform: translate(-50%,-50%);
+  pointer-events: none; z-index: 0; opacity: 0.04;
+  width: 280px; height: 280px;
+}
+
+/* ─ Hero decorative band at bottom ─ */
+.hero-bottom-rule {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  height: 3px; pointer-events: none;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(220,180,160,0.15) 20%,
+    rgba(220,180,160,0.35) 50%,
+    rgba(220,180,160,0.15) 80%,
+    transparent 100%);
+}
+
+/* ─ Section title decorative accent left ─ */
+.sec-title::before {
+  content: '';
+  display: inline-block;
+  width: 3px; height: 0.9em;
+  background: currentColor;
+  opacity: 0.15;
+  margin-right: 10px;
+  vertical-align: middle;
+  border-radius: 2px;
+  transform: translateY(-1px);
+}
+
+/* ─ Footer enhanced ─ */
+.footer-orn-line { width: 70px; }
+
+/* ─ Dots row ornament ─ */
+.orn-dots {
+  display: flex; align-items: center; gap: 6px;
+  justify-content: center; margin: 1.25rem 0;
+}
+.orn-dots span {
+  width: 3px; height: 3px; border-radius: 50%;
+  background: rgba(220,180,160,0.4);
+}
+.orn-dots span:nth-child(2) { width: 5px; height: 5px; }
+.orn-dots-light span { background: rgba(107,45,58,0.25); }
+.orn-dots-light span:nth-child(2) { background: rgba(107,45,58,0.4); }
+
+@media (max-width:600px) {
+  .sec-dark::before, .sec-dark::after,
+  .sec-light::before, .sec-light::after {
+    width: 100px; height: 100px; opacity: 0.9;
+  }
+  .sec-watermark { width: 180px; height: 180px; }
+}
 </style>
 </head>
 <body>
@@ -559,7 +824,7 @@ body {
 
   <!-- Botanical corner SVGs — line-art -->
   <svg style="position:absolute;top:0;left:0;width:160px;height:160px;pointer-events:none;z-index:1;" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-    <g stroke="#6B2D3A" stroke-width="0.7" fill="none" stroke-linecap="round" opacity="0.16">
+    <g stroke="#D0A88E" stroke-width="0.7" fill="none" stroke-linecap="round" opacity="0.28">
       <path d="M5,195 Q35,145 70,100 Q105,55 190,8"/>
       <path d="M12,185 Q5,165 22,153"/><path d="M22,172 Q13,153 32,140"/>
       <path d="M33,158 Q22,138 44,126"/><path d="M46,143 Q33,124 56,112"/>
@@ -567,32 +832,32 @@ body {
       <path d="M94,95 Q80,77 105,68"/><path d="M114,78 Q101,61 126,53"/>
       <path d="M16,188 Q28,168 10,156"/><path d="M28,174 Q42,155 24,143"/>
       <path d="M42,160 Q57,141 39,130"/><path d="M58,144 Q74,126 56,115"/>
-      <circle cx="70" cy="100" r="1.5" fill="#6B2D3A" opacity=".35"/>
-      <circle cx="105" cy="68" r="1.2" fill="#6B2D3A" opacity=".28"/>
-      <circle cx="140" cy="42" r="1" fill="#6B2D3A" opacity=".22"/>
+      <circle cx="70" cy="100" r="1.5" fill="#D0A88E" opacity=".5"/>
+      <circle cx="105" cy="68" r="1.2" fill="#D0A88E" opacity=".4"/>
+      <circle cx="140" cy="42" r="1" fill="#D0A88E" opacity=".35"/>
     </g>
   </svg>
   <svg style="position:absolute;top:0;right:0;width:160px;height:160px;pointer-events:none;z-index:1;transform:scaleX(-1);" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-    <g stroke="#6B2D3A" stroke-width="0.7" fill="none" stroke-linecap="round" opacity="0.16">
+    <g stroke="#D0A88E" stroke-width="0.7" fill="none" stroke-linecap="round" opacity="0.28">
       <path d="M5,195 Q35,145 70,100 Q105,55 190,8"/>
       <path d="M12,185 Q5,165 22,153"/><path d="M22,172 Q13,153 32,140"/>
       <path d="M33,158 Q22,138 44,126"/><path d="M46,143 Q33,124 56,112"/>
       <path d="M60,127 Q46,108 70,97"/><path d="M76,111 Q62,93 87,83"/>
       <path d="M16,188 Q28,168 10,156"/><path d="M28,174 Q42,155 24,143"/>
       <path d="M42,160 Q57,141 39,130"/>
-      <circle cx="70" cy="100" r="1.5" fill="#6B2D3A" opacity=".35"/>
+      <circle cx="70" cy="100" r="1.5" fill="#D0A88E" opacity=".5"/>
     </g>
   </svg>
 
   <!-- Thin decorative horizontal rules -->
-  <div style="position:absolute;top:18px;left:8%;right:8%;height:0.5px;background:linear-gradient(90deg,transparent,rgba(107,45,58,0.12),transparent);z-index:1;pointer-events:none;"></div>
+  <div style="position:absolute;top:18px;left:8%;right:8%;height:0.5px;background:linear-gradient(90deg,transparent,rgba(220,180,160,0.2),transparent);z-index:1;pointer-events:none;"></div>
 
   <div class="hero-top">
 
     <!-- Pine branch icon -->
     <div class="hero-pine-icon">
       <svg width="64" height="44" viewBox="0 0 80 50" xmlns="http://www.w3.org/2000/svg">
-        <g stroke="#2A2826" stroke-width="0.85" fill="none" stroke-linecap="round">
+        <g stroke="rgba(220,180,160,0.7)" stroke-width="0.85" fill="none" stroke-linecap="round">
           <path d="M40,48 Q40,30 40,8"/>
           <path d="M40,18 Q29,14 19,18"/><path d="M40,18 Q51,14 61,18"/>
           <path d="M40,26 Q25,21 13,26"/><path d="M40,26 Q55,21 67,26"/>
@@ -610,7 +875,7 @@ body {
     <!-- Names with corner frame -->
     <div class="hero-names-wrap">
       <h1 class="hero-names">
-        Даниил<span class="hero-amp">&</span>Дарья
+        Даниил<span class="hero-amp">и</span>Дарья
       </h1>
     </div>
 
@@ -627,6 +892,7 @@ body {
       рады пригласить вас разделить<br>этот особенный день с нами
     </p>
 
+    <div class="orn-dots" style="margin:1rem 0 1.25rem;"><span></span><span></span><span></span></div>
     <!-- Address — two lines -->
     <div class="hero-addr">
       <span class="hero-addr-line">Жайлау 25</span>
@@ -647,18 +913,38 @@ body {
 
   </div><!-- /hero-top -->
 
+  <div class="hero-bottom-rule"></div>
   <audio id="bgAudio" loop preload="auto" src="audio.mp3"></audio>
 </section>
 
-<!-- ══ 2. WEDDING WEEKEND (dark) ══ -->
-<section class="sec-dark">
-  <div class="inner">
+<!-- ══ 2. WEDDING WEEKEND (light) ══ -->
+<section class="sec-light">
+  <div class="inner" style="position:relative;">
+    <!-- Section watermark -->
+    <svg class="sec-watermark" viewBox="0 0 280 280" xmlns="http://www.w3.org/2000/svg">
+      <g stroke="currentColor" stroke-width="0.8" fill="none" stroke-linecap="round">
+        <path d="M140,270 Q140,180 140,20"/>
+        <path d="M140,50 Q105,40 75,50"/><path d="M140,50 Q175,40 205,50"/>
+        <path d="M140,70 Q98,58 65,70"/><path d="M140,70 Q182,58 215,70"/>
+        <path d="M140,92 Q90,78 52,92"/><path d="M140,92 Q190,78 228,92"/>
+        <path d="M140,116 Q82,100 38,116"/><path d="M140,116 Q198,100 242,116"/>
+        <path d="M140,142 Q74,124 24,142"/><path d="M140,142 Q206,124 256,142"/>
+        <path d="M140,170 Q66,150 12,170"/><path d="M140,170 Q214,150 268,170"/>
+        <path d="M140,200 Q58,178 0,200"/><path d="M140,200 Q222,178 280,200"/>
+        <path d="M140,232 Q50,208 0,232"/><path d="M140,232 Q230,208 280,232"/>
+        <ellipse cx="140" cy="18" rx="8" ry="11" stroke-width="0.7"/>
+        <path d="M132,14 Q140,10 148,14"/>
+        <path d="M131,18 Q140,14 149,18"/>
+        <path d="M130,22 Q140,18 150,22"/>
+      </g>
+    </svg>
+
     <div class="reveal">
       <h2 class="sec-title">Wedding <em>Weekend</em></h2>
       <div class="sec-rule"><div class="sec-rule-d"></div></div>
     </div>
     <div class="ww-days">
-      <div class="mini-card-dark reveal">
+      <div class="mini-card-light reveal">
         <div class="ww-day-header"><span class="ww-day-date">29 мая</span><span class="ww-day-name">Friday</span></div>
         <div class="ww-items">
           <div class="ww-item"><div class="ww-dot"></div><span class="ww-item-name">Check In</span><span class="ww-item-sub">from 14:00</span></div>
@@ -666,16 +952,19 @@ body {
           <div class="ww-item"><div class="ww-dot"></div><span class="ww-item-name">Grill Party</span><span class="ww-item-sub">evening</span></div>
         </div>
       </div>
-      <div class="mini-card-dark reveal">
+      <div class="ww-day-sep"><span class="ww-day-sep-icon">✦</span></div>
+      <div class="mini-card-light reveal">
         <div class="ww-day-header"><span class="ww-day-date">30 мая</span><span class="ww-day-name">Saturday</span></div>
         <div class="ww-items">
           <div class="ww-item"><div class="ww-dot"></div><span class="ww-item-name">Breakfast</span><span class="ww-item-sub">morning</span></div>
           <div class="ww-item"><div class="ww-dot"></div><span class="ww-item-name">Activity</span><span class="ww-item-sub">daytime</span></div>
           <div class="ww-item"><div class="ww-dot"></div><span class="ww-item-name">Spa &amp; Chill Time</span><span class="ww-item-sub">afternoon</span></div>
+          <div class="ww-item"><div class="ww-dot"></div><span class="ww-item-name">Hookah Time</span><span class="ww-item-sub">late afternoon</span></div>
           <div class="ww-item"><div class="ww-dot"></div><span class="ww-item-name">Grill Party</span><span class="ww-item-sub">evening</span></div>
         </div>
       </div>
-      <div class="mini-card-dark reveal">
+      <div class="ww-day-sep"><span class="ww-day-sep-icon">✦</span></div>
+      <div class="mini-card-light reveal">
         <div class="ww-day-header"><span class="ww-day-date">31 мая</span><span class="ww-day-name">Sunday</span></div>
         <div class="ww-items">
           <div class="ww-item"><div class="ww-dot"></div><span class="ww-item-name">Breakfast</span><span class="ww-item-sub">morning</span></div>
@@ -686,8 +975,8 @@ body {
   </div>
 </section>
 
-<!-- ══ 3. LOCATION (light) ══ -->
-<section class="sec-light">
+<!-- ══ 3. LOCATION (dark) ══ -->
+<section class="sec-dark">
   <div class="inner">
     <div class="reveal">
       <h2 class="sec-title"><em>Location</em></h2>
@@ -730,8 +1019,8 @@ body {
   </div>
 </section>
 
-<!-- ══ 4. STYLE & ATMOSPHERE (dark) ══ -->
-<section class="sec-dark">
+<!-- ══ 4. STYLE & ATMOSPHERE (light) ══ -->
+<section class="sec-light">
   <div class="inner">
     <div class="reveal">
       <h2 class="sec-title">Style &amp; <em>Atmosphere</em></h2>
@@ -746,7 +1035,7 @@ body {
         <span class="mood-tag">Cozy &amp; Warm</span>
       </div>
 
-      <p style="font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,0.22);margin-bottom:.85rem;">Color Palette</p>
+      <p style="font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:rgba(107,45,58,0.4);margin-bottom:.85rem;">Color Palette</p>
       <div class="palette-circles">
         <div class="pal-circle" style="background:#ffffff;border:1px solid rgba(255,255,255,0.2);"></div>
         <div class="pal-circle" style="background:#360211;"></div>
@@ -760,17 +1049,17 @@ body {
       </div>
     </div>
 
-    <div class="mini-card-dark reveal" style="margin-top:1.5rem;">
+    <div class="mini-card-light reveal" style="margin-top:1.5rem;">
       <p class="gift-title">О подарках</p>
       <p class="gift-body">Пожалуйста, не дарите нам вещи — нам правда некуда их класть.<br>Если хочется нас порадовать — подарите деньги: мы уже знаем, на что их потратим с удовольствием.</p>
     </div>
   </div>
 </section>
 
-<!-- ══ 5. CONNECTION & DRIVE (light) ══ -->
-<section class="sec-light">
+<!-- ══ 5. CONNECTION & DRIVE (dark) ══ -->
+<section class="sec-dark">
   <div class="inner">
-    <div class="mini-card-light reveal">
+    <div class="mini-card-dark reveal">
       <h2 class="sec-title" style="margin-bottom:.75rem;">Connection &amp; <em>Drive</em></h2>
       <div class="sec-rule" style="margin-bottom:1.25rem;"><div class="sec-rule-d"></div></div>
 
@@ -806,16 +1095,16 @@ body {
   </div>
 </section>
 
-<!-- ══ 6. QUESTIONNAIRE (dark) ══ -->
-<section class="sec-dark">
+<!-- ══ 6. QUESTIONNAIRE (light) ══ -->
+<section class="sec-light">
   <div class="inner">
     <div class="reveal">
       <h2 class="sec-title"><em>Questionnaire</em></h2>
       <div class="sec-rule"><div class="sec-rule-d"></div></div>
-      <p style="font-size:13.5px;color:rgba(255,255,255,0.4);margin-bottom:1.75rem;line-height:1.85;">Помогите нам подготовиться — это займёт одну минуту.</p>
+      <p style="font-size:13.5px;color:#5A5652;margin-bottom:1.75rem;line-height:1.85;">Помогите нам подготовиться — это займёт одну минуту.</p>
     </div>
 
-    <div class="mini-card-dark reveal">
+    <div class="mini-card-light reveal">
       <div id="surveyForm">
         <div class="q-step">
           <p class="q-title">Your name</p>
@@ -866,15 +1155,15 @@ body {
   </div>
 </section>
 
-<!-- ══ 7. TAKE IT (light) ══ -->
-<section class="sec-light">
+<!-- ══ 7. TAKE IT (dark) ══ -->
+<section class="sec-dark">
   <div class="inner">
     <div class="reveal">
       <h2 class="sec-title">Take it, <em>please</em></h2>
       <div class="sec-rule"><div class="sec-rule-d"></div></div>
     </div>
 
-    <div class="mini-card-light reveal">
+    <div class="mini-card-dark reveal">
       <div class="take-list">
         <div class="take-item">
           <p class="take-item-title">Spa <em>time</em></p>
