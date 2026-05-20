@@ -829,20 +829,28 @@ body.splash-done { overflow-x: hidden; overflow-y: auto; }
   cursor: pointer;
   transition: opacity 0.9s ease;
   background: #4A1020;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
 }
 .splash.hiding { opacity: 0; pointer-events: none; }
 .splash.hidden { display: none; }
 
 .splash-img {
-  width: 100%; height: 100%;
-  object-fit: cover; object-position: center top;
+  width: auto;
+  height: 100%;
+  max-width: 100%;
+  object-fit: contain;
+  object-position: center center;
   display: block;
+  margin: 0 auto;
   -webkit-mask-image:
-    linear-gradient(to bottom, transparent 0%, black 12%, black 100%),
+    linear-gradient(to bottom, transparent 0%, black 10%, black 100%),
     linear-gradient(to right,  transparent 0%, black 8%,  black 92%, transparent 100%);
   -webkit-mask-composite: source-in;
   mask-image:
-    linear-gradient(to bottom, transparent 0%, black 12%, black 100%),
+    linear-gradient(to bottom, transparent 0%, black 10%, black 100%),
     linear-gradient(to right,  transparent 0%, black 8%,  black 92%, transparent 100%);
   mask-composite: intersect;
 }
@@ -3115,34 +3123,20 @@ function openEnvelope() {
   if (splashOpened) return;
   splashOpened = true;
 
-  var wrap   = document.getElementById('envelopeWrap');
-  var seal   = document.getElementById('waxSeal');
   var splash = document.getElementById('splash');
 
-  // 1. Seal pop
-  seal.classList.add('clicked');
+  // Start audio (user gesture unlocks it)
+  startAudio();
 
-  // 2. Open flap + slide letter
-  setTimeout(function() { wrap.classList.add('opening'); }, 300);
+  // Fade out
+  splash.classList.add('hiding');
+  document.body.classList.add('splash-done');
 
-  // 3. Start audio + fade splash
-  setTimeout(function() {
-    startAudio();
-    splash.classList.add('hiding');
-    document.body.classList.add('splash-done');
-  }, 1200);
-
-  // 4. Hide completely
   setTimeout(function() {
     splash.classList.add('hidden');
     window.scrollTo({ top: 0, behavior: 'instant' });
-  }, 2100);
+  }, 950);
 }
-
-// Click anywhere on splash as fallback
-document.addEventListener('DOMContentLoaded', function() {
-  document.getElementById('splash').addEventListener('click', openEnvelope);
-});
 
 </script>
 </body>
